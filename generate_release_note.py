@@ -62,46 +62,4 @@ def generate_release_notes(all_items: list[str]) -> str:
 
     return response.choices[0].message.content.strip()
 
-# Example usage
-if __name__ == "__main__":
-    print("📝 Interactive Release Notes Entry")
-    print("Type 'bug' or 'feature' to begin entering an item.")
-    print("Type 'done' to finish and generate release notes.")
-    print("Press Enter on a blank line to finish each item.\n")
-
-    entries = []
-
-    while True:
-        item_type = input("What type is this? (bug/feature/done): ").strip().lower()
-        if item_type == "done":
-            break
-        if item_type not in ["bug", "feature"]:
-            print("❌ Invalid input. Please enter 'bug', 'feature', or 'done'.")
-            continue
-
-        print(f"Enter the description for this {item_type}.")
-        print("Press Enter on a blank line to submit it.\n")
-
-        lines = []
-        while True:
-            line = input()
-            if line.strip() == "":
-                break
-            lines.append(line.strip())
-
-        if lines:
-            entry = f"{item_type.capitalize()}: " + " ".join(lines)
-            entries.append(entry)
-            print("✅ Entry added.\n")
-        else:
-            print("⚠️ No description entered. Skipping.\n")
-
-    if entries:
-        print("🧠 Generating release notes...\n")
-        result = generate_release_notes(entries)
-        print("\n📦 Final Release Notes:\n")
-        print(result)
-    else:
-        print("⚠️ No entries submitted.")
-
 

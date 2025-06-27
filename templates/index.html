@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>FieldSync Release Notes Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="custom-title">FieldSync Release Notes Generator</h1>
+
+        <form method="POST" onsubmit="showLoading()">
+            <div id="entries">
+                <div class="entry-block">
+                    <label for="type">Type</label>
+                    <select name="type" class="input-select">
+                        <option value="Feature">Feature</option>
+                        <option value="Bug">Bug</option>
+                    </select>
+
+                    <label for="description">Description</label>
+                    <textarea name="description" class="input-area" placeholder="Enter description..."></textarea>
+                </div>
+            </div>
+
+            <div style="margin-top: 10px;">
+                <button type="button" class="button-secondary" onclick="addEntry()">Add Another</button>
+                <button id="generate-btn" type="submit" class="button-primary">Generate Release Notes</button>
+            </div>
+        </form>
+
+
+        {% if entries %}
+        <h2 class="section-title">Current Items</h2>
+        <ul>
+            {% for item in entries %}
+            <li class="item-card">{{ item }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        {% if results %}
+        <h2 class="section-title">Generated Release Notes</h2>
+        <div class="output-box">{{ results | safe }}</div>
+        {% endif %}
+    </div>
+
+    <script>
+        function addEntry() {
+            const block = document.createElement('div');
+            block.className = 'entry-block';
+            block.innerHTML = `
+            <label>Type</label>
+            <select name="type" class="input-select">
+                <option value="Feature">Feature</option>
+                <option value="Bug">Bug</option>
+            </select>
+            <label>Description</label>
+            <textarea name="description" class="input-area" placeholder="Enter description..."></textarea>
+        `;
+            document.getElementById('entries').appendChild(block);
+        }
+
+        function showLoading() {
+            const button = document.getElementById("generate-btn");
+            button.disabled = true;
+            button.innerHTML = "Generating...";
+            button.classList.add("loading");
+        }
+    </script>
+
+</body>
+
+</html>
