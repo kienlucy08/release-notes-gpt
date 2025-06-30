@@ -1,10 +1,10 @@
-# 📝 FieldSync Release Notes Generator
+# FieldSync Release Notes Generator
 
 A Flask web app to help teams generate, regenerate, and save professional release notes for sprints by transforming plain feature/bug descriptions into formatted summaries using OpenAI.
 
 ---
 
-## 🚀 Features
+## Features
 
 - Add multiple entries (Features or Bugs) with descriptions.
 - Automatically generate readable and structured release notes using GPT.
@@ -16,13 +16,13 @@ A Flask web app to help teams generate, regenerate, and save professional releas
 
 ---
 
-## 🖼️ Screenshot
+## Visual
 
-![FieldSync Release Notes Generator UI](static/screenshot.png) <!-- Replace with actual screenshot path -->
+![image](https://github.com/user-attachments/assets/c1b6742e-71ae-40d2-aac5-08662e2a9937)
 
 ---
 
-## 🧱 Tech Stack
+## Tech Stack
 
 - Python 3.10+
 - Flask
@@ -31,7 +31,7 @@ A Flask web app to help teams generate, regenerate, and save professional releas
 
 ---
 
-## 📦 Project Structure
+## Project Structure
 
 ```bash
 FieldSync-ReleaseNotes/
@@ -92,3 +92,17 @@ Or:
 ```bash
 python app.py
 ```
+
+---
+
+## Savging & Regeneration
+- Notes are saved to: `static/saved_notes/<Sprint_Name>/release_notes_<timestamp>.txt`
+- You can delete all saved .txt files for a sprint. If a folder becomes empty, it gets deleted too.
+- Regeneration isn't working currently but will eventually delete old filesa in the sprint and replace with new ones.
+
+---
+
+## Warnings & Notes
+- If your list is too long (over OpenAI’s token limit), the system automatically chunks the list and makes multiple API calls.
+- You’ll see a message in the UI:
+  - ⚠️ Heads up: Your notes were very long, so we split them into multiple chunks to generate properly.
