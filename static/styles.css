@@ -1,7 +1,9 @@
 /* static/styles.css */
 body {
     font-family: 'Segoe UI', sans-serif;
-    background-color: #002832;
+    background: linear-gradient(-45deg, #4338CA, #6366F1, #0F172A, #002832);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
     color: #002832;
     margin: 0;
     padding: 2rem;
@@ -19,7 +21,7 @@ body {
 .custom-title {
     font-size: 28px;
     font-weight: 700;
-    color: #003945;
+    color: #002832;
     margin-bottom: 24px;
     text-align: center;
     padding: 18px 24px;
@@ -39,9 +41,9 @@ body {
     margin-bottom: 20px;
 }
 
-.input-select,
 .input-area {
     width: 100%;
+    resize: vertical;
     padding: 14px;
     border: 1px solid #CBD5E1;
     border-radius: 8px;
@@ -50,6 +52,25 @@ body {
     font-size: 16px;
     background-color: #F1F5F9;
     color: #002832;
+    box-sizing: border-box;
+}
+
+.input-select {
+    width: 100%;
+    padding: 14px 18px;              /* Give more room on the right for the arrow */
+    border: 1px solid #CBD5E1;
+    border-radius: 8px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    background-color: #F1F5F9;
+    color: #002832;
+    appearance: none;               /* Optional: to style your own dropdown arrow */
+    background-image: url("data:image/svg+xml,%3Csvg width='14' height='10' viewBox='0 0 14 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l6 6 6-6' stroke='%23002832' stroke-width='2' fill='none' fill-rule='evenodd'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 12px;
+    box-sizing: border-box;
 }
 
 .button-primary {
@@ -99,9 +120,13 @@ body {
     animation: spin 0.8s linear infinite;
 }
 
-@keyframes spin {
-    0% { transform: translateY(-50%) rotate(0deg); }
-    100% { transform: translateY(-50%) rotate(360deg); }
+.button-secondary.danger {
+    background-color: #F87171;
+    color: white;
+}
+
+.button-secondary.danger:hover {
+    background-color: #EF4444;
 }
 
 .item-card {
@@ -120,4 +145,21 @@ body {
     border-left: 6px solid #4338CA;
     white-space: pre-wrap;
     font-family: 'Courier New', monospace;
+}
+
+@keyframes spin {
+    0% { transform: translateY(-50%) rotate(0deg); }
+    100% { transform: translateY(-50%) rotate(360deg); }
+}
+
+@keyframes gradientBG {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }

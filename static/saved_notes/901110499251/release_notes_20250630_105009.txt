@@ -1,0 +1,42 @@
+- Bug: Legs count on site visit page always shows 4
+Strategic Theme: Improve UX/UI
+Area of Impact: Site Visit Page
+Description: The number of legs displayed on the Site Visit page for lattice towers is always shown as 4, even when the actual structure_legs_count value stored in the P&T payload is different.
+Details:
+- Site Visit page incorrectly displays "Legs | 4" for all lattice towers.
+- Actual structure_legs_count value stored in the P&T payload is not reflected on the page.
+Fix:
+- Update the Site Visit page to accurately show the number of legs based on the structure_legs_count value.
+Impact to Users:
+- Users will now see the correct number of legs for lattice towers on the Site Visit page, improving data accuracy and clarity.
+
+- Bug: Visual bug on underlines on tabs
+Strategic Theme: Improve UX/UI
+Area of Impact: Dashboard
+Description: Visual issues with underlines on tabs in the dashboard, including a "curl" underlines on main tabs and a gap in selected items.
+Details:
+- Main tabs will have a singular straight line underline for the selected tab.
+- Subtabs on the surveys tab will be fully filled in solid when selected.
+Fix:
+- Adjust the styling of underlines on tabs to be straight and consistent.
+Impact to Users:
+- Improved visual consistency and clarity in navigating the dashboard tabs.
+
+- Feature: Default report names
+Strategic Theme: Improve UX/UI
+Area of Impact: Report Generation
+Description: Introducing default report names for QoL enhancement, following a specific naming pattern.
+Details:
+- Default report names will follow the pattern: <SITE ID>_TIA Inspection Report_<Creation Timestamp>.
+- Users can change default names during report generation if needed.
+Fix:
+- Automatically generate default report names according to the specified pattern.
+Impact to Users:
+- Saves time for QC writers during report generation.
+- Allows users to customize report names to meet specific requirements.
+
+- Bug: Can add multiple of the same surveys to site visits
+This might be too complicated for a field tech to understand and isn’t necessary for the release notes.
+
+- Bug: Code H Deficiencies reporting incorrect values for elevation and guy level
+This might be too complicated for a field tech to understand and isn’t necessary for the release notes.

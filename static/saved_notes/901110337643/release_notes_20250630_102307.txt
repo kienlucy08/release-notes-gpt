@@ -1,0 +1,11 @@
+Bug: Handle Filenames with Spaces on QA Uploads
+- Strategic Theme: Improve UX/UI
+- Area of Impact: File Uploader, Survey Processing
+Description: Currently, when uploading files with spaces in the filename in the Quality Assurance (QA) interface, the image previews do not display correctly. This issue affects the usability of the platform when handling images with filenames containing spaces.
+Details:
+- Implement a fix to handle filenames with spaces correctly during image uploads in the QA interface.
+- Ensure that files with spaces in the filename are processed correctly and included in reports seamlessly.
+Impact to Users:
+- Users can now upload images with filenames containing spaces without encountering broken image previews.
+- Improved user experience and usability for field technicians uploading files in the QA interface.
+- Ensures that all files, regardless of filename, are correctly processed and included in reports for comprehensive data documentation.

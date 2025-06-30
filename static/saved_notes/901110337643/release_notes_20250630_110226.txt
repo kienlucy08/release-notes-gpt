@@ -1,0 +1,13 @@
+Null Value Handling for Specific Fields
+- Strategic Theme: System Hardening
+- Area of Impact: Structure Survey, Compound Survey
+- Description: This feature addresses null values causing processing issues in specific fields by introducing manual bypass checkboxes for field and QC technicians to indicate when certain fields are not applicable during data collection.
+- Details:
+  - Added a checkbox "Elevation not applicable" to Structure survey > Deficiency records beneath the Elevation field.
+  - Added a checkbox "Clear distance not applicable" to Structure survey > Base and Foundation records beneath the Clear Distance field.
+  - Added a checkbox "Generator output inaccessible by field technician" to Compound survey > Generator records beneath the Power Output field.
+- Impact to Users:
+  - Field technicians can now use checkboxes to indicate when certain fields are not applicable, preventing processing issues caused by null values.
+  - QC technicians can utilize acceptable null values in specific situations to ensure accurate data reporting.
+
+*Warning: This level of detail may be too technical for a field technician and is more relevant for software development purposes.*

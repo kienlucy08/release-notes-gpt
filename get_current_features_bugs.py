@@ -57,6 +57,11 @@ def find_current_sprint_list(lists):
             return lst
     return None
 
+def get_all_sprints(folder_id):
+    lists = get_lists_from_folder(folder_id)
+    # Filter only sprint-like lists (you can adjust logic if needed)
+    sprints = [lst for lst in lists if "Sprint" in lst["name"]]
+    return sorted(sprints, key=lambda x: x["name"], reverse=True)
 
 def get_tasks_in_list(list_id):
     all_tasks = []
@@ -125,40 +130,40 @@ def filter_features_and_bugs(tasks):
             })
     return relevant
 
-if __name__ == "__main__":
-    print("🔍 Finding sprint...")
+# if __name__ == "__main__":
+#     print("🔍 Finding sprint...")
 
-    try:
-        sprint_lists = get_lists_from_folder(FOLDER_ID)
-        current_sprint = find_current_sprint_list(sprint_lists)
+#     try:
+#         sprint_lists = get_lists_from_folder(FOLDER_ID)
+#         current_sprint = find_current_sprint_list(sprint_lists)
 
-        if not current_sprint:
-            print("⚠️ No sprint found based on today's date.")
-            exit(1)
+#         if not current_sprint:
+#             print("⚠️ No sprint found based on today's date.")
+#             exit(1)
 
-        print(f"📅 Current sprint: {current_sprint['name']}")
-        tasks = get_tasks_in_list(current_sprint["id"])
-        full_data = [extract_full_task_data(task) for task in tasks]
-        print(json.dumps(full_data, indent=2))
-        print(f"📦 Fetched {len(tasks)} tasks from list.")
+#         print(f"📅 Current sprint: {current_sprint['name']}")
+#         tasks = get_tasks_in_list(current_sprint["id"])
+#         full_data = [extract_full_task_data(task) for task in tasks]
+#         print(json.dumps(full_data, indent=2))
+#         print(f"📦 Fetched {len(tasks)} tasks from list.")
 
-        complete_statuses = get_done_statuses(current_sprint["id"])
-        print(f"✅ Complete statuses: {complete_statuses}")
+#         complete_statuses = get_done_statuses(current_sprint["id"])
+#         print(f"✅ Complete statuses: {complete_statuses}")
 
-        feature_bug_tasks = filter_features_and_bugs(tasks)
-        complete_items = [
-            f"{item['type']}: {item['title']}. {item['desc']}"
-            for item in feature_bug_tasks
-            if item["status"] in complete_statuses
-        ]
+#         feature_bug_tasks = filter_features_and_bugs(tasks)
+#         complete_items = [
+#             f"{item['type']}: {item['title']}. {item['desc']}"
+#             for item in feature_bug_tasks
+#             if item["status"] in complete_statuses
+#         ]
 
-        if not complete_items:
-            print("⚠️ No completed bugs or features found.")
-            exit(0)
+#         if not complete_items:
+#             print("⚠️ No completed bugs or features found.")
+#             exit(0)
 
-        print(f"📝 Found {len(complete_items)} completed bugs/features.")
-        # Call your generate_release_notes(complete_items) here if needed
+#         print(f"📝 Found {len(complete_items)} completed bugs/features.")
+#         # Call your generate_release_notes(complete_items) here if needed
 
-    except Exception as e:
-        print(f"❌ Error: {e}")
-        exit(1)
+#     except Exception as e:
+#         print(f"❌ Error: {e}")
+#         exit(1)
