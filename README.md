@@ -57,11 +57,11 @@ FieldSync-ReleaseNotes/
 
 ## ⚙️ Setup Instructions
 
-### 1. Clone this Repo
+### 1. Clone this Repo & Navigate to it
 
 ```bash
-git clone https://github.com/your-username/FieldSync-ReleaseNotes.git
-cd FieldSync-ReleaseNotes
+git clone https://github.com/kienlucy08/release-notes-gpt.git
+cd your_file_path/release-notes-gpt
 ```
 
 ### 2. Create `.env` file with your OpenAI Key, and ClickUp Token
