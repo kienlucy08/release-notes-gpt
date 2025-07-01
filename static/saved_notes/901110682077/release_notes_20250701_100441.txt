@@ -1,0 +1,19 @@
+**Dashboard Table Pagination Displaying NaN**  
+![tag](Improve UX/UI) | Dashboard Tables  
+
+A bug where the dashboard table pagination displays NaN in some cases for the current page when switching between tabs has been resolved. Other issues like the table data being fetched before component initialization, causing various side effects like loading animation sticking, URL filters not updating correctly, incorrect page numbers, and styling bugs have also been addressed.
+
+*Details:*  
+• Resolved NaN display issue on dashboard table pagination.  
+• Fixed table data fetching before component initialization.  
+• Addressed side effects like loading animation sticking, URL filter issues, incorrect page numbers, and styling bugs.  
+• Improved filter input fields to prevent lagging of the web application.  
+• Filters now work on all datatable columns by default.  
+
+*Impact to Users:*  
+• Users will no longer see NaN displayed on the dashboard table pagination.  
+• Tables will now load correctly without issues like loading animation sticking or incorrect page numbers.  
+• Filter input fields will no longer cause lag in the application when typing.  
+• Improved filtering functionality for better user experience.  
+
+*Note: This refactor focuses on improving the dashboard table functionality and may not be easily understood by field technicians.*

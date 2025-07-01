@@ -1,0 +1,33 @@
+Bug: Add tia_issue to list of codes that trigger member repair supporting details
+- Strategic Theme: Improve UX/UI, Field Enablement
+- Area of Impact: Structure Survey, Data Editing
+- Description: Currently, selecting the code 'E1.c' in the Structure survey does not trigger the Member Repair fields of the Supporting Details section within a Deficiency callout as intended.
+- Details:
+  - Update conditional logic to include 'E1.c' as a trigger for the Supporting Details section.
+- Impact to Users:
+  - Technicians will now see the appropriate additional fields when selecting 'Antenna has defect / deformation / missing member / is loose, etc.' as the issue in the Structure survey.
+
+Feature: Reactive site visits based on purpose selection
+- Strategic Theme: Improve UX/UI, Field Enablement
+- Area of Impact: Site Visits, Structure Survey
+- Description: Enhancements made to handle different purposes for site visits, such as Inspection and Close out Package, to display relevant sections based on the purpose selected.
+- Details:
+  - Logic updated to display specific components for Inspection and Close out Package purposes.
+  - Sections created for structure parameters, surveys, and close out package parameters.
+  - Warning dialog implemented for switching purposes with attached surveys deallocation.
+- Impact to Users:
+  - Technicians can now easily select the purpose of the site visit and view relevant sections based on their selection.
+
+Feature: God Mode User
+- Strategic Theme: Business Development, Field Enablement
+- Area of Impact: User login, Account Page
+- Description: Introduction of a God Mode User with specific permissions and roles for organization managers, technicians, and regular users, along with the ability to modify user roles and permissions.
+- Details:
+  - Roles created for Organization Managers and Technicians with defined permissions.
+  - RBAC/permissions framework set up to allow custom roles for organizations.
+  - God Mode user established with admin privileges.
+- Impact to Users:
+  - Administrators can now manage user roles and permissions more effectively.
+  - Enhanced security and control over user access within the web application.
+
+This might be too complicated for a field tech to understand and isn’t necessary for the company release notes. However, it is important to acknowledge for software development.

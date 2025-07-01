@@ -1,0 +1,33 @@
+Bug: Add tia_issue to list of codes that trigger member repair supporting details
+- Strategic Theme: Improve UX/UI
+- Area of Impact: Structure Survey, Data Editing
+- Description: Currently, selecting "Antenna has defect / deformation / missing member / is loose, etc." as the issue in the Structure survey does not trigger the Member Repair fields of the Supporting Details section within a Deficiency callout, as intended.
+- Details:
+  - Update the conditional logic for tia_issue = 'E1.c' to trigger the supporting details section.
+- Impact to Users:
+  - Users can now correctly input supporting details for the specified issue in the Structure survey.
+
+Feature: Reactive site visits based on purpose selection
+- Strategic Theme: Improve UX/UI
+- Area of Impact: Site Visits Page
+- Description: Enhances the functionality of site visits based on purpose selection, specifically for Inspection and Closeout Package purposes.
+- Details:
+  - Added logic to display the appropriate sections based on purpose selection (Inspection or Closeout Package).
+  - Separated site visit components into sub-components for Inspection and Closeout Package.
+  - Implemented warning dialogs for switching site visit purposes.
+- Impact to Users:
+  - Users can now easily navigate and input data specific to Inspection or Closeout Package purposes within site visits.
+
+Feature: God Mode User
+- Strategic Theme: Business Development
+- Area of Impact: User Login, Account Page
+- Description: Introduces basic identities/roles with specific permissions, including Organization Managers, Technicians, and Regular/Other Users, to streamline user management and permissions within the application.
+- Details:
+  - Created roles for Organization Managers, Technicians, and Regular/Other Users with defined permissions.
+  - Implemented RBAC/permissions framework for custom roles creation.
+  - Added a God Mode user with admin permissions.
+- Impact to Users:
+  - Enhanced user management capabilities within the application.
+  - Improved security and access control for different user roles.
+
+Warning: This might be too complicated for a field tech to understand and isn’t necessary for the company release notes. However, it is important to acknowledge for software development.

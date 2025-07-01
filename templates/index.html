@@ -60,9 +60,6 @@
 
         <div class="output-box">{{ results | safe }}</div>
 
-
-        <div class="output-box">{{ results | safe }}</div>
-
         {% if saved_file_path %}
         <div class="output-box">
             ✅ Saved! <a href="{{ url_for('static', filename=saved_file_path) }}" target="_blank">View saved file</a>
