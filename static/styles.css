@@ -73,6 +73,24 @@ body {
     box-sizing: border-box;
 }
 
+.input-select-hidden {
+    width: 100%;
+    padding: 14px 18px;              
+    border: 1px solid #CBD5E1;
+    border-radius: 8px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    background-color: #F1F5F9;
+    color: #002832;             
+    background-image: url("data:image/svg+xml,%3Csvg width='14' height='10' viewBox='0 0 14 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l6 6 6-6' stroke='%23002832' stroke-width='2' fill='none' fill-rule='evenodd'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 12px;
+    box-sizing: border-box;
+    display: none;
+}
+
 .button-primary {
     background-color: #4338CA;
     color: white;
@@ -144,7 +162,7 @@ body {
     border-radius: 8px;
     border-left: 6px solid #4338CA;
     white-space: pre-wrap;
-    font-family: 'Courier New', monospace;
+    font-family: 'Segoe UI', sans-serif;
 }
 
 @keyframes spin {

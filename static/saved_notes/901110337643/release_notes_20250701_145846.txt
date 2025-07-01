@@ -1,0 +1,83 @@
+**Bug: Top Beacon Field Displaying Incorrect Value**  
+Improve UX/UI | QC Editor Page  
+The Top Beacon field in the Structure Overview section always displays "No" even when the stored value is "Yes".  
+*Details:*  
+• UI always shows "No" for the Top Beacon field.  
+• Stored value in the data is "Yes".  
+*Impact to Users:*  
+• Users may be misled by the incorrect display of the Top Beacon field.  
+• Inconsistency between UI and stored data can lead to confusion during survey review.
+
+**Bug: Save Count Issue with Multiple Photo Uploads**  
+Improve UX/UI | Survey Processing  
+Saving multiple photos uploaded through drop targets only increments the save count once, leading to a discrepancy between the number of uploads and pending saves.  
+*Details:*  
+• Each photo upload via drop targets only increases the save count by one.  
+• Multiple uploads are not accurately reflected in the pending saves count.  
+*Impact to Users:*  
+• Users may not be aware of the actual number of pending saves, causing confusion.  
+• Discrepancy in save count can affect data integrity and completeness.
+
+**Bug: Queue Status Colors Incompatible with Dark Mode**  
+Improve UX/UI | System Hardening  
+The queue status background colors/loading bars do not align well with dark mode, affecting the aesthetics of the application.  
+*Details:*  
+• Queue status colors/loading bars appear unappealing in dark mode.  
+*Impact to Users:*  
+• Users may find the visual appearance of the queue status indicators unpleasant in dark mode.  
+• Inconsistency in color scheme may affect user experience for those using dark mode.
+
+**Bug: Allocated Surveys Redirect to First Page After Allocation**  
+Improve UX/UI | Field Enablement  
+Allocating surveys to a site visit causes the Unallocated Surveys table to reset to the first page, regardless of the user's current page or specific allocations.  
+*Details:*  
+• After allocating surveys, the Unallocated Surveys table resets to the first page.  
+• User's current page is not retained post-allocation.  
+*Impact to Users:*  
+• Users may lose track of their position in the Unallocated Surveys table, leading to inefficiencies in survey allocation.  
+• Navigation back to the previous page becomes cumbersome for users allocating multiple surveys.  
+*Note: This might be too complicated for a field tech to understand and isn’t necessary for the company release notes. However, it is important to acknowledge for software development updates.*
+
+---
+
+**Bug: Template Page Import Error for Survey Payloads**  
+Improve UX/UI | Templates Page  
+There is a bug preventing the import of survey payloads on the Templates page, incorrectly restricting the file type to docx files only.
+*Details:*  
+• Users are unable to import survey payloads on the Templates page, receiving an error message about docx files.
+• The Templates page is forcing docx file uploads, even though survey payloads are intended.
+*Impact to Users:*  
+• Users cannot import survey payloads as intended on the Templates page.
+• Frustration and confusion due to the restriction to docx files for survey imports.
+
+**Feature: Survey123 Conditionality Gap Closure**  
+Improve UX/UI | QC Editor, Survey123 Integration  
+Developers are aligning the QC Editor with Survey123 conditional logic for Compound, Guy Facilities, and Structure Climb Surveys to prevent data corruption and ensure accurate data representation.
+*Details:*  
+• Ensuring fields in QC Editor mirror Survey123 display logic accurately.
+• Adding fields and conditional logic to maintain parity with Survey123 forms.
+*Impact to Users:*  
+• Users will experience consistent logic between QC Editor and Survey123 forms.
+• Prevents errors, unintended behavior, and data corruption in the application and database.
+
+**Feature: Clickup Compatible Bug Reporting System Implementation**  
+Business Development | Bug Reporting  
+Embedding a ClickUp form for users to report issues, bugs, and missing content easily within the web app.
+*Details:*  
+• Create a "Give Feedback" menu item for users to access the feedback form.
+• Embed the ClickUp form in the Give Feedback page for user submissions.
+*Impact to Users:*  
+• Users can conveniently report bugs and provide feedback within the web app.
+• Streamlines the bug reporting process and centralizes feedback for efficient resolution.
+
+**Feature: Allow Null Value Checkboxes**  
+Improve UX/UI | Data Processing  
+Adding checkboxes to remedy null value issues in specific fields to prevent processing problems encountered by field and QC technicians.
+*Details:*  
+• Adding checkboxes for null values in Structure survey for Elevation and Clear Distance fields.
+• Adding checkbox for Generator Power Output field in Compound survey.
+*Impact to Users:*  
+• Users can now bypass null value issues by checking the appropriate checkboxes.
+• Prevents processing errors caused by logically empty fields.
+
+*Note: The technical details of the Clickup form implementation may be too complex for a field tech to understand and aren’t necessary for the company release notes.*

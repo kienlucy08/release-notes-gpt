@@ -1,0 +1,74 @@
+**Bug: Top Beacon Field Displaying Incorrect Value**  
+Improve UX/UI | QC Editor UI  
+The Top Beacon field in the Structure Overview > Top Beacon section always displays "no" in the QC Editor UI, even when the stored value is "yes".  
+*Details:*  
+• The UI consistently shows "no" for the Top Beacon field.  
+• The stored value in the data is actually "yes".  
+*Impact to Users:*  
+• Users will see the correct value displayed for the Top Beacon field in the UI.
+
+**Bug: Drop Target Photo Uploads Not Incrementing Save Count Correctly**  
+Improve UX/UI | Photo Uploads  
+When using drop targets to upload photos, the save count only increments once per save, even if multiple photos are uploaded between saves. This affects all surveys.  
+*Details:*  
+• Uploading multiple photos using drop targets only counts as one save.  
+• The displayed number of pending saves does not match the actual number of uploads made.  
+*Impact to Users:*  
+• Users will see the correct number of pending saves for each photo uploaded using drop targets.
+
+**Bug: Queue Status Colors Not Compatible with Dark Mode**  
+Improve UX/UI | Dark Mode  
+The queue status background colors/loading bars appear poorly in dark mode, affecting the visibility and aesthetics.  
+*Details:*  
+• Queue status colors/loading bars are not optimized for dark mode.  
+*Impact to Users:*  
+• Users will experience improved visibility and aesthetics of the queue status in dark mode.
+
+**Bug: Allocated Surveys Redirect Users to First Page**  
+Improve UX/UI | Survey Allocation  
+After allocating surveys representing a site visit, users are redirected to the first page of unallocated surveys, regardless of the original page they were on.  
+*Details:*  
+• Allocation of surveys resets the data table to the first page.  
+*Impact to Users:*  
+• Users will remain on the same page after allocating surveys, improving workflow efficiency.
+
+*Note: The technical details of this bug fix are quite backend-focused and may not be necessary for general release notes.*
+
+---
+
+**Bug: Importing Survey Payloads Error on Templates Page**  
+System Hardening | Templates Page  
+There is a bug preventing the import of survey payloads when on the Templates page, with only docx files being allowed instead of survey payloads.  
+*Details:*  
+• Importing survey payloads on the Templates page results in an error message allowing only docx files.  
+• The issue seems to stem from a variable forcing docx files when trying to import survey payloads.  
+*Impact to Users:*  
+• Users cannot import survey payloads as intended on the Templates page, causing frustration and workflow interruptions.
+
+**Feature: Survey123 Conditionality Gap Closure**  
+Improve UX/UI | QC Editor, Survey123 Sync  
+Developers are updating the QC Editor for Compound, Guy Facilities, and Structure Climb Surveys to mirror the conditional display logic used in Survey123 forms for accurate data handling and storage.  
+*Details:*  
+• Ensure fields in the QC Editor follow the visibility rules from Survey123 forms.  
+• Add necessary fields and conditional logic to maintain parity with the surveys.  
+*Impact to Users:*  
+• Users will experience a QC Editor that behaves identically to Survey123 forms, preventing data errors and corruption.
+
+**Feature: Clickup Compatible Bug Reporting System Implementation**  
+Improve UX/UI | Feedback System  
+A ClickUp form has been embedded in the web app to allow users to report bugs, issues, and provide feedback easily.  
+*Details:*  
+• Created a Give Feedback menu item for users to access the bug reporting form.  
+• Embedded the ClickUp form in the Give Feedback page for user convenience.  
+*Impact to Users:*  
+• Users can easily report bugs and provide feedback, improving communication with the engineering team.
+
+**Feature: Allow Null Value Checkboxes for Specific Fields**  
+Improve UX/UI | Data Processing  
+Adding checkboxes for null values in specific fields to prevent processing issues caused by logically empty fields.  
+*Details:*  
+• Added checkboxes for Elevation, Clear Distance, and Generator Power Output fields to bypass null value processing issues.  
+*Impact to Users:*  
+• Field and QC technicians can now mark specific fields as not applicable, preventing data processing errors.  
+
+*Note: The details provided for this bug fix may be too technical for general field tech understanding and can be excluded from the company release notes.*

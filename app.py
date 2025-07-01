@@ -2,16 +2,18 @@
 import os
 from datetime import datetime
 from flask import Flask, render_template, request, redirect, url_for
-from generate_release_note import generate_release_notes_chunked, generate_release_notes_single
+from generate_release_note import generate_release_notes_chunked
 from get_current_features_bugs import get_lists_from_folder
 
 NOTES_BASE_DIR = "static/saved_notes"
 FOLDER_ID = "90115096402"
 
 app = Flask(__name__)
+app.secret_key = os.getenv("SECRET_APP")
 
 
 def save_release_notes(content, sprint_name):
+    # Force folder name to always use the readable sprint name
     folder_name = sprint_name.replace(" ", "_").replace("/", "-")
     folder_path = os.path.join(NOTES_BASE_DIR, folder_name)
     os.makedirs(folder_path, exist_ok=True)
@@ -52,7 +54,6 @@ def save_note():
         sprint_options = [{"id": l["id"], "name": l["name"]}
                           for l in all_lists if "Sprint" in l["name"]]
         saved_notes = get_saved_sprint_notes(sprint_options)
-
         return render_template(
             "index.html",
             entries=[line.strip()
@@ -72,7 +73,8 @@ def delete_note():
     if not sprint_name:
         return "Sprint name missing", 400  # Or redirect with flash message
 
-    folder_name = sprint_name.replace(" ", "_").replace("/", "-")
+    sprint_id = next((s["id"] for s in get_lists_from_folder(FOLDER_ID) if s["name"] == sprint_name), None)
+    folder_name = sprint_id or sprint_name.replace(" ", "_").replace("/", "-")
     folder_path = os.path.join(NOTES_BASE_DIR, folder_name)
 
     try:
@@ -111,26 +113,29 @@ def delete_txt_files_only():
 def index():
     results = None
     entries = []
-    was_chunked = False 
+    was_chunked = False
     saved_file_path = None
-    sprint_name = request.args.get("sprint") or request.form.get("sprint")
     show_save_option = False
 
     all_lists = get_lists_from_folder(FOLDER_ID)
     sprint_options = [{"id": sprint["id"], "name": sprint["name"]}
                       for sprint in all_lists if "Sprint" in sprint["name"]]
 
+    sprint_name =request.form.get("sprint")
+
     if request.method == "POST":
         types = request.form.getlist("type")
         descriptions = request.form.getlist("description")
         sprint_name = request.form.get("sprint")
 
-        entries = [f"{t}: {d.strip()}" for t, d in zip(
-            types, descriptions) if d.strip()]
+        # ✅ Only now try to get the sprint_id
+        sprint_id = next((s["id"] for s in sprint_options if s["name"] == sprint_name), None)
+
+        entries = [f"{t}: {d.strip()}" for t, d in zip(types, descriptions) if d.strip()]
         if entries:
             results, was_chunked = generate_release_notes_chunked(entries)
             if sprint_name:
-                folder_name = sprint_name.replace(" ", "_").replace("/", "-")
+                folder_name = sprint_id or sprint_name.replace(" ", "_").replace("/", "-")
                 folder_path = os.path.join(NOTES_BASE_DIR, folder_name)
                 os.makedirs(folder_path, exist_ok=True)
                 filename = f"release_notes_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt"
@@ -154,6 +159,7 @@ def index():
         sprint_name=sprint_name,
         show_save_option=show_save_option
     )
+
 
 
 if __name__ == "__main__":

@@ -22,11 +22,27 @@
                         </option>
                         {% endfor %}
                     </select>
-                    <label for="type">Type</label>
-                    <select name="type" class="input-select">
+                    <label for="type">Tag</label>
+                    <select name="type" id="primary-select" class="input-select primary-select" onchange="toggleSecondaryType(this)">
                         <option value="Feature">Feature</option>
                         <option value="Bug">Bug</option>
+                        <option value="Enhancement">Enhancement</option>
+                        <option value="Combination">Combination</option>
                     </select>
+                    <label for="type-hidden" class="type-hidden-label" style="display: none;">Specify Your Combination of
+                        Tags</label>
+                    <select name="type-hidden" class="input-select-hidden secondary-select-1">
+                        <option value="Feature">Feature</option>
+                        <option value="Bug">Bug</option>
+                        <option value="Enhancement">Enhancement</option>
+                    </select>
+
+                    <select name="type-hidden" class="input-select-hidden secondary-select-2">
+                        <option value="Feature">Feature</option>
+                        <option value="Bug">Bug</option>
+                        <option value="Enhancement">Enhancement</option>
+                    </select>
+
 
                     <label for="description">Description</label>
                     <textarea name="description" class="input-area" placeholder="Enter description..."></textarea>
@@ -53,8 +69,9 @@
         <h2 class="section-title">Generated Release Notes</h2>
 
         {% if was_chunked %}
-        <div class="output-box">
-            ⚠️ Heads up: Your notes were very long, so we split them into multiple chunks to generate properly.
+        <div>
+            <label>⚠️ Heads up: Your notes were very long, so we split them into multiple chunks to generate
+                properly.</label>
         </div>
         {% endif %}
 
@@ -69,10 +86,6 @@
         <form method="POST" style="margin-top: 20px;">
             <input type="hidden" name="entries" value="{{ entries | tojson | safe }}">
             <input type="hidden" name="sprint_name" value="{{ sprint_name }}">
-
-            {% if show_save_option %}
-            <button type="submit" formaction="/save" class="button-primary">💾 Save to Sprint Folder</button>
-            {% endif %}
 
             <button type="submit" formaction="/delete" class="button-secondary"
                 onclick="return confirm('Are you sure you want to delete this note?')">🗑️ Delete</button>
@@ -107,26 +120,62 @@
     </div>
 
     <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Trigger the toggle logic for all existing selects
+            const primarySelects = document.querySelectorAll('.primary-select');
+            primarySelects.forEach(select => toggleSecondaryType(select));
+        });
+        window.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll(".primary-select").forEach(select => {
+                toggleSecondaryType(select);
+            });
+        });
         function addEntry() {
             const block = document.createElement('div');
             block.className = 'entry-block';
             block.innerHTML = `
-            <label>Type</label>
-            <select name="type" class="input-select">
-                <option value="Feature">Feature</option>
-                <option value="Bug">Bug</option>
-            </select>
-            <label>Description</label>
-            <textarea name="description" class="input-area" placeholder="Enter description..."></textarea>
-        `;
+        <label for="type">Tag</label>
+        <select name="type" class="input-select primary-select" onchange="toggleSecondaryType(this)">
+            <option value="Feature">Feature</option>
+            <option value="Bug">Bug</option>
+            <option value="Enhancement">Enhancement</option>
+            <option value="Combination">Combination</option>
+        </select>
+
+        <label class="type-hidden-label" style="display: none;">Specify Your Combination of Tags</label>
+        <select name="type-hidden" class="input-select-hidden secondary-select-1" style="display: none;">
+            <option value="Feature">Feature</option>
+            <option value="Bug">Bug</option>
+            <option value="Enhancement">Enhancement</option>
+        </select>
+
+        <select name="type-hidden" class="input-select-hidden secondary-select-2" style="display: none;">
+            <option value="Feature">Feature</option>
+            <option value="Bug">Bug</option>
+            <option value="Enhancement">Enhancement</option>
+        </select>
+        <label>Description</label>
+        <textarea name="description" class="input-area" placeholder="Enter description..."></textarea>
+    `;
             document.getElementById('entries').appendChild(block);
         }
-
         function showLoading() {
             const button = document.getElementById("generate-btn");
             button.disabled = true;
             button.innerHTML = "Generating...";
             button.classList.add("loading");
+        }
+        function toggleSecondaryType(select) {
+            const block = select.closest('.entry-block');
+            const show = select.value === "Combination";
+
+            const label = block.querySelector('.type-hidden-label');
+            const select1 = block.querySelector('.secondary-select-1');
+            const select2 = block.querySelector('.secondary-select-2');
+
+            label.style.display = show ? "block" : "none";
+            select1.style.display = show ? "block" : "none";
+            select2.style.display = show ? "block" : "none";
         }
     </script>
 
