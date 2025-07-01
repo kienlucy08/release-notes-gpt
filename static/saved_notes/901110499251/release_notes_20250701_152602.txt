@@ -1,0 +1,63 @@
+**Bug: Incorrect Legs Count Display on Site Visits Page**  
+Improve UX/UI | Site Visit Page  
+The Site Visit page incorrectly displays all lattice towers as having 4 legs, regardless of the actual structure_legs_count value stored in the P&T payload attached to the site visit.  
+*Details:*  
+- Site Visit page always shows 4 legs for lattice towers, regardless of actual count.
+- The structure_legs_count value in the P&T payload is correctly stored as 3.
+*Impact to Users:*  
+- Users will now see the accurate number of legs a structure has on the Site Visit screen.
+
+**Bug: Visual Glitches in Dashboard Tabs**  
+Improve UX/UI | Dashboard  
+There are visual issues with the underline on tabs in the dashboard, including a "curl" in the underline and a gap in the selected item corner. The main tabs should have a singular straight underline, and the sub-tab on the surveys tab should be fully filled when selected.  
+*Details:*  
+- Underlines on tabs have a curl instead of a straight line.
+- Visual glitch in the selected versus all items on the dashboard.
+*Impact to Users:*  
+- Improved visual consistency and clarity in the dashboard tab selection.
+
+**Bug: Redis Memory Issue Causing Site Processing Errors**  
+System Hardening | Site Processing  
+Processing certain site visits fails due to Redis running out of memory. This issue results in errors during the structure survey processing, which can be resolved by removing completed jobs from Redis and migrating job status storage to the database.  
+*Details:*  
+- Processing White Cloud site visit fails due to Redis memory issue.
+- Errors in processing structure survey files traced to Redis memory constraints.
+- Proposed solutions involve managing completed jobs in Redis and migrating job status storage to the database.
+*Impact to Users:*  
+- Users will experience fewer processing errors and improved reliability in site visit processing.
+
+*Note: The Redis memory issue fix involves backend system adjustments and may not directly impact user interface.*
+
+---
+
+**Feature: Default Report Names**  
+Improve UX/UI | Report Generation  
+Automatically generate default report names following the pattern <SITE ID>_TIA Inspection Report_<Creation Timestamp> to improve efficiency for QC Platform users. Users can customize default names during report generation if needed.
+*Details:*  
+• Default report names are automatically provided based on the specified pattern.  
+• <Creation Timestamp> reflects the report's generation timestamp in a human-readable format.  
+• Users have the flexibility to change default names during report generation.  
+*Impact to Users:*  
+• Saves time during report generation by providing automatic names.  
+• Allows users to meet specific customer requirements by customizing report names as needed.
+
+**Bug: Can Add Multiple of the Same Surveys to Site Visit**  
+Improve UX/UI | Survey Allocation  
+Users can inadvertently allocate multiple surveys of the same type to a site visit, causing issues during report generation and processing. The system should prevent the allocation of duplicate survey types to the same site visit.
+*Details:*  
+• Users can allocate multiple surveys of the same type to a site visit, leading to processing and report generation failures.  
+• The UI only indicates one payload type being allocated, causing confusion during report investigation.  
+*Impact to Users:*  
+• Prevents processing and report generation issues caused by allocating multiple surveys of the same type to a site visit.  
+• Improves user experience by avoiding confusion during survey allocation.
+
+**Bug: Code H Deficiencies Reporting Incorrect Values for Elevation and Guy Level**  
+Improve UX/UI | Report Template  
+Fixes an issue where the report template incorrectly stores elevation values for deficiencies in the Structure Survey, affecting the guyLevel reporting. The system should accurately store elevation and guyLevel values in the deficiency's supportingDetail field.
+*Details:*  
+• Incorrect logic causes elevation values to be stored incorrectly in the supportingDetail field.  
+• The report template should fetch the correct guyLevel based on elevation to populate the supportingDetail field accurately.  
+*Impact to Users:*  
+• Ensures that deficiency reports accurately reflect elevation and guyLevel values for improved data integrity.  
+• Prevents discrepancies in reporting that may affect decision-making processes.  
+*Note: This might be too complicated for a field tech to understand and isn’t necessary for the company release notes. However, it is important to acknowledge for software development updates.*
