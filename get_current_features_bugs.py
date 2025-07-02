@@ -11,7 +11,8 @@ SPACE_ID = "90110749681"
 FOLDER_ID = "90115096402"
 
 HEADERS = {
-    "Authorization": token
+    "Authorization": token,
+    "Content-Type": "application/json"
 }
 
 
@@ -67,13 +68,16 @@ def get_tasks_in_list(list_id):
     all_tasks = []
     page = 0
     while True:
-        url = f"https://api.clickup.com/api/v2/list/{list_id}/task?page={page}&include_closed=true&subtasks=true"
+        url = f"https://api.clickup.com/api/v2/list/{list_id}/task?page={page}&limit=100&include_closed=true"
         resp = requests.get(url, headers=HEADERS)
         resp.raise_for_status()
-        tasks = resp.json().get("tasks", [])
+        data = resp.json()
+        tasks = data.get("tasks", [])
         all_tasks.extend(tasks)
+
         if not tasks or len(tasks) < 100:
             break
+
         page += 1
 
     print(f"📦 Retrieved {len(all_tasks)} total tasks from list {list_id}")
@@ -104,15 +108,12 @@ def extract_full_task_data(task):
         "url": f"https://app.clickup.com/t/{task.get('id')}",
     }
 
-
-
 def get_done_statuses(list_id):
     url = f"https://api.clickup.com/api/v2/list/{list_id}"
     resp = requests.get(url, headers=HEADERS)
     resp.raise_for_status()
     statuses = resp.json().get("statuses", [])
     return [s["status"].lower() for s in statuses if s["type"] == "done"]
-
 
 def filter_features_and_bugs(tasks):
     relevant = []
@@ -130,40 +131,102 @@ def filter_features_and_bugs(tasks):
             })
     return relevant
 
-# if __name__ == "__main__":
-#     print("🔍 Finding sprint...")
+def get_all_sprint_tasks(sprint_lists):
+    """
+    Gets and filters all sprint tasks, avoiding duplicates.
+    Returns a dict of {sprint_name: [filtered tasks]}
+    """
+    seen_task_ids = set()
+    sprint_task_map = {}
 
-#     try:
-#         sprint_lists = get_lists_from_folder(FOLDER_ID)
-#         current_sprint = find_current_sprint_list(sprint_lists)
+    for sprint in sprint_lists:
+        sprint_id = sprint["id"]
+        sprint_name = sprint["name"]
+        tasks = get_tasks_in_list(sprint_id)
 
-#         if not current_sprint:
-#             print("⚠️ No sprint found based on today's date.")
-#             exit(1)
+        filtered = []
+        for task in tasks:
+            task_id = task["id"]
+            status_name = task.get("status", {}).get("status", "").lower()
+            status_type = task.get("status", {}).get("type", "").lower()
 
-#         print(f"📅 Current sprint: {current_sprint['name']}")
-#         tasks = get_tasks_in_list(current_sprint["id"])
-#         full_data = [extract_full_task_data(task) for task in tasks]
-#         print(json.dumps(full_data, indent=2))
-#         print(f"📦 Fetched {len(tasks)} tasks from list.")
+            is_closed_status = (
+                status_type == "closed" or
+                status_name in {"done", "complete", "closed"}
+            )
 
-#         complete_statuses = get_done_statuses(current_sprint["id"])
-#         print(f"✅ Complete statuses: {complete_statuses}")
+            if is_closed_status and task_id not in seen_task_ids:
+                seen_task_ids.add(task_id)
+                filtered.append(task)
 
-#         feature_bug_tasks = filter_features_and_bugs(tasks)
-#         complete_items = [
-#             f"{item['type']}: {item['title']}. {item['desc']}"
-#             for item in feature_bug_tasks
-#             if item["status"] in complete_statuses
-#         ]
+        sprint_task_map[sprint_name] = filtered
+        print(f"✅ {len(filtered)} filtered tasks added for sprint: {sprint_name}")
 
-#         if not complete_items:
-#             print("⚠️ No completed bugs or features found.")
-#             exit(0)
+    return sprint_task_map
 
-#         print(f"📝 Found {len(complete_items)} completed bugs/features.")
-#         # Call your generate_release_notes(complete_items) here if needed
 
-#     except Exception as e:
-#         print(f"❌ Error: {e}")
-#         exit(1)
+if __name__ == "__main__":
+    sprint_lists = get_lists_from_folder(FOLDER_ID)
+    sprint_task_map = get_all_sprint_tasks(sprint_lists)
+
+    for sprint_name, tasks in sprint_task_map.items():
+        if not tasks:
+            continue
+
+        full_data = [extract_full_task_data(task) for task in tasks]
+        
+        formatted = "\n\n".join(
+            f"{task['type']}: {task['title']}\n{task['desc']}"
+            for task in full_data
+        )
+        print(formatted)
+
+        # save_path = save_release_notes(formatted, sprint_name, "release_notes.txt")
+        # print(f"📝 Saved {len(tasks)} tasks for '{sprint_name}' to {save_path}")
+
+    # print("🔍 Finding sprint...")
+
+    # try:
+    #     sprint_lists = get_lists_from_folder(FOLDER_ID)
+
+    #     for sprint_list in sprint_lists:
+    #         sprint_name = sprint_list["name"]
+    #         sprint_id = sprint_list["id"]
+    #         print(f"📅 Sprint: {sprint_name} (ID: {sprint_id})")
+    #         tasks = get_tasks_in_list(sprint_id)
+    #         for task in tasks:  
+    #             task_name = task["name"]
+    #             task_id = task["id"]
+    #             print(f"Task: {task_name} (ID: {task_id})")
+        # current_sprint = find_previous_sprint_list(sprint_lists)
+
+        # if not current_sprint:
+        #     print("⚠️ No sprint found based on today's date.")
+        #     exit(1)
+
+        # print(f"📅 Current sprint: {current_sprint['name']}")
+        # tasks = get_tasks_in_list(current_sprint["id"])
+        # full_data = [extract_full_task_data(task) for task in tasks]
+        # print(json.dumps(full_data, indent=2))
+        # print(f"📦 Fetched {len(tasks)} tasks from list.")
+        # print(full_data)
+    #     complete_statuses = get_done_statuses(current_sprint["id"])
+    #     print(f"✅ Complete statuses: {complete_statuses}")
+
+    #     feature_bug_tasks = filter_features_and_bugs(tasks)
+    #     complete_items = [
+    #         f"{item['type']}: {item['title']}. {item['desc']}"
+    #         for item in feature_bug_tasks
+    #         if item["status"] in complete_statuses
+    #     ]
+
+    #     if not complete_items:
+    #         print("⚠️ No completed bugs or features found.")
+    #         exit(0)
+
+    #     print(f"📝 Found {len(complete_items)} completed bugs/features.")
+    #     # Call your generate_release_notes(complete_items) here if needed
+
+    # except Exception as e:
+    #     print(f"❌ Error: {e}")
+    #     exit(1)
