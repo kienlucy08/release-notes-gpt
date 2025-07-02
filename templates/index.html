@@ -41,19 +41,19 @@
                     <label for="type-hidden" class="type-hidden-label" style="display: none;">Specify Your Combination
                         of
                         Tags</label>
-                    <select name="type-hidden" class="input-select-hidden secondary-select-1">
+                    <select name="type-hidden-1" class="input-select-hidden secondary-select">
                         <option value="Feature">Feature</option>
                         <option value="Bug">Bug</option>
                         <option value="Enhancement">Enhancement</option>
                         <option value="DevOps">DevOps</option>
                     </select>
-                    <select name="type-hidden" class="input-select-hidden secondary-select-2">
+                    <select name="type-hidden-2" class="input-select-hidden secondary-select">
                         <option value="Feature">Feature</option>
                         <option value="Bug">Bug</option>
                         <option value="Enhancement">Enhancement</option>
                         <option value="DevOps">DevOps</option>
                     </select>
-                    
+
                     <!--Description-->
                     <label for="description">Description</label>
                     <textarea name="description" class="input-area" placeholder="Enter description..."></textarea>
@@ -87,34 +87,35 @@
         {% if results %}
         <h2 class="section-title">Generated Release Notes</h2>
 
-            <!--Chunked warning for when the input is long-->
-            {% if was_chunked %}
-            <div>
-                <label style="margin: 10px;">⚠️ Heads up: Your notes were very long, so we split them into multiple chunks to generate
-                    properly.</label>
-            </div>
-            {% endif %}
-
-            <div class="output-box">{{ results | safe }}</div>
-
-            <!--Saved path label with the url-->
-            {% if saved_file_path %}
-            <div class="output-box">
-                ✅ Saved! <a href="{{ url_for('static', filename=saved_file_path) }}" target="_blank">View saved file</a>
-            </div>
-            {% endif %}
-
-            <!--Post-generation actions-->
-            <form method="POST" style="margin-top: 20px;">
-                <input type="hidden" name="entries" value="{{ entries | tojson | safe }}">
-                <input type="hidden" name="sprint_name" value="{{ sprint_name }}">
-
-                <button type="submit" formaction="/delete_entry" class="button-secondary"
-                    onclick="return confirm('Are you sure you want to delete this note?')">🗑️ Delete</button>
-                <button type="submit" formaction="/" class="button-secondary">🔄 Start Over</button>
-            </form>
+        <!--Chunked warning for when the input is long-->
+        {% if was_chunked %}
+        <div>
+            <label style="margin: 10px;">⚠️ Heads up: Your notes were very long, so we split them into multiple chunks
+                to generate
+                properly.</label>
+        </div>
         {% endif %}
-        
+
+        <div class="output-box">{{ results | safe }}</div>
+
+        <!--Saved path label with the url-->
+        {% if saved_file_path %}
+        <div class="output-box">
+            ✅ Saved! <a href="{{ url_for('static', filename=saved_file_path) }}" target="_blank">View saved file</a>
+        </div>
+        {% endif %}
+
+        <!--Post-generation actions-->
+        <form method="POST" style="margin-top: 20px;">
+            <input type="hidden" name="entries" value="{{ entries | tojson | safe }}">
+            <input type="hidden" name="sprint_name" value="{{ sprint_name }}">
+
+            <button type="submit" formaction="/delete_entry" class="button-secondary"
+                onclick="return confirm('Are you sure you want to delete this note?')">🗑️ Delete</button>
+            <button type="submit" formaction="/" class="button-secondary">🔄 Start Over</button>
+        </form>
+        {% endif %}
+
         <!--Past Sprints Files-->
         {% if saved_notes %}
         <h2 class="section-title">Past Sprint Notes</h2>
@@ -173,14 +174,14 @@
                 </select>
 
                 <label class="type-hidden-label" style="display: none;">Specify Your Combination of Tags</label>
-                <select name="type-hidden" class="input-select-hidden secondary-select-1" style="display: none;">
+                <select name="type-hidden-1" class="input-select-hidden secondary-select">
                     <option value="Feature">Feature</option>
                     <option value="Bug">Bug</option>
                     <option value="Enhancement">Enhancement</option>
                     <option value="DevOps">DevOps</option>
                 </select>
 
-                <select name="type-hidden" class="input-select-hidden secondary-select-2" style="display: none;">
+                <select name="type-hidden-2" class="input-select-hidden secondary-select">
                     <option value="Feature">Feature</option>
                     <option value="Bug">Bug</option>
                     <option value="Enhancement">Enhancement</option>
@@ -198,18 +199,16 @@
             button.innerHTML = "Generating...";
             button.classList.add("loading");
         }
-        
+
         function toggleSecondaryType(select) {
             const block = select.closest('.entry-block');
             const show = select.value === "Combination";
 
-            const label = block.querySelector('.type-hidden-label');
-            const select1 = block.querySelector('.secondary-select-1');
-            const select2 = block.querySelector('.secondary-select-2');
+            block.querySelector('.type-hidden-label').style.display = show ? "block" : "none";
 
-            label.style.display = show ? "block" : "none";
-            select1.style.display = show ? "block" : "none";
-            select2.style.display = show ? "block" : "none";
+            block.querySelectorAll('.secondary-select').forEach(sub => {
+                sub.style.display = show ? "block" : "none";
+            });
         }
     </script>
 
