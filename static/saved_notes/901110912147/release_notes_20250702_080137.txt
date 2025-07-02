@@ -1,0 +1,118 @@
+**DevOps Work with The Uploader Investigation**  
+Tags: DevOps  
+*Investigate and fix login issues with uploader and research strategies for UI reuse between web app/uploader. Decoupling applications while ensuring they work together seamlessly is crucial.*
+*Details:*  
+- Investigating login issues with uploader to resolve them.
+- Researching strategies for UI reuse between web app and uploader.
+*Note: This might be too complicated for a field tech to understand and isn’t necessary for the company release notes. However, it is important to acknowledge for software development updates.*
+
+**Structure Deficiency Elevations getting overwritten to 0 during processing**  
+Tags: Bug  
+Strategic Theme: System Hardening  
+Area of Impact: Site Visits  
+*Structure deficiencies with non-zero values are incorrectly being overwritten to 0 during data processing.*
+*Details:*  
+- Deficiencies with non-zero values are being reset to 0 during processing.
+- Issue observed in multiple deficiency entries.
+*Impact to Users:*  
+- Users may experience inaccuracies in deficiency elevation data.
+- Reports may display incorrect deficiency elevation values.
+
+**Survey Flag Messages are mismatched within site visits**  
+Tags: Bug  
+Strategic Theme: Improve UX/UI  
+Area of Impact: Site Visits  
+*Flag messages attached to surveys are appearing in the next survey in the processing order within a site visit, causing mismatched data.*
+*Details:*  
+- Flag messages from one survey are displaying in the next survey in the processing order.
+- Mismatched flag messages are observed across different types of surveys.
+*Impact to Users:*  
+- Users may encounter confusion due to flag messages appearing in the wrong surveys.
+- Data integrity is compromised as flag messages are not aligned with their respective surveys.
+
+---
+
+**Bug: Survey Table Accordion Rendering Issue**  
+Improve UX/UI | Dashboard Sites  
+The accordion feature in the dashboard sites table is causing rendering issues when trying to view reports under a site, resulting in a TypeError.
+*Details:*  
+- Error occurs when clicking on the accordion dropdown under any site in the dashboard sites tab.
+- Issue identified as "TypeError: Cannot read properties of undefined (reading 'map')".
+*Impact to Users:*  
+- Users are unable to view reports under specific sites due to the rendering error.
+
+**Feature: Granular Survey Tracking Enhancement**  
+Improve UX/UI | QC Editor  
+Introducing a feature to enhance the Quality Control (QC) Editor by providing field-level status tracking for each editable data point in surveys. This feature allows QC technicians to track the review status of individual survey sections and fields for a more focused QC process.
+*Details:*  
+- Visual indicators for the review status of each field in the survey editing UI.
+- Automatic update of edited fields to "reviewed" status.
+- Keyboard shortcut implementation for quickly updating the review status of unedited fields.
+- Inclusion of a summary of review progress at the top of the survey UI.
+*Impact to Users:*  
+- QC technicians can easily track the review status of each field in surveys.
+- Streamlines the QC process by providing a more granular view of review progress.
+- Enables collaboration and efficient QC review processes. 
+
+*Note: The bug fix may be too technical for general users to comprehend and is primarily focused on resolving backend rendering issues.*
+
+---
+
+**Bug: Uppy Image Paste Naming Collision**  
+Improve UX/UI  
+Users pasting images into the QC Editor via Uppy are not being utilized in reports due to all images being named "image.png" causing a backend naming collision.  
+*Details:*  
+- Images pasted via Uppy are named "image.png" causing naming conflicts.
+- Pasted images are not processed or included in reports.
+*Impact to Users:*  
+- Pasted images are not visible in reports affecting data accuracy.
+- Users may experience missing image data in their reports.
+
+**Bug: Broken Image Preview on Local Disk Upload**  
+Improve UX/UI  
+When a user pastes a snip into a photo record and later uploads an image from their local disk to a different record, the record with the snip will have a broken image added to it.  
+*Details:*  
+- Uploading images from local disk adds broken images to unrelated photo records.
+- The issue causes broken "Preview" placeholders in photo records.
+*Impact to Users:*  
+- Users may encounter broken image previews affecting data visualization.
+- It can lead to confusion and incorrect data associations in the photo records.
+
+**Bug: Duplicate Pasted Images in Photo Records**  
+Improve UX/UI  
+Pasting multiple images results in previously pasted images duplicating across different photo records within the same survey.  
+*Details:*  
+- Copy-pasting multiple images causes duplication in photo records.
+- Duplicated images impact data accuracy and storage.
+*Impact to Users:*  
+- Users may see unexpected duplications of images in photo records.
+- Data integrity is compromised with duplicated images.
+
+*Note: These bugs involve complex backend naming and duplication issues that may not be easily understood by non-technical users.*
+
+**Feature: Add Linked Esri Logo to app.fieldsync.io Login Page**  
+Improve UX/UI  
+Incorporated Esri's logo (H_esriPartnerNet-member_sRGB.png) to the app.fieldsync.io login page following specific layout and linking requirements.  
+*Details:*  
+- Esri's logo dimensions set to 206px width by 53px height.
+- Placed below the text "The Future Of Field Service" with proper center alignment.
+- Logo is clickable and links to esri.com/en-us/home.
+*Impact to Users:*  
+- Users will visually identify Esri's partnership on the login page.
+- Allows users to navigate to Esri's website for more information.
+
+---
+
+**Feature: Enhanced Site Visit Dashboard Survey Table Logic**  
+Improve UX/UI | Dashboard Tables  
+Introducing logic to restrict certain survey types based on the purpose of the site visit in the Site Visit Dashboard Survey Table, providing a more streamlined and user-friendly experience for managing surveys within site visits.  
+*Details:*  
+- Implemented logic to filter surveys based on the purpose of the site visit:
+  - For inspections, only compound structure guy and pnt surveys are allowed.
+  - For cop (Close Out Package) purposes, only cop surveys are permitted.
+- Added functionality to automatically set the purpose of the site visit when creating a new site visit with specific survey types.
+- Implemented a block feature to prevent users from adding incompatible surveys to site visits, showing a special right-click menu for guidance.
+*Impact to Users:*  
+- Users can easily add surveys to site visits with the assurance that only compatible survey types are available for selection.
+- Streamlined workflow by automatically setting the purpose of the site visit when necessary.
+- Prevents errors by blocking incompatible surveys, ensuring data integrity within site visits.

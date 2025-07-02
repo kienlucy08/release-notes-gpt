@@ -1,7 +1,6 @@
 import os
 from openai import OpenAI
 from dotenv import load_dotenv
-from flask import flash
 
 # Load .env
 load_dotenv()
@@ -12,13 +11,13 @@ client = OpenAI(api_key=api_key)
 MAX_TOTAL_TOKENS = 4096
 MAX_COMPLETION_TOKENS = 1500
 MAX_INPUT_TOKENS = MAX_TOTAL_TOKENS - MAX_COMPLETION_TOKENS
-TOKENS_PER_ITEM_EST = 100  # Rough estimate
+TOKENS_PER_ITEM_EST = 100
 
 system_prompt = (
     "You are a helpful assistant that turns a list of developer-submitted bugs, features, and updates/enhancements"
     "into clear, structured release notes formatted in **rich text Markdown-style**. For each item, generate a clean summary with:\n"
     "• A bolded tag labeled with **Bug/Feature/Enhancement/Combination** based off of user selection for there type/tag\n"
-    "• A bolded title (the name of the bug, feature, or update or a combination of types e.g., feature & update)\n"
+    "• A bolded title (the name of the bug, feature, update, devops, or a combination of types e.g., feature & update)\n"
     "• Labels for Strategic Theme and Area of Impact seperated by | (these should be styled as tags)\n"
     "• A concise description in plain language\n"
     "• *Details:* section in italics, followed by a bullet list of found issues and or changes\n"
@@ -27,6 +26,7 @@ system_prompt = (
     "Use **bullet points** and not slashes '-' for both details and user impact, and ensure output looks like a professional, formatted changelog. "
     "If a fix is too backend-focused, include it but add a note at the end: "
     "*This might be too complicated for a field tech to understand and isn’t necessary for the company release notes. However, it is important to acknowledge for software development updates.*\n\n"
+    "Note that DevOps tasks will primarily only be used for backend software updates versus company wide updates. Include a note for DevOps specific tasks where they are exclusively for backend software team updates."
 
     "Strategic Theme definitions:\n"
     "- **Improve UX/UI** – Enhancements that improve user interface clarity, layout, workflows, or navigation. Typically involved in most web applicatio enhancements.\n"
@@ -72,14 +72,8 @@ system_prompt = (
     "Here is the list of completed items:"
 )
 
-# Estimate GPT token count (rough)
-
-
 def estimate_tokens(text: str) -> int:
     return len(text) // 4
-
-# Raw single-call generator
-
 
 def generate_release_notes_single(items: list[str]) -> str:
     combined_input = "\n".join(f"- {item.strip()}" for item in items)

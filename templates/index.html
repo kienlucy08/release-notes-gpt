@@ -23,32 +23,38 @@
                         {% endfor %}
                     </select>
                     <label for="type">Tag</label>
-                    <select name="type" id="primary-select" class="input-select primary-select" onchange="toggleSecondaryType(this)">
+                    <select name="type" id="primary-select" class="input-select primary-select"
+                        onchange="toggleSecondaryType(this)">
                         <option value="Feature">Feature</option>
                         <option value="Bug">Bug</option>
                         <option value="Enhancement">Enhancement</option>
+                        <option value="DevOps">DevOps</option>
                         <option value="Combination">Combination</option>
                     </select>
-                    <label for="type-hidden" class="type-hidden-label" style="display: none;">Specify Your Combination of
+                    <label for="type-hidden" class="type-hidden-label" style="display: none;">Specify Your Combination
+                        of
                         Tags</label>
                     <select name="type-hidden" class="input-select-hidden secondary-select-1">
                         <option value="Feature">Feature</option>
                         <option value="Bug">Bug</option>
                         <option value="Enhancement">Enhancement</option>
+                        <option value="DevOps">DevOps</option>
                     </select>
 
                     <select name="type-hidden" class="input-select-hidden secondary-select-2">
                         <option value="Feature">Feature</option>
                         <option value="Bug">Bug</option>
                         <option value="Enhancement">Enhancement</option>
+                        <option value="DevOps">DevOps</option>
                     </select>
-
-
                     <label for="description">Description</label>
                     <textarea name="description" class="input-area" placeholder="Enter description..."></textarea>
                 </div>
             </div>
 
+            <label for="custom_filename">Custom File Name (optional):</label>
+            <input type="text" name="custom_filename" class="input-area"
+                placeholder="e.g. release_notes_july01_bugfixes">
             <div style="margin-top: 10px;">
                 <button type="button" class="button-secondary" onclick="addEntry()">Add Another</button>
                 <button id="generate-btn" type="submit" class="button-primary">Generate Release Notes</button>
@@ -106,9 +112,15 @@
                 </form>
                 <ul>
                     {% for file in sprint.files %}
-                    <li>
+                    <li style="display: flex; align-items: center; gap: 10px;">
                         <a href="{{ url_for('static', filename='saved_notes/' ~ sprint.folder ~ '/' ~ file) }}"
                             target="_blank">{{ file }}</a>
+                        <form method="POST" action="/delete_single_note" style="display:inline;">
+                            <input type="hidden" name="sprint_folder" value="{{ sprint.folder }}">
+                            <input type="hidden" name="file_name" value="{{ file }}">
+                            <button type="submit" class="button-secondary"
+                                onclick="return confirm('Delete this individual note?')">🗑️</button>
+                        </form>
                     </li>
                     {% endfor %}
                 </ul>
@@ -135,10 +147,12 @@
             block.className = 'entry-block';
             block.innerHTML = `
         <label for="type">Tag</label>
+        <button type="button" class="button-secondary" onclick="this.parentElement.remove()" style="float: right;">Remove Entry</button>
         <select name="type" class="input-select primary-select" onchange="toggleSecondaryType(this)">
             <option value="Feature">Feature</option>
             <option value="Bug">Bug</option>
             <option value="Enhancement">Enhancement</option>
+            <option value="DevOps">DevOps</option>
             <option value="Combination">Combination</option>
         </select>
 
@@ -147,12 +161,14 @@
             <option value="Feature">Feature</option>
             <option value="Bug">Bug</option>
             <option value="Enhancement">Enhancement</option>
+            <option value="DevOps">DevOps</option>
         </select>
 
         <select name="type-hidden" class="input-select-hidden secondary-select-2" style="display: none;">
             <option value="Feature">Feature</option>
             <option value="Bug">Bug</option>
             <option value="Enhancement">Enhancement</option>
+            <option value="DevOps">DevOps</option>
         </select>
         <label>Description</label>
         <textarea name="description" class="input-area" placeholder="Enter description..."></textarea>

@@ -1,0 +1,75 @@
+**Feature: Add linked Esri Logo to Fieldsync.io and Other Webflow Updates**  
+Business Development | Website Design  
+A requirement from Esri to maintain "good standing" status as a member. The Esri logo must be added to the website and linked to esri.com following specific placement guidelines provided by Esri.
+*Details:*  
+- Implement Esri logo on Fieldsync.io website.
+- Link the logo to esri.com.
+- Follow the "Standard Lockup" placement with 1x padding around the logo.
+- Ensure correct positioning of the "e" in "esri" relative to other elements.
+*Impact to Users:*  
+- Users will see the Esri logo on the website, providing visibility and credibility.
+- Easy access to Esri's website through the linked logo.
+
+**Bug: Silent Frontend Bug in Dashboard Table**  
+Improve UX/UI | Dashboard Functionality  
+Identified a bug in the frontend code of the dashboard table causing errors in the Chrome console, potentially leading to hydration issues.
+*Details:*  
+- Error messages in the console related to React DevTools and button nesting.
+- Service worker registration noted in the console.
+*Impact to Users:*  
+- Users may experience issues with the dashboard functionality.
+- Hydration errors could affect the user interface and interactions.
+
+**DevOps: Integrate Uploader Into Monorepo**  
+System Hardening  
+Integrating the uploader codebase (fieldsync-uploader) into the main repository (fieldsync-web) to improve synchronization and dependency management between the uploader and web application.
+*Details:*  
+- Merging uploader codebase into the monorepo for better cohesion.
+- Restructuring uploader code to fit within the monorepo's workspace.
+- Updating shared frontend, backend, and database entities for consistency.
+*Note: This is a backend-focused task for software development updates and may not directly impact end-users.*
+
+---
+
+**Granular Tracking Enhancements**  
+Enhancement  
+*Strategic Theme:* Improve UX/UI Field Enablement  
+*Area of Impact:* Survey Tracking  
+Introducing a keyboard shortcut for marking fields as read, updating exclusion lists for tracking parameters, and improving performance when rapidly reviewing fields.
+*Details:*  
+- Unable to reliably detect Tab + R as a keyboard shortcut due to browser limitations
+- Implementing a hover and type shortcut to mark fields as read
+- Updating exclusion list for tracking parameters for photo tracking purposes
+- Performance upgrade to address intermittent failures in registering updates when rapidly moving through fields
+- Sections affected by performance issue identified across various survey types
+- Aim to ensure consistent and real-time field tracking response
+*Impact to Users:*  
+- Users can now mark fields as read efficiently with a new keyboard shortcut
+- Improved accuracy in tracking parameters for photo tracking purposes
+- Enhanced performance when reviewing fields quickly
+- Progress tracking will now be displayed on the site visit page
+
+*Note: This might be too complicated for a field tech to understand and isn’t necessary for the company release notes. However, it is important to acknowledge for software development updates.*
+
+---
+
+**Bug: Compound Survey Compound Gate Code Tracking Issue**  
+Improve UX/UI | Survey Progress Tracking  
+The Compound Gate Code field in the Compound Survey is not properly tracked by the Progress Tracker, leading to an incorrect count of tracked items and causing confusion for users.
+*Details:*  
+• Progress Tracker does not update when reviewing the second Gate Code field.  
+• The Gate Code field in the Compound Survey is not being tracked, resulting in an inaccurate total count of tracked items.  
+*Impact to Users:*  
+• Incorrect tracking may lead to confusion about the completion status of the survey fields.  
+• Users may not be able to accurately monitor their progress within the survey.
+
+**Bug: Member Repair Supporting Details Not Triggered by Specific Code**  
+Improve UX/UI | Survey Editing  
+The code 'E1.c' in the Structure survey should trigger the Member Repair fields of the Supporting Details section within a Deficiency callout, but currently, it does not display the additional fields as intended.
+*Details:*  
+• Selecting 'Antenna has defect / deformation / missing member / is loose, etc.' does not show the Supporting Details section.  
+*Impact to Users:*  
+• Users may miss crucial information related to specific issues in the survey.  
+• Inconsistencies in triggering supporting details could lead to incomplete or inaccurate data capture.
+
+*Note: The second bug fix involves specific backend code adjustments for triggering supporting details based on survey responses. This detail may not be relevant for a general audience release note.*

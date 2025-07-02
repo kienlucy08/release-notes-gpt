@@ -88,6 +88,16 @@ def delete_note():
     except Exception as e:
         return f"Error deleting note: {e}", 500
 
+@app.route('/delete_single_note', methods=['POST'])
+def delete_single_note():
+    sprint_folder = request.form['sprint_folder']
+    file_name = request.form['file_name']
+    file_path = os.path.join('static', 'saved_notes', sprint_folder, file_name)
+
+    if os.path.exists(file_path):
+        os.remove(file_path)
+    return redirect(url_for('index'))  # or wherever your main view function is
+
 @app.route("/delete_txts", methods=["POST"])
 def delete_txt_files_only():
     sprint_folder = request.form.get("sprint_folder")
@@ -116,6 +126,7 @@ def index():
     was_chunked = False
     saved_file_path = None
     show_save_option = False
+    filename = ""
 
     all_lists = get_lists_from_folder(FOLDER_ID)
     sprint_options = [{"id": sprint["id"], "name": sprint["name"]}
@@ -138,12 +149,17 @@ def index():
                 folder_name = sprint_id or sprint_name.replace(" ", "_").replace("/", "-")
                 folder_path = os.path.join(NOTES_BASE_DIR, folder_name)
                 os.makedirs(folder_path, exist_ok=True)
-                filename = f"release_notes_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt"
+                custom_filename = request.form.get("custom_filename", "").strip()
+                if custom_filename:
+                    # Sanitize input to avoid special characters or path issues
+                    safe_filename = "".join(c for c in custom_filename if c.isalnum() or c in ('_', '-')).rstrip()
+                    filename = f"{safe_filename}.txt"
+                else:
+                    filename = f"release_notes_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt"
                 full_path = os.path.join(folder_path, filename)
 
                 with open(full_path, "w", encoding="utf-8") as f:
                     f.write(results)
-
                 saved_file_path = f"saved_notes/{folder_name}/{filename}"
 
     saved_notes = get_saved_sprint_notes(sprint_options)
