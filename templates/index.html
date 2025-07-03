@@ -25,6 +25,13 @@
                         </option>
                         {% endfor %}
                     </select>
+                    
+                    <select name="task" id="task-dropdown" class="input-select">
+                        <!--Pull sprints from clickup-->
+                        <option value="">
+                            Select a sprint to load tasks...
+                        </option>
+                    </select>
 
                     <!--Tag Type-->
                     <label for="type">Tag</label>
@@ -210,6 +217,35 @@
                 sub.style.display = show ? "block" : "none";
             });
         }
+        document.addEventListener("DOMContentLoaded", function () {
+        const sprintSelect = document.querySelector("select[name='sprint']");
+        const taskDropdown = document.getElementById("task-dropdown");
+
+        sprintSelect.addEventListener("change", function () {
+            const sprintId = this.value;
+            taskDropdown.innerHTML = "<option>Loading tasks...</option>";
+
+            fetch(`/get_tasks?sprint_id=${sprintId}`)
+                .then(response => response.json())
+                .then(tasks => {
+                    taskDropdown.innerHTML = ""; // Clear existing options
+                    if (tasks.length === 0) {
+                        taskDropdown.innerHTML = "<option>No tasks found for this sprint.</option>";
+                    } else {
+                        tasks.forEach(task => {
+                            const opt = document.createElement("option");
+                            opt.value = task.id;
+                            opt.textContent = task.name;
+                            taskDropdown.appendChild(opt);
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error("Failed to load tasks:", error);
+                    taskDropdown.innerHTML = "<option>Error loading tasks.</option>";
+                });
+        });
+    });
     </script>
 
 </body>

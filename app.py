@@ -1,9 +1,10 @@
 # app.py
 import os
 from datetime import datetime
+from flask import jsonify
 from flask import Flask, render_template, request, redirect, url_for
 from generate_release_note import generate_release_notes_chunked
-from get_current_features_bugs import get_lists_from_folder
+from get_current_features_bugs import get_sprint_lists, get_all_tasks_associated_with_sprints, get_tasks_for_sprint_id
 
 NOTES_BASE_DIR = "static/saved_notes"
 FOLDER_ID = "90115096402"
@@ -75,9 +76,10 @@ def index():
     entries = []
     saved_file_path = None
     was_chunked = False
+    all_sprint_tasks = []
 
     # Get sprint options from ClickUp
-    all_lists = get_lists_from_folder(FOLDER_ID)
+    all_lists = get_sprint_lists(FOLDER_ID)
     sprint_options = [{"id": sprint["id"], "name": sprint["name"]}
                       for sprint in all_lists if "Sprint" in sprint["name"]]
     sprint_name =request.form.get("sprint")
@@ -86,10 +88,11 @@ def index():
         types = request.form.getlist("type")
         descriptions = request.form.getlist("description")
         entries = [f"{t}: {d.strip()}" for t, d in zip(types, descriptions) if d.strip()]
-        
+
         if entries and sprint_name:
             results, was_chunked = generate_release_notes_chunked(entries)
-
+            # Fetch all sprint tasks once
+            all_sprint_tasks = get_tasks_for_sprint_id(FOLDER_ID, sprint_name)
             # Determine file name
             custom_filename = request.form.get("custom_filename", "").strip()
             if custom_filename:
@@ -113,8 +116,19 @@ def index():
         saved_file_path=f"saved_notes/{saved_file_path}" if saved_file_path else None,
         saved_notes=saved_notes,
         sprint_name=sprint_name,
+        sprint_tasks=all_sprint_tasks,
         show_save_option=False
     )
+
+@app.route("/get_tasks", methods=["GET"])
+def get_tasks():
+    sprint_id = request.args.get("sprint_id")
+    if not sprint_id:
+        return jsonify([])
+
+    tasks = get_tasks_for_sprint_id(FOLDER_ID, sprint_id)
+    return jsonify([{"id": t["id"], "name": t["name"]} for t in tasks])
+
 
 @app.route("/save", methods=["POST"])
 def save_note():
@@ -127,7 +141,7 @@ def save_note():
     filename = f"release_notes_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt"
     path = save_release_notes(content, sprint_name, filename)
 
-    sprint_options = [{"id": l["id"], "name": l["name"]} for l in get_lists_from_folder(FOLDER_ID) if "Sprint" in l["name"]]
+    sprint_options = [{"id": l["id"], "name": l["name"]} for l in get_sprint_lists(FOLDER_ID) if "Sprint" in l["name"]]
     saved_notes = get_saved_sprint_notes(sprint_options)
 
     return render_template(
@@ -149,7 +163,7 @@ def delete_entry():
     if not sprint_name:
         return "Sprint name missing", 400
 
-    sprint_id = next((s["id"] for s in get_lists_from_folder(FOLDER_ID) if s["name"] == sprint_name), None)
+    sprint_id = next((s["id"] for s in get_sprint_lists(FOLDER_ID) if s["name"] == sprint_name), None)
     folder_name = sprint_id or sprint_name.replace(" ", "_").replace("/", "-")
     folder_path = os.path.join(NOTES_BASE_DIR, folder_name)
 

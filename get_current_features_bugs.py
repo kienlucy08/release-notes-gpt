@@ -27,6 +27,11 @@ def get_lists_from_folder(folder_id):
     resp.raise_for_status()
     return resp.json().get("lists", [])
 
+def get_sprint_lists(folder_id):
+    """Returns only lists that look like sprint folders."""
+    all_lists = get_lists_from_folder(folder_id)
+    return [lst for lst in all_lists if "sprint" in lst["name"].lower()]
+
 def extract_date_range(list_name):
     match = re.search(r"\((\d{1,2}/\d{1,2})\s*-\s*(\d{1,2}/\d{1,2})\)", list_name)
     if not match:
@@ -60,7 +65,7 @@ def get_tasks_in_list(list_id):
     return tasks
 
 def assign_to_sprint_by_close_date(task, sprint_ranges):
-    for field in ["date_closed", "date_done", "start_date", "due_date", "date_updated"]:
+    for field in ["start_date", "date_closed", "date_done", "due_date", "date_updated"]:
         date_val = task.get(field)
         if date_val:
             try:
@@ -96,10 +101,8 @@ def get_all_sprint_tasks(sprint_lists):
         sprint_map[name] = closed
     return sprint_map, task_to_sprints
 
-# ---------------------- MAIN EXECUTION ----------------------
-
-if __name__ == "__main__":
-    sprint_lists = get_lists_from_folder(FOLDER_ID)
+def get_all_tasks_associated_with_sprints(folder_id):
+    sprint_lists = get_sprint_lists(folder_id)
     sprint_ranges = get_sprint_date_ranges(sprint_lists)
     sprint_names = {s["name"] for s in sprint_lists if "fieldsync" not in s["name"].lower()}
 
@@ -132,3 +135,51 @@ if __name__ == "__main__":
     print("\n📊 Total Closed Tasks by Sprint:")
     for s in sorted(sprint_closed):
         print(f"- {s}: {sprint_closed[s]} closed tasks")
+
+    # Combine and return final sprint task map
+    all_sprint_tasks = defaultdict(list, sprint_task_map)
+    for sprint, tasks in backfilled.items():
+        all_sprint_tasks[sprint].extend(tasks)
+
+    return all_sprint_tasks
+
+def get_tasks_for_sprint_id(folder_id, sprint_id):
+    sprint_lists = get_sprint_lists(folder_id)
+    sprint_ranges = get_sprint_date_ranges(sprint_lists)
+    sprint_names = {s["name"] for s in sprint_lists if "fieldsync" not in s["name"].lower()}
+    sprint_lookup = {s["id"]: s["name"] for s in sprint_lists}
+
+    target_sprint_name = sprint_lookup.get(sprint_id)
+    if not target_sprint_name:
+        return []
+
+    # Get all sprint tasks (closed and mapped)
+    sprint_task_map, task_to_sprints = get_all_sprint_tasks(sprint_lists)
+    fieldsync_tasks = get_tasks_in_list(FIELDSYNC_LIST_ID)
+
+    backfilled = defaultdict(list)
+    closed_labels = {"done", "complete", "closed", "released", "qa testing", "shipped"}
+
+    for t in fieldsync_tasks:
+        tid, status = t["id"], t.get("status", {})
+        name, stype = status.get("status", "").lower(), status.get("type", "").lower()
+        task_sprints = task_to_sprints.get(tid, [])
+        real = [s for s in task_sprints if s in sprint_names]
+        if (stype == "closed" or name in closed_labels) and (not real or (len(task_sprints) == 1 and "fieldsync" in task_sprints[0].lower())):
+            assigned = assign_to_sprint_by_close_date(t, sprint_ranges)
+            if assigned == target_sprint_name:
+                backfilled[assigned].append(t)
+
+    # Combine main and backfilled tasks
+    combined_tasks = sprint_task_map.get(target_sprint_name, []) + backfilled.get(target_sprint_name, [])
+    return combined_tasks
+
+
+
+# ---------------------- MAIN EXECUTION ----------------------
+
+if __name__ == "__main__":
+    sprint_task_data = get_all_tasks_associated_with_sprints(FOLDER_ID)
+    print("\n📊 Total Closed Tasks by Sprint:")
+    for sprint, tasks in sorted(sprint_task_data.items()):
+        print(f"- {sprint}: {len(tasks)} closed tasks")
