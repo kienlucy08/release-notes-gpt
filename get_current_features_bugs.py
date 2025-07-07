@@ -13,6 +13,7 @@ token = os.getenv("CLICK_UP_TOKEN")
 SPACE_ID = "90110749681"
 FOLDER_ID = "90115096402"
 FIELDSYNC_LIST_ID = "901110252032"
+FS_WEB_APP_USER_FEEDBACK_ID = "901109641571"
 
 HEADERS = {
     "Authorization": token,
@@ -174,12 +175,154 @@ def get_tasks_for_sprint_id(folder_id, sprint_id):
     combined_tasks = sprint_task_map.get(target_sprint_name, []) + backfilled.get(target_sprint_name, [])
     return combined_tasks
 
+def get_sprint_1_tasks():
+    """Return manually assigned tasks for Sprint 1 by ClickUp task IDs."""
+
+    sprint_1_task_ids = [
+        "868dfpnjp",
+        "868dfpnjb",
+        "868dfpnk9",
+        "868dfpmgu",
+        "868d22e6r",
+        "868dj2v1g",
+        "868cu9f1w",
+        "868dfpnk2",
+        "868dgczbm",
+        "868dfpmeh"  # <- "Allow null value" checkboxes
+    ]
+
+    # Pull from both FieldSync and Sprint 1 list to ensure we get everything
+    fieldsync_tasks = get_tasks_in_list(FIELDSYNC_LIST_ID)
+    sprint_1_list_tasks = get_tasks_in_list("901110337643")
+
+    combined_tasks = {t["id"]: t for t in fieldsync_tasks + sprint_1_list_tasks}
+
+    return [combined_tasks[tid] for tid in sprint_1_task_ids if tid in combined_tasks]
+
+def get_sprint_2_tasks():
+    """Return manually assigned tasks for Sprint 2 by ClickUp task IDs."""
+
+    sprint_2_task_ids = [
+        "868dfpmeh",
+        "868dmy308",
+        "868dgj0pg",
+        "868dfpnjr",
+        "868dfpmgn",
+        "868dn73t5",
+        "868cyeyy0",
+        "868dfpnjh",
+        "868drw8ud"
+    ]
+
+    # Pull from both FieldSync and Sprint 2 list to ensure we get everything
+    fieldsync_tasks = get_tasks_in_list(FIELDSYNC_LIST_ID)
+    user_feedback_tasks = get_tasks_in_list(FS_WEB_APP_USER_FEEDBACK_ID)
+    sprint_2_list_tasks = get_tasks_in_list("901110499251")
+
+    combined_tasks = {t["id"]: t for t in fieldsync_tasks + sprint_2_list_tasks + user_feedback_tasks}
+
+    return [combined_tasks[tid] for tid in sprint_2_task_ids if tid in combined_tasks]
+
+def get_sprint_3_tasks():
+    """Return manually assigned tasks for Sprint 3 by ClickUp task IDs."""
+
+    sprint_3_task_ids = [
+        "868drynrb",
+        "868dyc431",
+        "868drgmn0",
+        "868dxrp7x",
+        "868dznu5z"
+    ]
+
+    # Pull from both FieldSync and Sprint 3 list to ensure we get everything
+    fieldsync_tasks = get_tasks_in_list(FIELDSYNC_LIST_ID)
+    sprint_3_list_tasks = get_tasks_in_list("901110682077")
+
+    combined_tasks = {t["id"]: t for t in fieldsync_tasks + sprint_3_list_tasks}
+
+    return [combined_tasks[tid] for tid in sprint_3_task_ids if tid in combined_tasks]
+
+def get_sprint_4_tasks():
+    """Return manually assigned tasks for Sprint 4 by ClickUp task IDs."""
+
+    sprint_4_task_ids = [
+        "868dfpmgd",
+        "868e7uj2e",
+        "868e7ukh1",
+        "868cr2kqb",
+        "868ecwwbd",
+        "868ecx8gd",
+        "868dzc2rj",
+        "868dzawe8",
+        "868dznu46",
+        "868e7p66t",
+        "868e7nff7",
+        "868e7d6vr"
+    ]
+
+    # Pull from both FieldSync and Sprint 1 list to ensure we get everything
+    fieldsync_tasks = get_tasks_in_list(FIELDSYNC_LIST_ID)
+    sprint_4_list_tasks = get_tasks_in_list("901110912147")  # Sprint 1 list ID
+
+    combined_tasks = {t["id"]: t for t in fieldsync_tasks + sprint_4_list_tasks}
+
+    return [combined_tasks[tid] for tid in sprint_4_task_ids if tid in combined_tasks]
+
+def get_sprint_5_tasks():
+    """Return manually assigned tasks for Sprint 5 by ClickUp task IDs."""
+
+    sprint_5_task_ids = [
+        "868edehpe",
+        "868e1auhc",
+        "868eaxjpb",
+        "868d23ht7",
+        "868ef6tm3",
+        "868efvah9",
+        "868ee72xt",
+        "868efta6g",
+        "868ef7b9y"
+    ]
+
+    # Pull from both FieldSync and Sprint 1 list to ensure we get everything
+    fieldsync_tasks = get_tasks_in_list(FIELDSYNC_LIST_ID)
+    sprint_5_list_tasks = get_tasks_in_list("901111066665")  # Sprint 1 list ID
+
+    combined_tasks = {t["id"]: t for t in fieldsync_tasks + sprint_5_list_tasks}
+
+    return [combined_tasks[tid] for tid in sprint_5_task_ids if tid in combined_tasks]
 
 
 # ---------------------- MAIN EXECUTION ----------------------
 
 if __name__ == "__main__":
-    sprint_task_data = get_all_tasks_associated_with_sprints(FOLDER_ID)
-    print("\n📊 Total Closed Tasks by Sprint:")
-    for sprint, tasks in sorted(sprint_task_data.items()):
-        print(f"- {sprint}: {len(tasks)} closed tasks")
+    # sprint_task_data = get_all_tasks_associated_with_sprints(FOLDER_ID)
+    # print("\n📊 Total Closed Tasks by Sprint:")
+    # for sprint, tasks in sorted(sprint_task_data.items()):
+    #     print(f"- {sprint}: {len(tasks)} closed tasks")
+    # sprint_1_tasks = get_sprint_1_tasks()
+    # print("\n📋 Sprint 1 Tasks:")
+    # for task in sprint_1_tasks:
+    #     print(f"- {task['name']}")
+
+    # sprint_2_tasks = get_sprint_2_tasks()
+    # print("\n📋 Sprint 2 Tasks:")
+    # for task in sprint_2_tasks:
+    #     print(f"- {task['name']}")
+
+    # sprint_3_tasks = get_sprint_3_tasks()
+    # print("\n📋 Sprint 3 Tasks:")
+    # for task in sprint_3_tasks:
+    #     print(f"- {task['name']}")
+
+    # sprint_4_tasks = get_sprint_4_tasks()
+    # print("\n📋 Sprint 4 Tasks:")
+    # for task in sprint_4_tasks:
+    #     print(f"- {task['name']}")
+
+    # sprint_5_tasks = get_sprint_5_tasks()
+    # print("\n📋 Sprint 5 Tasks:")
+    # for task in sprint_5_tasks:
+    #     print(f"- {task['name']}")
+
+    FOLDER_ID = "90115096402"
+    TEST_SPRINT_ID = "901110499251"  # ← replace with actual Sprint 1–5 list ID from ClickUp

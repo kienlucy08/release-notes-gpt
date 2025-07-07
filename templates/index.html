@@ -25,45 +25,52 @@
                         </option>
                         {% endfor %}
                     </select>
+
+                    <!--Automatic or manual task pulling mode-->
+                    <label for="mode">Task Entry Mode:</label>
+                    <div class="radio-group">
+                        <input type="radio" name="entry_mode" id="manual_mode" value="manual" checked>
+                        <label for="manual_mode">Manual</label>
+                        <input type="radio" name="entry_mode" id="auto_mode" value="auto">
+                        <label for="auto_mode">Auto from Sprint</label>
+                    </div>
                     
-                    <select name="task" id="task-dropdown" class="input-select">
+                    <div id="auto-task-select" style="display:none;">
                         <!--Pull sprints from clickup-->
-                        <option value="">
-                            Select a sprint to load tasks...
-                        </option>
-                    </select>
+                        <label>Select Tasks to Include:</label>
+                        <ul id="task-checklist" class="task-list"></ul>
+                    </div>
 
-                    <!--Tag Type-->
-                    <label for="type">Tag</label>
-                    <select name="type" id="primary-select" class="input-select primary-select"
-                        onchange="toggleSecondaryType(this)">
-                        <option value="Feature">Feature</option>
-                        <option value="Bug">Bug</option>
-                        <option value="Enhancement">Enhancement</option>
-                        <option value="DevOps">DevOps</option>
-                        <option value="Combination">Combination</option>
-                    </select>
+                    <div id="manual-entry-fields">
+                        <!--Tag Type-->
+                        <label for="type">Tag</label>
+                        <select name="type" id="primary-select" class="input-select primary-select" onchange="toggleSecondaryType(this)">
+                            <option value="Feature">Feature</option>
+                            <option value="Bug">Bug</option>
+                            <option value="Enhancement">Enhancement</option>
+                            <option value="DevOps">DevOps</option>
+                            <option value="Combination">Combination</option>
+                        </select>
 
-                    <!--Combination sub-type dropdowns-->
-                    <label for="type-hidden" class="type-hidden-label" style="display: none;">Specify Your Combination
-                        of
-                        Tags</label>
-                    <select name="type-hidden-1" class="input-select-hidden secondary-select">
-                        <option value="Feature">Feature</option>
-                        <option value="Bug">Bug</option>
-                        <option value="Enhancement">Enhancement</option>
-                        <option value="DevOps">DevOps</option>
-                    </select>
-                    <select name="type-hidden-2" class="input-select-hidden secondary-select">
-                        <option value="Feature">Feature</option>
-                        <option value="Bug">Bug</option>
-                        <option value="Enhancement">Enhancement</option>
-                        <option value="DevOps">DevOps</option>
-                    </select>
+                        <!--Combination sub-type dropdowns-->
+                        <label for="type-hidden" class="type-hidden-label" style="display: none;">Specify Your Combination of Tags</label>
+                        <select name="type-hidden-1" class="input-select-hidden secondary-select">
+                            <option value="Feature">Feature</option>
+                            <option value="Bug">Bug</option>
+                            <option value="Enhancement">Enhancement</option>
+                            <option value="DevOps">DevOps</option>
+                        </select>
+                        <select name="type-hidden-2" class="input-select-hidden secondary-select">
+                            <option value="Feature">Feature</option>
+                            <option value="Bug">Bug</option>
+                            <option value="Enhancement">Enhancement</option>
+                            <option value="DevOps">DevOps</option>
+                        </select>
 
-                    <!--Description-->
-                    <label for="description">Description</label>
-                    <textarea name="description" class="input-area" placeholder="Enter description..."></textarea>
+                        <!--Description-->
+                        <label for="description">Description</label>
+                        <textarea name="description" class="input-area" placeholder="Enter description..."></textarea>
+                    </div>
                 </div>
             </div>
 
@@ -217,37 +224,72 @@
                 sub.style.display = show ? "block" : "none";
             });
         }
+
         document.addEventListener("DOMContentLoaded", function () {
-        const sprintSelect = document.querySelector("select[name='sprint']");
-        const taskDropdown = document.getElementById("task-dropdown");
+            const sprintSelect = document.querySelector("select[name='sprint']");
+            const autoMode = document.getElementById("auto_mode");
+            const manualMode = document.getElementById("manual_mode");
+            const autoTaskDiv = document.getElementById("auto-task-select");
+            const taskChecklist = document.getElementById("task-checklist");
+            const manualFields = document.getElementById("manual-entry-fields");
 
-        sprintSelect.addEventListener("change", function () {
-            const sprintId = this.value;
-            taskDropdown.innerHTML = "<option>Loading tasks...</option>";
-
-            fetch(`/get_tasks?sprint_id=${sprintId}`)
-                .then(response => response.json())
-                .then(tasks => {
-                    taskDropdown.innerHTML = ""; // Clear existing options
-                    if (tasks.length === 0) {
-                        taskDropdown.innerHTML = "<option>No tasks found for this sprint.</option>";
-                    } else {
+            function loadTasksForSprint(sprintId) {
+                if (!sprintId) return;
+                fetch(`/get_tasks?sprint_id=${sprintId}`)
+                    .then(res => res.json())
+                    .then(tasks => {
+                        taskChecklist.innerHTML = "";
+                        if (!tasks.length) {
+                            taskChecklist.innerHTML = "<li>No tasks found for this sprint.</li>";
+                            return;
+                        }
                         tasks.forEach(task => {
-                            const opt = document.createElement("option");
-                            opt.value = task.id;
-                            opt.textContent = task.name;
-                            taskDropdown.appendChild(opt);
+                            const item = document.createElement("li");
+                            item.innerHTML = `
+                                <label>
+                                    <input type="checkbox" name="selected_tasks" value="${task.id}" checked>
+                                    ${task.name}
+                                </label>`;
+                            taskChecklist.appendChild(item);
                         });
-                    }
-                })
-                .catch(error => {
-                    console.error("Failed to load tasks:", error);
-                    taskDropdown.innerHTML = "<option>Error loading tasks.</option>";
-                });
-        });
-    });
-    </script>
+                    })
+                    .catch(err => {
+                        console.error("Error loading tasks:", err);
+                        taskChecklist.innerHTML = "<li>Error loading tasks. Check console.</li>";
+                    });
+            }
 
+            // Toggle visibility based on entry mode
+            document.querySelectorAll("input[name='entry_mode']").forEach(radio => {
+                radio.addEventListener("change", function () {
+                    const isAuto = autoMode.checked;
+                    autoTaskDiv.style.display = isAuto ? "block" : "none";
+                    manualFields.style.display = isAuto ? "none" : "block";
+
+                    if (isAuto && sprintSelect.value) {
+                        loadTasksForSprint(sprintSelect.value);
+                    }
+                });
+            });
+
+            // If sprint is changed while in auto mode, load tasks
+            sprintSelect.addEventListener("change", function () {
+                if (autoMode.checked) {
+                    loadTasksForSprint(this.value);
+                }
+            });
+
+            // Load tasks on initial load if auto is selected
+            if (autoMode.checked && sprintSelect.value) {
+                autoTaskDiv.style.display = "block";
+                manualFields.style.display = "none";
+                loadTasksForSprint(sprintSelect.value);
+            } else {
+                autoTaskDiv.style.display = "none";
+                manualFields.style.display = "block";
+            }
+        });
+    </script>
 </body>
 
 </html>

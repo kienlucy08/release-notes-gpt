@@ -103,6 +103,68 @@ body {
     cursor: pointer;
 }
 
+/*Style the task checklist container*/
+.task-list {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+.task-list li {
+  margin-bottom: 12px;
+  padding: 10px 12px;
+  background-color: #f8fafc; /* subtle background */
+  border: 1px solid #cbd5e1; /* light border */
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+
+/* Style the checkbox itself */
+.task-list input[type="checkbox"] {
+  accent-color: #4338CA; /* Your brand blue */
+  width: 16px;
+  height: 16px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+/* Highlight on hover */
+.task-list li:hover {
+  background-color: #e2e8f0;
+}
+
+.task-list label {
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+/* Container for radio options */
+.radio-group {
+  margin-top: 16px;
+  margin-bottom: 16px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+/* Style individual radio buttons */
+.radio-group input[type="radio"] {
+  margin-right: 8px;
+  accent-color: #4338CA; /* Optional: matches your color palette */
+  cursor: pointer;
+}
+
+/* Style the labels beside radio buttons */
+.radio-group label {
+  font-size: 16px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+}
+
 /* ===============================
    Buttons
 ================================== */

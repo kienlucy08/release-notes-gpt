@@ -2,9 +2,9 @@
 import os
 from datetime import datetime
 from flask import jsonify
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, current_app
 from generate_release_note import generate_release_notes_chunked
-from get_current_features_bugs import get_sprint_lists, get_all_tasks_associated_with_sprints, get_tasks_for_sprint_id
+from get_current_features_bugs import get_sprint_lists, get_tasks_for_sprint_id, get_sprint_1_tasks, get_sprint_2_tasks, get_sprint_3_tasks, get_sprint_4_tasks, get_sprint_5_tasks
 
 NOTES_BASE_DIR = "static/saved_notes"
 FOLDER_ID = "90115096402"
@@ -16,6 +16,23 @@ app = Flask(__name__)
 Helper functions
 
 """
+
+def get_tasks_by_sprint_id(folder_id, sprint_id):
+    sprint_name_lookup = {s["id"]: s["name"] for s in get_sprint_lists(folder_id)}
+    name = sprint_name_lookup.get(sprint_id, "").lower()
+
+    if "sprint 1" in name:
+        return get_sprint_1_tasks()
+    elif "sprint 2" in name:
+        return get_sprint_2_tasks()
+    elif "sprint 3" in name:
+        return get_sprint_3_tasks()
+    elif "sprint 4" in name:
+        return get_sprint_4_tasks()
+    elif "sprint 5" in name:
+        return get_sprint_5_tasks()
+    else:
+        return get_tasks_for_sprint_id(folder_id, sprint_id)
 
 def save_release_notes(content, sprint_name, filename):
     """
@@ -77,32 +94,59 @@ def index():
     saved_file_path = None
     was_chunked = False
     all_sprint_tasks = []
+    sprint_name = request.form.get("sprint")
+    entry_mode = request.form.get("entry_mode")
 
     # Get sprint options from ClickUp
     all_lists = get_sprint_lists(FOLDER_ID)
     sprint_options = [{"id": sprint["id"], "name": sprint["name"]}
                       for sprint in all_lists if "Sprint" in sprint["name"]]
-    sprint_name =request.form.get("sprint")
 
     if request.method == "POST":
-        types = request.form.getlist("type")
-        descriptions = request.form.getlist("description")
-        entries = [f"{t}: {d.strip()}" for t, d in zip(types, descriptions) if d.strip()]
+        if entry_mode == "auto":
+            selected_task_ids = request.form.getlist("selected_tasks")
+            all_sprint_tasks = get_tasks_by_sprint_id(FOLDER_ID, sprint_name)
+            chosen_tasks = [t for t in all_sprint_tasks if t["id"] in selected_task_ids]
 
+            # Convert tasks to release note entries
+            for task in chosen_tasks:
+                tags = [t.get("name", "").lower() for t in task.get("tags", [])]
+
+                if "bug" in tags:
+                    tag = "Bug"
+                elif "devops" in tags:
+                    tag = "DevOps"
+                elif "enhancement" in tags:
+                    tag = "Enhancement"
+                elif "feature" in tags:
+                    tag = "Feature"
+                else:
+                    tag = "Feature"  # Fallback/default
+
+                task_name = task.get("name", "Untitled Task").strip()
+                description = task.get("description", "").strip()
+                entries.append(f"{tag}: {task_name}\n{description}:\n")
+
+
+        else:  # Manual entry mode
+            types = request.form.getlist("type")
+            descriptions = request.form.getlist("description")
+            entries = [f"{t}: {d.strip()}" for t, d in zip(types, descriptions) if d.strip()]
+            # Also load sprint tasks in case JS needs them for dynamic render
+            if sprint_name:
+                all_sprint_tasks = get_tasks_by_sprint_id(FOLDER_ID, sprint_name)
+
+        # Generate notes
         if entries and sprint_name:
             results, was_chunked = generate_release_notes_chunked(entries)
-            # Fetch all sprint tasks once
-            all_sprint_tasks = get_tasks_for_sprint_id(FOLDER_ID, sprint_name)
-            # Determine file name
+
             custom_filename = request.form.get("custom_filename", "").strip()
             if custom_filename:
-                # Sanitize input to avoid special characters or path issues
                 safe_filename = "".join(c for c in custom_filename if c.isalnum() or c in ('_', '-')).rstrip()
                 filename = f"{safe_filename}.txt"
             else:
                 filename = f"release_notes_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt"
-            
-            # Save note to file
+
             saved_file_path = save_release_notes(results, sprint_name, filename)
 
     saved_notes = get_saved_sprint_notes(sprint_options)
@@ -126,7 +170,7 @@ def get_tasks():
     if not sprint_id:
         return jsonify([])
 
-    tasks = get_tasks_for_sprint_id(FOLDER_ID, sprint_id)
+    tasks = get_tasks_by_sprint_id(FOLDER_ID, sprint_id)
     return jsonify([{"id": t["id"], "name": t["name"]} for t in tasks])
 
 
