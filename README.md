@@ -34,19 +34,25 @@ A Flask web app to help teams generate, regenerate, and save professional releas
 ## Project Structure
 
 ```bash
-FieldSync-ReleaseNotes/
+Release-Notes-GPT/
 │
 ├── app.py # Main Flask app
-├── generate_release_note.py # GPT generation & chunking logic
-├── get_current_features_bugs.py # ClickUp API integration for sprint names
+├── generate_notes.py # GPT generation & chunking logic
+├── fetch_clickup_folders_tasks.py # ClickUp API integration for sprint names and tasks for FieldSync Software Development Folders
+├── fetch_clickup_folders_tasks_product.py # Clickup API integration for sprint names and tasks for Product Folders
 ├── .env # Your OpenAI API key (not committed)
 │
 ├── templates/
 │ └── index.html # Main page template
 │
 ├── static/
-│ ├── styles.css # App styling
-│ └── saved_notes/ # Auto-created sprint folders with .txt files
+│   ├── css/
+│   │   └── styles.css # All styles go here
+│   ├── js/
+│   │   └── script.js # All frontend JS logic here
+│   └── saved_notes/
+│       └── <sprint_id>/ # All saved release notes organized by sprint ID   
+│           └── notes.txt     
 │
 ├── requirements.txt
 └── README.md
@@ -55,7 +61,7 @@ FieldSync-ReleaseNotes/
 
 ---
 
-## ⚙️ Setup Instructions
+## Setup Instructions
 
 ### 1. Clone this Repo & Navigate to it
 

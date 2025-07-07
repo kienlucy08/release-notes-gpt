@@ -245,6 +245,29 @@ body {
 }
 
 /* ===============================
+   Spinners
+================================== */
+
+.spinner {
+    font-size: 16px;
+    color: #4338CA;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.spinner::before {
+    content: "";
+    width: 16px;
+    height: 16px;
+    border: 2px solid #4338CA;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+}
+
+/* ===============================
    Items and Output Display
 ================================== */
 .item-card {

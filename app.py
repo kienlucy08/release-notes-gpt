@@ -3,8 +3,8 @@ import os
 from datetime import datetime
 from flask import jsonify
 from flask import Flask, render_template, request, redirect, url_for, current_app
-from generate_release_note import generate_release_notes_chunked
-from get_current_features_bugs import get_sprint_lists, get_tasks_for_sprint_id, get_sprint_1_tasks, get_sprint_2_tasks, get_sprint_3_tasks, get_sprint_4_tasks, get_sprint_5_tasks
+from generate_notes import generate_release_notes_chunked
+from fetch_clickup_folders_tasks import get_sprint_lists, get_tasks_for_sprint_id, get_sprint_1_tasks, get_sprint_2_tasks, get_sprint_3_tasks, get_sprint_4_tasks, get_sprint_5_tasks
 
 NOTES_BASE_DIR = "static/saved_notes"
 FOLDER_ID = "90115096402"
@@ -133,7 +133,7 @@ def index():
             for tag, desc in zip(extra_types, extra_descriptions):
                 if desc.strip():
                     entries.append(f"{tag}: {desc.strip()}")
-                    
+
         else:  # Manual entry mode
             types = request.form.getlist("type")
             descriptions = request.form.getlist("description")
