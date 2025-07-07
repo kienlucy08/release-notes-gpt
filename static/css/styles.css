@@ -251,6 +251,22 @@ body {
     background-color: #EF4444;
 }
 
+.button-third {
+    background-color: #E2E8F0;
+    color: #1E293B;
+    padding: 5px 5px;
+    border-radius: 8px;
+    border: none;
+    font-weight: 200;
+    margin-right: 12px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.button-third:hover {
+    background-color: #CBD5E1;
+}
+
 /* ===============================
    Spinners
 ================================== */

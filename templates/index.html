@@ -191,7 +191,7 @@
                     <!--Go through all files in the sprint folder-->
                     {% for file in sprint.files %}
                     <!--Display files in a list format-->
-                    <li style="display: flex; align-items: center; gap: 10px;">
+                    <li style="display: flex; align-items: center; gap: 10px; margin-top: 10px;">
                         <span class="file-name">
                             <a href="{{ url_for('static', filename='saved_notes/' ~ sprint.folder ~ '/' ~ file) }}" target="_blank">{{ file }}</a>
                         </span>
@@ -207,15 +207,15 @@
                             data-extension=".txt"
                             style="width: 120px; font-size: 13px; padding: 3px 5px;" 
                             onkeydown="if(event.key==='Enter'){ this.form.requestSubmit(); event.preventDefault(); }" />
-                        <button type="submit" class="button-secondary">✅</button>
+                        <button type="submit" class="button-third">✅</button>
                     </form>
 
-                    <button type="button" class="button-secondary" onclick="toggleRename(this)">✏️</button>
+                    <button type="button" class="button-third" onclick="toggleRename(this)">✏️</button>
 
                     <form method="POST" action="/delete_single_note" style="display:inline;">
                         <input type="hidden" name="sprint_folder" value="{{ sprint.folder }}">
                         <input type="hidden" name="file_name" value="{{ file }}">
-                        <button type="submit" class="button-secondary" onclick="return confirm('Delete this individual note?')">🗑️</button>
+                        <button type="submit" class="button-third" onclick="return confirm('Delete this individual note?')">🗑️</button>
                     </form>
                     </li>
                     {% endfor %}
