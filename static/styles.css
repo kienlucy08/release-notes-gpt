@@ -165,6 +165,26 @@ body {
   align-items: center;
 }
 
+.manual-task-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.extra-type {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #CBD5E1;
+}
+
+.extra-description {
+  flex: 1;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #CBD5E1;
+}
+
 /* ===============================
    Buttons
 ================================== */

@@ -127,7 +127,13 @@ def index():
                 description = task.get("description", "").strip()
                 entries.append(f"{tag}: {task_name}\n{description}:\n")
 
+            extra_types = request.form.getlist("extra_type")
+            extra_descriptions = request.form.getlist("extra_description")
 
+            for tag, desc in zip(extra_types, extra_descriptions):
+                if desc.strip():
+                    entries.append(f"{tag}: {desc.strip()}")
+                    
         else:  # Manual entry mode
             types = request.form.getlist("type")
             descriptions = request.form.getlist("description")
