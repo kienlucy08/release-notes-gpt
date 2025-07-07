@@ -20,6 +20,31 @@ HEADERS = {
     "accept": "application/json"
 }
 
+IGNORED_TASK_IDS = {
+    # Sprint 1
+    "868dfpnjp", "868dfpnjb", "868dfpnk9", "868dfpmgu", "868d22e6r",
+    "868dj2v1g", "868cu9f1w", "868dfpnk2", "868dgczbm", "868dfpmeh",
+    
+    # Sprint 2
+    "868dmy308", "868dgj0pg", "868dfpnjr", "868dfpmgn", "868dn73t5",
+    "868cyeyy0", "868dfpnjh", "868drw8ud",
+
+    # Sprint 3
+    "868drynrb", "868dyc431", "868drgmn0", "868dxrp7x", "868dznu5z",
+
+    # Sprint 4
+    "868dfpmgd", "868e7uj2e", "868e7ukh1", "868cr2kqb", "868ecwwbd",
+    "868ecx8gd", "868dzc2rj", "868dzawe8", "868dznu46", "868e7p66t",
+    "868e7nff7", "868e7d6vr",
+
+    # Sprint 5
+    "868edehpe", "868e1auhc", "868eaxjpb", "868d23ht7", "868ef6tm3",
+    "868efvah9", "868ee72xt", "868efta6g", "868ef7b9y",
+
+    # Other
+    "868dfpmgj", "868dfpmen"
+}
+
 # ---------------------- API FUNCTIONS ----------------------
 
 def get_lists_from_folder(folder_id):
@@ -162,7 +187,11 @@ def get_tasks_for_sprint_id(folder_id, sprint_id):
     closed_labels = {"done", "complete", "closed", "released", "qa testing", "shipped"}
 
     for t in fieldsync_tasks:
-        tid, status = t["id"], t.get("status", {})
+        tid = t["id"]
+        if tid in IGNORED_TASK_IDS:
+            continue
+
+        status = t.get("status", {})
         name, stype = status.get("status", "").lower(), status.get("type", "").lower()
         task_sprints = task_to_sprints.get(tid, [])
         real = [s for s in task_sprints if s in sprint_names]
@@ -171,9 +200,15 @@ def get_tasks_for_sprint_id(folder_id, sprint_id):
             if assigned == target_sprint_name:
                 backfilled[assigned].append(t)
 
-    # Combine main and backfilled tasks
-    combined_tasks = sprint_task_map.get(target_sprint_name, []) + backfilled.get(target_sprint_name, [])
-    return combined_tasks
+    # Filter ignored tasks from mapped sprint tasks too
+    mapped_tasks = [
+        t for t in sprint_task_map.get(target_sprint_name, [])
+        if t["id"] not in IGNORED_TASK_IDS
+    ]
+
+    backfilled_tasks = backfilled.get(target_sprint_name, [])
+
+    return mapped_tasks + backfilled_tasks
 
 def get_sprint_1_tasks():
     """Return manually assigned tasks for Sprint 1 by ClickUp task IDs."""

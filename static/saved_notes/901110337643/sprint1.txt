@@ -1,0 +1,99 @@
+**Bug: Handle Filenames with Spaces on QA Uploads**  
+Improve UX/UI  
+Fixes an issue where filenames with spaces are not handled correctly when uploading images in the QA interface.  
+*Details:*  
+• Dragging and dropping or uploading a file with spaces in the filename causes the image preview to not show up correctly.  
+*Impact to Users:*  
+• Users can now upload images with filenames containing spaces without any display issues.
+
+**Bug: Structure Overview > Top Beacon Always "No"**  
+Improve UX/UI  
+Addresses the incorrect display of "No" for the Top Beacon field in the Structure Overview section of QC Editor UI.  
+*Details:*  
+• The UI always shows "No" for the Top Beacon field, even when the stored value is "yes".  
+*Impact to Users:*  
+• Ensures that the UI accurately displays the stored data for the Top Beacon field.
+
+**Bug: Drop Target Photo Uploads Increment Save Count Once Per Save**  
+Improve UX/UI  
+Fixes a bug where using drop targets for photo uploads only increments the save count once per save, causing discrepancies in the pending saves count.  
+*Details:*  
+• Uploading multiple photos without saving in between does not accurately reflect the number of uploads.  
+*Impact to Users:*  
+• Users can now upload photos using drop targets with the correct increment in the pending saves count.
+
+**Bug: Make Queue Status Color Compatible with Dark Mode**  
+Improve UX/UI  
+Adjusts the queue status background colors/loading bars for better visibility in dark mode.  
+*Details:*  
+• The background colors/loading bars are not visually appealing in dark mode.  
+*Impact to Users:*  
+• Enhances the visibility and contrast of queue status colors in dark mode.
+
+**DevOps: Streamline Developer Experience for Cross-Platform Development**  
+System Hardening  
+Efforts to refine and clean up tooling for cross-platform development on Windows, macOS, and Linux, including resolving issues with scripting.  
+*Note: This might be too complicated for a field tech to understand and isn’t necessary for the company release notes. However, it is important to acknowledge for software development updates.*
+
+---
+
+**Survey123 Conditionality Gap Closure**  
+*Improvement UX/UI System Hardening* | QC Editor, Survey Data Storage  
+Developers will sync the display logic in QC Editor for Compound Survey, Guy Facilities Survey, and Structure Climb Survey with Survey123 forms. This will prevent null values causing issues and ensure data accuracy. New fields will be added as needed, with potential database columns for data storage.  
+*Details:*  
+- Ensure QC Editor matches Survey123's conditional display logic accurately.
+- Implement safeguards against null data causing errors or corruption.
+- Add required fields and logic for data parity between application and surveys.
+- Update database schema to include additional fields for storing new data.
+*Impact to Users:*  
+- Consistent behavior between QC Editor and Survey123 forms.
+- Reduced risk of errors or data corruption.
+- Improved data integrity and completeness.
+
+**Implement ClickUp-compatible Bug Reporting System**  
+*Improve UX/UI* | Web Application, Bug Reporting  
+A ClickUp form has been embedded in the web app for users to report issues, bugs, and missing content easily. Users can access the Give Feedback page to provide feedback through the form.  
+*Details:*  
+- Create a Give Feedback menu item in the web application.
+- Embed the ClickUp form in the Give Feedback page on app.fieldsync.io and test.fieldsync.io.
+*Impact to Users:*  
+- Users can easily report issues and provide feedback through the embedded ClickUp form.
+- Centralized location for user feedback to streamline issue resolution.
+- Improved communication between users and the engineering team.
+
+*Note: The ClickUp-compatible bug reporting system implementation is focused on the backend for web application improvement and may not be directly visible to end users.*
+
+---
+
+**Bug: Allocating Surveys Pagination Issue**  
+Improve UX/UI | Survey Allocation  
+Allocating surveys causes the Unallocated Surveys data table to reset to the first page, regardless of the current page, leading to user inconvenience.
+*Details:*  
+• Unallocated Surveys table resets to the first page after survey allocation.  
+• Issue occurs when allocating surveys not on the first page of the table.  
+*Impact to Users:*  
+• Users are taken back to the first page, disrupting workflow.  
+• Inconvenience when managing and allocating multiple surveys.
+
+**Bug: Import Error on Templates Page**  
+Improve UX/UI | Survey Import  
+Users encounter an error when trying to import survey payloads on the Templates page, restricting the file type to docx only.
+*Details:*  
+• Importing survey payloads on Templates page results in a docx file restriction error.  
+• Users are unable to import survey payloads as intended.  
+*Impact to Users:*  
+• Users face limitations importing survey payloads, affecting data management efficiency.  
+• Error message leads to confusion and hinders the import process.
+
+**Feature: "Allow Null Value" Checkboxes**  
+Improve UX/UI | Data Processing  
+Introducing checkboxes to address null value issues in specific survey fields, providing a manual bypass for fields that logically remain empty.
+*Details:*  
+• Checkbox "Elevation not applicable" added to Structure survey > Deficiency records.  
+• Checkbox "Clear distance not applicable" added to Structure survey > Base and Foundation records.  
+• Checkbox "Generator output inaccessible by field technician" added to Compound survey > Generator records.  
+*Impact to Users:*  
+• Field and QC technicians can prevent data processing issues caused by null values.  
+• Enhances data accuracy and reporting reliability.  
+
+*Note: The bug ticket will be updated accordingly by the UAT tester for this task.*
