@@ -103,6 +103,13 @@ body {
     cursor: pointer;
 }
 
+.input-rename {
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid #CBD5E1;
+    font-size: 14px;
+}
+
 /*Style the task checklist container*/
 .task-list {
     list-style-type: none;
@@ -286,6 +293,26 @@ body {
     border-left: 6px solid #4338CA;
     white-space: pre-wrap;
     font-family: 'Segoe UI', sans-serif;
+}
+
+/* Warning badge */
+.badge-warning {
+    background-color: #FEF9C3; /* light yellow */
+    padding: 12px 16px;
+    border-radius: 8px;
+    border-left: 6px solid #F59E0B; /* amber-500 */
+    font-family: 'Segoe UI', sans-serif;
+    margin-bottom: 12px;
+}
+
+/* Success badge (green tint) */
+.badge-success {
+    background-color: #DCFCE7; /* light green */
+    padding: 12px 16px;
+    border-radius: 8px;
+    border-left: 6px solid #22C55E; /* green-500 */
+    font-family: 'Segoe UI', sans-serif;
+    margin-bottom: 12px;
 }
 
 /* ===============================

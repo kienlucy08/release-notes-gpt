@@ -1,0 +1,42 @@
+**Feature: Add Site ID Column to Site Visits Dashboard tab**  
+Improve UX/UI | Dashboard Tables  
+Introduced a new column for Site ID (SiteIdentifier) in the Site Visits dashboard tab, improving visibility and searchability for key location identifiers.  
+*Details:*  
+- Added SiteIdentifier as a dedicated column in the Site Visits table.
+- Enabled full support for filtering and sorting on this column.
+- Ensures alignment with other tables where Site ID is a core reference field.
+*Impact to Users:*  
+- Users can now quickly locate and differentiate Site Visits based on Site ID.
+- Improves dashboard consistency and reduces the need to cross-reference external datasets for identifiers.
+- Streamlines workflows for users managing multiple site-level records.
+
+**Bug: Dashboard Refactor**  
+Improve UX/UI | Dashboard Tables  
+Resolved issues with NaN displaying during pagination, data fetching before component initialization causing various side effects, and lag when typing in filter input fields.  
+*Details:*  
+- Fixed NaN display during pagination.
+- Improved data fetching to prevent side effects like loading animations sticking, URL filters not updating properly, wrong page numbers, and styling bugs.
+- Enhanced filter functionality to work on all datatable columns by default.
+*Impact to Users:*  
+- Improved dashboard performance and usability.
+- Users will experience smoother interactions with filter input fields.
+- Overall code cleanup for better scalability and maintenance.
+
+**Feature & Bug: Scans File Structure Alignment**  
+Improve UX/UI | Data Management  
+Updated scan page/table to align with correct file structure content/<org-id>/<user-id>/<scan>/<scan-id> for consistency and organization.  
+*Details:*  
+- Refactored scan storage path to match standard file structure.
+*Impact to Users:*  
+- Ensures scans follow a consistent and organized file structure.
+- Simplifies file management and retrieval for users.
+
+**Bug: Cannot Save Site Visit Parameters**  
+Improve UX/UI | Site Visits  
+Fixed a defect preventing the saving of parameters edited within a site visit.  
+*Details:*  
+- Resolved issue where changes to site visit parameters were not saved.
+*Impact to Users:*  
+- Users can now successfully save changes made to site visit parameters.
+
+*Note: The backend-focused bug fixes related to copy-paste image processing have been addressed but are not included in the user-facing release notes.*

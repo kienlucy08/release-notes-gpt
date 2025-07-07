@@ -181,3 +181,36 @@ function toggleSecondaryType(select) {
         sub.style.display = show ? "block" : "none";
     });
 }
+
+// Handling renaming sprint release notes files
+function toggleRename(button) {
+    const listItem = button.closest("li");
+    const span = listItem.querySelector(".file-name");
+    const form = listItem.querySelector(".rename-form");
+
+    // Hide display span and show form
+    span.style.display = "none";
+    form.style.display = "flex";
+
+    // Focus input
+    const input = form.querySelector(".input-rename");
+    input.focus();
+    input.setSelectionRange(input.value.length, input.value.length);
+}
+
+function submitRename(button) {
+    const form = button.closest("form");
+    const input = form.querySelector(".input-rename");
+    const newName = input.value.trim();
+    const extension = input.dataset.extension || ".txt";
+
+    if (!newName) {
+        alert("Please enter a valid filename.");
+        return false;
+    }
+
+    // Set full new name with extension
+    form.querySelector("input[name='new_name']").value = newName + extension;
+    return true;
+}
+

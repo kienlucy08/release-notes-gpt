@@ -258,6 +258,21 @@ def delete_all_notes():
         return redirect(url_for("index"))
     except Exception as e:
         return f"Error deleting release notes: {e}", 500
+    
+@app.route("/rename_note", methods=["POST"])
+def rename_note():
+    sprint_folder = request.form["sprint_folder"]
+    old_name = request.form["old_name"]
+    new_name = request.form["new_name"]
+
+    old_path = os.path.join("static", "saved_notes", sprint_folder, old_name)
+    new_path = os.path.join("static", "saved_notes", sprint_folder, new_name)
+
+    try:
+        os.rename(old_path, new_path)
+        return redirect(url_for("index")) 
+    except Exception as e:
+        return f"Rename failed: {e}", 500
 
 
 if __name__ == "__main__":

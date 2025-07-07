@@ -1,0 +1,99 @@
+**Granular Survey Review-Tracking Enhancement**  
+*Improve UX/UI* | *Field Enablement*  
+Enhance the QA Editor by implementing field-level status tracking for each editable data point in the survey. This feature provides a more granular view of the review progress, allowing QC technicians to focus on fields that require attention.
+*Details:*  
+• Visual indicator added for review status of each field in the survey editing UI.  
+• Edited fields automatically updated to "reviewed" status.   
+• Keyboard shortcut (e.g. Tab + R) to mark fields as reviewed without edits.  
+• Summary of review progress displayed at the top of the survey UI.  
+*Impact to Users:*  
+• QC technicians can easily track review progress at a field level.  
+• Lightweight methods for updating review status enhance QC efficiency.  
+• Collaboration and progress tracking among QC technicians improved.
+
+*Note: This might be too complicated for a field tech to understand and isn’t necessary for the company release notes. However, it is important to acknowledge for software development updates.*
+
+---
+
+**Investigate and Fix Login Issues with the Uploader**  
+*System Hardening*  
+Investigate and resolve login issues occurring with the uploader feature.
+*Details:*  
+• Identify root cause of login issues.  
+*Impact to Users:*  
+• Users will have a smoother login experience without encountering issues.
+
+---
+
+**Research Strategies for UI Reuse Between Web App/Uploader (Product Modules)**  
+*Platform Expansion*  
+Research strategies to enable UI reuse between the web application and uploader product modules.
+*Details:*  
+• Explore methods for efficient UI reuse.  
+*Impact to Users:*  
+• Potential for a more consistent and seamless user experience across different product modules.
+
+---
+
+*DevOps Task: Reevaluate Web App Deployment Tests*  
+*System Hardening*  
+Reevaluate web app deployment tests post large services refactor to enhance technical integrity.
+*Details:*  
+• Renovate tests to work with the organization and new controllers/services.  
+• Ensure Github workflows for testing are functional for deployments.  
+• Consider switching from jest to vitest for easier setup and faster performance in some cases.  
+
+*Note: DevOps tasks are exclusively for backend software team updates.*
+
+---
+
+**Bug: Structure Deficiency elevations getting overwritten to 0 during processing**  
+System Hardening | Data Processing  
+Structure deficiencies with non-zero values are being overwritten to 0 during processing, leading to incorrect data in reports.  
+*Details:*  
+• Deficiencies with non-zero elevations are being stored as 0 in reports.  
+• Issue observed in UMT II for all deficiencies.  
+*Impact to Users:*  
+• Incorrect data in reports could lead to misleading information.  
+• Users may not have accurate records for structure deficiencies.  
+
+**Bug: Survey "Flag" messages are mismatched within site visits**  
+System Hardening | Survey Processing  
+Flag messages attached to surveys are appearing in the next survey within the same site visit, causing confusion and incorrect data linkage.  
+*Details:*  
+• Compound survey flags appear in Structure survey.  
+• Structure survey flags appear in Guy Facilities survey, and so on.  
+*Impact to Users:*  
+• Users may see flag messages in the wrong surveys, causing confusion.  
+• Incorrect flag placement could lead to data processing errors.  
+
+**Bug: Front end issues with copy/paste into uppy**  
+System Hardening | Image Processing  
+Images pasted into the QC Editor via Uppy from Windows are not utilized in processing or reports due to naming collisions.  
+*Details:*  
+• Pasted images named image.png are not processed correctly.  
+• Number of images processed does not match the number of snips pasted.  
+*Impact to Users:*  
+• Users may not see images they pasted in their reports.  
+• Lack of images could affect the completeness of the survey data.  
+
+**Feature: Survey table accordion causes rendering issue**  
+Improve UX/UI | Dashboard Rendering  
+The survey table accordion in the dashboard sites table is causing rendering issues, resulting in errors when expanding the accordion.  
+*Details:*  
+• TypeError: Cannot read properties of undefined (reading 'map') error occurs.  
+*Impact to Users:*  
+• Users may encounter errors when trying to view survey details in the dashboard.  
+• Accordion issue could hinder access to important survey information.  
+
+**Feature: Add linked Esri logo to app.fieldsync.io login page**  
+Improve UX/UI | Login Page  
+The Esri logo needs to be added to the app.fieldsync.io login page with specific requirements for size, placement, and functionality.  
+*Details:*  
+• Esri's logo should be 206px wide by 53px tall.  
+• Logo should be clickable and link to esri.com/en-us/home.  
+*Impact to Users:*  
+• Enhanced visual appeal on the login page.  
+• Users can easily access Esri's website for more information.  
+
+*Note: The bug fixes and feature updates mentioned here are more focused on backend processing and may not have a direct impact on end-users. These improvements are essential for the technical integrity and reliability of the platform.*
