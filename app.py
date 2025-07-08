@@ -2,12 +2,16 @@
 import os
 from datetime import datetime
 from flask import jsonify
-from flask import Flask, render_template, request, redirect, url_for, current_app
+from flask import Flask, render_template, request, redirect, url_for
 from generate_notes import generate_release_notes_chunked
-from fetch_clickup_folders_tasks import get_sprint_lists, get_tasks_for_sprint_id, get_sprint_1_tasks, get_sprint_2_tasks, get_sprint_3_tasks, get_sprint_4_tasks, get_sprint_5_tasks
+from fetch_clickup_folders_tasks import get_sprint_lists
+from fetch_clickup_folders_tasks_product import get_tasks_for_selected_sprint_label
 
 NOTES_BASE_DIR = "static/saved_notes"
 FOLDER_ID = "90115096402"
+PRODUCT_FOLDER_ID = "90116436231"
+# your label field ID
+SPRINT_CUSTOM_FIELD_ID = "eaec1223-07ff-4ab6-bc9a-10dee0328b0d"
 
 app = Flask(__name__)
 
@@ -17,22 +21,20 @@ Helper functions
 
 """
 
-def get_tasks_by_sprint_id(folder_id, sprint_id):
-    sprint_name_lookup = {s["id"]: s["name"] for s in get_sprint_lists(folder_id)}
-    name = sprint_name_lookup.get(sprint_id, "").lower()
+def get_tasks_by_sprint_label(label_folder_id, task_folder_id, sprint_id):
+    """
+    label_folder_id = folder containing sprint lists (to map sprint_id → name)
+    task_folder_id = folder containing all tasks
+    """
+    sprint_lists = get_sprint_lists(label_folder_id)
+    sprint_lookup = {s["id"]: s["name"] for s in sprint_lists}
+    sprint_name = sprint_lookup.get(sprint_id)
 
-    if "sprint 1" in name:
-        return get_sprint_1_tasks()
-    elif "sprint 2" in name:
-        return get_sprint_2_tasks()
-    elif "sprint 3" in name:
-        return get_sprint_3_tasks()
-    elif "sprint 4" in name:
-        return get_sprint_4_tasks()
-    elif "sprint 5" in name:
-        return get_sprint_5_tasks()
-    else:
-        return get_tasks_for_sprint_id(folder_id, sprint_id)
+    if not sprint_name:
+        return []
+
+    # Filter all tasks in PRODUCT_FOLDER_ID by matching sprint label name
+    return get_tasks_for_selected_sprint_label(task_folder_id, SPRINT_CUSTOM_FIELD_ID, sprint_name)
 
 def save_release_notes(content, sprint_name, filename):
     """
@@ -105,7 +107,7 @@ def index():
     if request.method == "POST":
         if entry_mode == "auto":
             selected_task_ids = request.form.getlist("selected_tasks")
-            all_sprint_tasks = get_tasks_by_sprint_id(FOLDER_ID, sprint_name)
+            all_sprint_tasks = get_tasks_by_sprint_label(FOLDER_ID, PRODUCT_FOLDER_ID, sprint_name)
             chosen_tasks = [t for t in all_sprint_tasks if t["id"] in selected_task_ids]
 
             # Convert tasks to release note entries
@@ -140,7 +142,7 @@ def index():
             entries = [f"{t}: {d.strip()}" for t, d in zip(types, descriptions) if d.strip()]
             # Also load sprint tasks in case JS needs them for dynamic render
             if sprint_name:
-                all_sprint_tasks = get_tasks_by_sprint_id(FOLDER_ID, sprint_name)
+                all_sprint_tasks = get_tasks_by_sprint_label(FOLDER_ID, PRODUCT_FOLDER_ID, sprint_name)
 
         # Generate notes
         if entries and sprint_name:
@@ -176,7 +178,7 @@ def get_tasks():
     if not sprint_id:
         return jsonify([])
 
-    tasks = get_tasks_by_sprint_id(FOLDER_ID, sprint_id)
+    tasks = get_tasks_by_sprint_label(FOLDER_ID, PRODUCT_FOLDER_ID, sprint_id)
     return jsonify([{"id": t["id"], "name": t["name"]} for t in tasks])
 
 

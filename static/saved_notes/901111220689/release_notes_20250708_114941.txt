@@ -1,0 +1,45 @@
+**Bug: Multiple Missing Credentials Errors Redirect Issue**  
+Improvement UX/UI | System Hardening  
+When users switch instances or are logged out and try to access a page, multiple missing credentials errors occur instead of redirecting them to the login page.
+*Details:*  
+• Users encounter multiple missing user credentials errors when accessing a page after switching instances.  
+• Instead of multiple errors, users should be redirected to the authentication page.  
+*Impact to Users:*  
+• Users will be seamlessly redirected to the login page, reducing confusion and providing a smoother experience.
+
+**Bug: Silent Survey UI Error with Image Loading**  
+Improve UX/UI  
+An error occurs in the survey QA UI related to image loading in the QAPhoto components, causing a potential issue with an empty string being passed to the src attribute.
+*Details:*  
+• Error in the console related to passing an empty string to the src attribute.  
+• Fixing the error by not rendering the element or passing null to src instead of an empty string.  
+*Impact to Users:*  
+• Resolving the error will prevent unnecessary page reloads and improve the stability of the survey QA UI.
+
+**Bug: Location Field Width Issue in Compound "Other Equipment" Records**  
+Improve UX/UI  
+The Location field in Other Equipment records within Compound surveys is displaying at a reduced width, impacting the UI layout.
+*Details:*  
+• Location field in Other Equipment records appears narrower than normal in the QC Editor.  
+*Impact to Users:*  
+• Users may experience difficulty viewing or interacting with the Location field due to its reduced width.
+
+**Bug: Non-Functional Delete Button in Guy Compounds**  
+Improve UX/UI  
+Delete buttons are displayed for Guy Compounds in the Guy Facilities survey, but they do not function as expected, leading to confusion and inefficiency.
+*Details:*  
+• Delete buttons for Guy Compounds are present but do not delete the selected compound.  
+• Users are unable to delete Guy Compounds despite the option being available.  
+*Impact to Users:*  
+• Removing the non-functional delete buttons will prevent users from attempting an action that does not work, improving survey interaction.
+
+**Enhancement: Removal of Duplicate Structure Type Field**  
+Improve UX/UI  
+The Structure Type field is redundantly displayed in both the Structure Overview and Structure Base & Foundation sections of the Structure Survey QC Editor, leading to potential confusion.
+*Details:*  
+• Structure Type field is duplicated in the QC Editor sections.  
+• The field should only be displayed once to avoid redundancy and streamline the editing process.  
+*Impact to Users:*  
+• Users will have a cleaner and more efficient editing interface with the removal of the duplicate Structure Type field.
+
+*Note: The following bug fixes involve complex backend adjustments that are essential for system stability and performance. These details are crucial for development purposes but may not directly impact end-users.*

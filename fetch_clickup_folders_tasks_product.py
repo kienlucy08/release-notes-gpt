@@ -11,7 +11,18 @@ token = os.getenv("CLICK_UP_TOKEN")
 
 # CLickup Identifiers
 FOLDER_ID = "90116436231"
+SOFT_FOLDER_ID = "90115096402"
 SPACE_ID = "90110707615"
+CUSTOM_FIELD_ID = "eaec1223-07ff-4ab6-bc9a-10dee0328b0d"
+
+FIELD_ID_TO_SPRINT = {
+    "78caf6c8-6ebe-4475-8864-517fb2bc8287" : "Sprint 6 (7/2 - 7/15)",
+    "7c5de467-d7ab-4e4a-9b0b-544e083c04e2" : "Sprint 5 (6/18 - 7/1)",
+    "38fd6029-d934-4fc3-a06f-8f16eec12a51" : "Sprint 3 (5/14 - 6/3)",
+    "7ac74835-3f56-469d-bf88-3232ff36f03a" : "Sprint 1 (4/16 - 4/29)",
+    "ce584c56-7a9b-4210-ba0f-a495437d4a9a" : "Sprint 2 (4/30 - 5/13)",
+    "81702e1f-2913-4063-a546-1c27d7f5187c" : "Sprint 4 (6/4 - 6/17)"
+}
 
 # Authentication
 HEADERS = {
@@ -77,7 +88,6 @@ def get_all_tasks_from_folder_lists(folder_id, debug=False):
     for lst in lists:
         tasks = get_tasks_in_list(lst["id"], debug=debug)
         all_tasks.extend(tasks)
-    print(f"✅ Total {len(all_tasks)} tasks retrieved from folder {folder_id}")
     return all_tasks
 
 def get_all_tasks_with_metadata(folder_id):
@@ -104,6 +114,33 @@ def get_all_tasks_with_metadata(folder_id):
         }
         for t in all_tasks
     ]
+
+def get_tasks_for_selected_sprint_label(folder_id, sprint_field_id, selected_sprint_name):
+    """
+    Returns tasks across the folder that are labeled with the selected sprint name.
+    """
+    matching_tasks = []
+    all_tasks = get_all_tasks_from_folder_lists(folder_id)
+
+    for task in all_tasks:
+        sprint_labels = None
+        for field in task.get("custom_fields", []):
+            if field["id"] == sprint_field_id:
+                sprint_labels = field.get("value")
+                break
+
+        if isinstance(sprint_labels, list):
+            for label_id in sprint_labels:
+                label_name = FIELD_ID_TO_SPRINT.get(label_id)
+                if label_name == selected_sprint_name:
+                    matching_tasks.append(task)
+                    break
+        elif sprint_labels:
+            label_name = FIELD_ID_TO_SPRINT.get(sprint_labels)
+            if label_name == selected_sprint_name:
+                matching_tasks.append(task)
+
+    return matching_tasks
 
 # ------------------ LOGIC FUNCTIONS ------------------------
 
@@ -170,3 +207,17 @@ if __name__ == "__main__":
     print("\n📊 Task Distribution by Sprint:")
     for sprint_name in sorted(sprint_buckets):
         print(f"- {sprint_name}: {len(sprint_buckets[sprint_name])} tasks")
+
+    # Let the user pick from all available sprints
+    SPRINT_NAME_TO_LIST_ID = {lst["name"]: lst["id"] for lst in get_sprint_lists(SOFT_FOLDER_ID)}
+    print("Available Sprints:")
+    for name in SPRINT_NAME_TO_LIST_ID:
+        print(f" - {name}")
+
+    selected_sprint = "Sprint 4 (6/4 - 6/17)"  # Replace with UI input
+    tasks = get_tasks_for_selected_sprint_label(FOLDER_ID, CUSTOM_FIELD_ID, selected_sprint)
+
+    print(f"\n📋 Tasks labeled with '{selected_sprint}':")
+    for t in tasks:
+        print(f" - {t['name']} (Task ID: {t['id']})")
+
