@@ -4,35 +4,11 @@ from dotenv import load_dotenv
 from datetime import datetime
 import re
 from collections import defaultdict
-
-# Load API Token
-load_dotenv()
-token = os.getenv("CLICK_UP_TOKEN")
-
-# Folder Identifiers
-DEV_FOLDER_ID = "90115096402"
-PRODUCT_FOLDER_ID = "90116436231"
-
-# Optional lists to pull from
-FIELDSYNC_LIST_ID = "901110252032"
-FS_WEB_APP_USER_FEEDBACK_ID = "901109641571"
-
-# Known Sprint Label ID -> Name Mapping
-CUSTOM_FIELD_ID = "eaec1223-07ff-4ab6-bc9a-10dee0328b0d"
-FIELD_ID_TO_SPRINT = {
-    "78caf6c8-6ebe-4475-8864-517fb2bc8287" : "Sprint 6 (7/2 - 7/15)",
-    "7c5de467-d7ab-4e4a-9b0b-544e083c04e2" : "Sprint 5 (6/18 - 7/1)",
-    "38fd6029-d934-4fc3-a06f-8f16eec12a51" : "Sprint 3 (5/14 - 6/3)",
-    "7ac74835-3f56-469d-bf88-3232ff36f03a" : "Sprint 1 (4/16 - 4/29)",
-    "ce584c56-7a9b-4210-ba0f-a495437d4a9a" : "Sprint 2 (4/30 - 5/13)",
-    "81702e1f-2913-4063-a546-1c27d7f5187c" : "Sprint 4 (6/4 - 6/17)"
-}
-
-# Authentication headers
-HEADERS = {
-    "Authorization": token,
-    "accept": "application/json"
-}
+from constants import (DEV_FOLDER_ID, 
+                       PRODUCT_FOLDER_ID, 
+                       SPRINT_CUSTOM_FIELD_ID, 
+                       FIELD_ID_TO_SPRINT, 
+                       HEADERS)
 
 # ---------------------- PRIMARY API FUNCTIONS ----------------------
 
@@ -242,7 +218,7 @@ def assign_to_sprint_by_close_date(task, sprint_ranges):
 
 if __name__ == "__main__":
     # 1. Get sprint lists and date ranges
-    sprint_lists = get_sprint_lists(DEV_FOLDER_ID)
+    sprint_lists = get_sprint_lists(PRODUCT_FOLDER_ID)
     sprint_ranges = {}
 
     for sprint in sprint_lists:
@@ -252,8 +228,8 @@ if __name__ == "__main__":
             sprint_ranges[name] = (start.strftime("%Y-%m-%d"), end.strftime("%Y-%m-%d"))
 
     # 2. Get all tasks from all lists in the folder
-    all_tasks = get_all_tasks_from_folder_lists(DEV_FOLDER_ID, debug=False)
-    metadata = get_all_tasks_with_metadata(DEV_FOLDER_ID)
+    all_tasks = get_all_tasks_from_folder_lists(PRODUCT_FOLDER_ID, debug=False)
+    metadata = get_all_tasks_with_metadata(PRODUCT_FOLDER_ID)
     for meta in metadata:
         name = meta.get("task_name")
         list_name = meta.get("list_name")
@@ -281,7 +257,7 @@ if __name__ == "__main__":
         print(f" - {name}")
 
     selected_sprint = "Sprint 4 (6/4 - 6/17)"  # Replace with UI input
-    tasks = get_tasks_for_selected_sprint_label(DEV_FOLDER_ID, CUSTOM_FIELD_ID, selected_sprint)
+    tasks = get_tasks_for_selected_sprint_label(PRODUCT_FOLDER_ID, SPRINT_CUSTOM_FIELD_ID, selected_sprint)
 
     print(f"\n📋 Tasks labeled with '{selected_sprint}':")
     for t in tasks:
