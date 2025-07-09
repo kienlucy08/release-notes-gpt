@@ -4,84 +4,12 @@ from datetime import datetime
 from flask import jsonify
 from flask import Flask, render_template, request, redirect, url_for
 from generate_notes import generate_release_notes_chunked
-from fetch_clickup_folders_tasks import get_sprint_lists
-from fetch_clickup_folders_tasks_product import get_tasks_for_selected_sprint_label
-
-NOTES_BASE_DIR = "static/saved_notes"
-FOLDER_ID = "90115096402"
-PRODUCT_FOLDER_ID = "90116436231"
-# your label field ID
-SPRINT_CUSTOM_FIELD_ID = "eaec1223-07ff-4ab6-bc9a-10dee0328b0d"
+from fetch_clickup_folders_tasks import get_sprint_lists, get_tasks_by_sprint_id_from_label_map
+from constants import (DEV_FOLDER_ID, PRODUCT_FOLDER_ID, SPRINT_CUSTOM_FIELD_ID, NOTES_BASE_DIR)
 
 app = Flask(__name__)
 
-"""
-
-Helper functions
-
-"""
-
-def get_tasks_by_sprint_label(label_folder_id, task_folder_id, sprint_id):
-    """
-    label_folder_id = folder containing sprint lists (to map sprint_id → name)
-    task_folder_id = folder containing all tasks
-    """
-    sprint_lists = get_sprint_lists(label_folder_id)
-    sprint_lookup = {s["id"]: s["name"] for s in sprint_lists}
-    sprint_name = sprint_lookup.get(sprint_id)
-
-    if not sprint_name:
-        return []
-
-    # Filter all tasks in PRODUCT_FOLDER_ID by matching sprint label name
-    return get_tasks_for_selected_sprint_label(task_folder_id, SPRINT_CUSTOM_FIELD_ID, sprint_name)
-
-def save_release_notes(content, sprint_name, filename):
-    """
-    Saves release note content to a .txt file in a sprint-named folder.
-
-    Args:
-        content (str): Text content of the release note.
-        sprint_name (str): Sprint used for naming the folder.
-        filename (str): Sanitized filename to use.
-
-    Returns:
-        str: Relative path to the saved file.
-    """
-    folder_name = sprint_name.replace(" ", "_").replace("/", "-")
-    folder_path = os.path.join(NOTES_BASE_DIR, folder_name)
-    os.makedirs(folder_path, exist_ok=True)
-
-    full_path = os.path.join(folder_path, filename)
-    with open(full_path, "w", encoding="utf-8") as f:
-        f.write(content)
-
-    return f"{folder_name}/{filename}"
-
-
-def get_saved_sprint_notes(sprint_options):
-    """
-    Retrieves saved .txt files for each sprint folder.
-
-    Args:
-        sprint_options (list): List of sprints with id/name from ClickUp.
-
-    Returns:
-        list[dict]: Sprint folder metadata with files.
-    """
-    sprint_folders = []
-    if os.path.exists(NOTES_BASE_DIR):
-        for sprint_folder in os.listdir(NOTES_BASE_DIR):
-            path = os.path.join(NOTES_BASE_DIR, sprint_folder)
-            if os.path.isdir(path):
-                name = next((s["name"] for s in sprint_options if s["id"] == sprint_folder), sprint_folder)
-                files = sorted(os.listdir(path), reverse=True)
-                sprint_folders.append({
-                    "name": name,
-                    "folder": sprint_folder,
-                    "files": sorted(files, reverse=True)
-                })
-    return sprint_folders
+# ---------------------- Primary App Functions ----------------------
 
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -100,14 +28,14 @@ def index():
     entry_mode = request.form.get("entry_mode")
 
     # Get sprint options from ClickUp
-    all_lists = get_sprint_lists(FOLDER_ID)
+    all_lists = get_sprint_lists(DEV_FOLDER_ID)
     sprint_options = [{"id": sprint["id"], "name": sprint["name"]}
                       for sprint in all_lists if "Sprint" in sprint["name"]]
 
     if request.method == "POST":
         if entry_mode == "auto":
             selected_task_ids = request.form.getlist("selected_tasks")
-            all_sprint_tasks = get_tasks_by_sprint_label(FOLDER_ID, PRODUCT_FOLDER_ID, sprint_name)
+            all_sprint_tasks = get_tasks_by_sprint_id_from_label_map(DEV_FOLDER_ID, PRODUCT_FOLDER_ID, SPRINT_CUSTOM_FIELD_ID, sprint_name)
             chosen_tasks = [t for t in all_sprint_tasks if t["id"] in selected_task_ids]
 
             # Convert tasks to release note entries
@@ -142,7 +70,7 @@ def index():
             entries = [f"{t}: {d.strip()}" for t, d in zip(types, descriptions) if d.strip()]
             # Also load sprint tasks in case JS needs them for dynamic render
             if sprint_name:
-                all_sprint_tasks = get_tasks_by_sprint_label(FOLDER_ID, PRODUCT_FOLDER_ID, sprint_name)
+                all_sprint_tasks = get_tasks_by_sprint_id_from_label_map(DEV_FOLDER_ID, PRODUCT_FOLDER_ID, SPRINT_CUSTOM_FIELD_ID, sprint_name)
 
         # Generate notes
         if entries and sprint_name:
@@ -178,7 +106,7 @@ def get_tasks():
     if not sprint_id:
         return jsonify([])
 
-    tasks = get_tasks_by_sprint_label(FOLDER_ID, PRODUCT_FOLDER_ID, sprint_id)
+    tasks = get_tasks_by_sprint_id_from_label_map(DEV_FOLDER_ID, PRODUCT_FOLDER_ID, SPRINT_CUSTOM_FIELD_ID, sprint_id)
     return jsonify([{"id": t["id"], "name": t["name"]} for t in tasks])
 
 
@@ -193,7 +121,7 @@ def save_note():
     filename = f"release_notes_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt"
     path = save_release_notes(content, sprint_name, filename)
 
-    sprint_options = [{"id": l["id"], "name": l["name"]} for l in get_sprint_lists(FOLDER_ID) if "Sprint" in l["name"]]
+    sprint_options = [{"id": l["id"], "name": l["name"]} for l in get_sprint_lists(DEV_FOLDER_ID) if "Sprint" in l["name"]]
     saved_notes = get_saved_sprint_notes(sprint_options)
 
     return render_template(
@@ -215,7 +143,7 @@ def delete_entry():
     if not sprint_name:
         return "Sprint name missing", 400
 
-    sprint_id = next((s["id"] for s in get_sprint_lists(FOLDER_ID) if s["name"] == sprint_name), None)
+    sprint_id = next((s["id"] for s in get_sprint_lists(DEV_FOLDER_ID) if s["name"] == sprint_name), None)
     folder_name = sprint_id or sprint_name.replace(" ", "_").replace("/", "-")
     folder_path = os.path.join(NOTES_BASE_DIR, folder_name)
 
@@ -275,6 +203,55 @@ def rename_note():
         return redirect(url_for("index")) 
     except Exception as e:
         return f"Rename failed: {e}", 500
+    
+# ---------------------- Helper Functions ----------------------
+
+def save_release_notes(content, sprint_name, filename):
+    """
+    Saves release note content to a .txt file in a sprint-named folder.
+
+    Args:
+        content (str): Text content of the release note.
+        sprint_name (str): Sprint used for naming the folder.
+        filename (str): Sanitized filename to use.
+
+    Returns:
+        str: Relative path to the saved file.
+    """
+    folder_name = sprint_name.replace(" ", "_").replace("/", "-")
+    folder_path = os.path.join(NOTES_BASE_DIR, folder_name)
+    os.makedirs(folder_path, exist_ok=True)
+
+    full_path = os.path.join(folder_path, filename)
+    with open(full_path, "w", encoding="utf-8") as f:
+        f.write(content)
+
+    return f"{folder_name}/{filename}"
+
+
+def get_saved_sprint_notes(sprint_options):
+    """
+    Retrieves saved .txt files for each sprint folder.
+
+    Args:
+        sprint_options (list): List of sprints with id/name from ClickUp.
+
+    Returns:
+        list[dict]: Sprint folder metadata with files.
+    """
+    sprint_folders = []
+    if os.path.exists(NOTES_BASE_DIR):
+        for sprint_folder in os.listdir(NOTES_BASE_DIR):
+            path = os.path.join(NOTES_BASE_DIR, sprint_folder)
+            if os.path.isdir(path):
+                name = next((s["name"] for s in sprint_options if s["id"] == sprint_folder), sprint_folder)
+                files = sorted(os.listdir(path), reverse=True)
+                sprint_folders.append({
+                    "name": name,
+                    "folder": sprint_folder,
+                    "files": sorted(files, reverse=True)
+                })
+    return sprint_folders
 
 
 if __name__ == "__main__":
