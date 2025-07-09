@@ -1,0 +1,125 @@
+Metadata-Version: 2.4
+Name: release-notes-gpt
+Version: 0.1.0
+Summary: ClickUp-powered release notes generator for FieldSync
+Author: Lucy Kien
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+Requires-Dist: Flask
+Requires-Dist: requests
+Requires-Dist: python-dotenv
+
+# FieldSync Release Notes Generator
+
+A Flask web app to help teams generate, regenerate, and save professional release notes for sprints by transforming plain feature/bug descriptions into formatted summaries using OpenAI.
+
+---
+
+## Features
+
+- Add multiple entries (Features or Bugs) with descriptions.
+- Automatically generate readable and structured release notes using GPT.
+- Save generated notes to a sprint-named folder under `static/saved_notes`.
+- View and download past sprint notes.
+- Handles long input by chunking into multiple GPT calls.
+- Graceful error messaging if text is too long for a single request.
+- Delete saved notes (only removes `.txt` files, and deletes the folder only if empty).
+
+---
+
+## Visual
+
+![image](https://github.com/user-attachments/assets/c1b6742e-71ae-40d2-aac5-08662e2a9937)
+
+---
+
+## Tech Stack
+
+- Python 3.10+
+- Flask
+- OpenAI API
+- HTML/CSS (with animated gradient background)
+
+---
+
+## Project Structure
+
+```bash
+Release-Notes-GPT/
+│
+├── app.py # Main Flask app
+├── generate_notes.py # GPT generation & chunking logic
+├── fetch_clickup_folders_tasks.py # ClickUp API integration for sprint names and tasks for FieldSync Software Development Folders
+├── .env # Your OpenAI API key (not committed)
+│
+├── templates/
+│ └── index.html # Main page template
+│
+├── static/
+│   ├── css/
+│   │   └── styles.css # All styles go here
+│   ├── js/
+│   │   └── script.js # All frontend JS logic here
+│   └── saved_notes/
+│       └── <sprint_id>/ # All saved release notes organized by sprint ID   
+│           └── notes.txt     
+│
+├── requirements.txt
+├── README.md
+└── constants.py
+```
+
+
+---
+
+## Setup Instructions
+
+### 1. Clone this Repo & Navigate to it
+
+```bash
+git clone https://github.com/kienlucy08/release-notes-gpt.git
+cd your_file_path/release-notes-gpt
+```
+
+### 2. Create `.env` file with your OpenAI Key, and ClickUp Token
+
+```bash
+touch .env
+```
+```env
+OPENAI_API_KEY=YOUR_OPENAI_KEY
+CLICK_UP_TOKEN=YOUR_CLICK_UP_TOKEN
+```
+This file lives in the `.gitignore` so no need to worry when saving a new change.
+
+### 3. Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Run the application!
+
+Either:
+```bash
+flask run
+```
+
+Or:
+```bash
+python app.py
+```
+
+---
+
+## Savging & Regeneration
+- Notes are saved to: `static/saved_notes/<Sprint_Name>/release_notes_<timestamp>.txt`
+- You can delete all saved .txt files for a sprint. If a folder becomes empty, it gets deleted too.
+- Regeneration isn't working currently but will eventually delete old filesa in the sprint and replace with new ones.
+
+---
+
+## Warnings & Notes
+- If your list is too long (over OpenAI’s token limit), the system automatically chunks the list and makes multiple API calls.
+- You’ll see a message in the UI:
+  - ⚠️ Heads up: Your notes were very long, so we split them into multiple chunks to generate properly.
