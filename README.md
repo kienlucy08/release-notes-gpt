@@ -39,7 +39,6 @@ Release-Notes-GPT/
 ├── app.py # Main Flask app
 ├── generate_notes.py # GPT generation & chunking logic
 ├── fetch_clickup_folders_tasks.py # ClickUp API integration for sprint names and tasks for FieldSync Software Development Folders
-├── fetch_clickup_folders_tasks_product.py # Clickup API integration for sprint names and tasks for Product Folders
 ├── .env # Your OpenAI API key (not committed)
 │
 ├── templates/
@@ -55,7 +54,8 @@ Release-Notes-GPT/
 │           └── notes.txt     
 │
 ├── requirements.txt
-└── README.md
+├── README.md
+└── constants.py
 ```
 
 
