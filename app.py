@@ -255,4 +255,4 @@ def get_saved_sprint_notes(sprint_options):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
