@@ -223,7 +223,7 @@ if __name__ == "__main__":
         name = sprint["name"]
         start, end = extract_date_range(name)
         if start and end:
-            sprint_ranges[name] = (start.strftime("%Y-%m-%d"), end.strftime("%Y-%m-%d"))
+            sprint_ranges[name] = (start, end)
 
     # 2. Get all tasks from all lists in the folder
     all_tasks = get_all_tasks_from_folder_lists(PRODUCT_FOLDER_ID, debug=False)

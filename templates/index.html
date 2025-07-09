@@ -196,7 +196,7 @@
                             <a href="{{ url_for('static', filename='saved_notes/' ~ sprint.folder ~ '/' ~ file) }}" target="_blank">{{ file }}</a>
                         </span>
                         <!-- Rename form (hidden by default) -->
-                    <form method="POST" action="/rename_note" class="rename-form" style="display:none;" onsubmit="return submitRename(this)">
+                    <form class="rename-form" style="display:none;">
                         <input type="hidden" name="sprint_folder" value="{{ sprint.folder }}">
                         <input type="hidden" name="old_name" value="{{ file }}">
                         <input type="hidden" name="new_name">
@@ -206,8 +206,10 @@
                             value="{{ file[:-4] }}"
                             data-extension=".txt"
                             style="width: 120px; font-size: 13px; padding: 3px 5px;" 
-                            onkeydown="if(event.key==='Enter'){ this.form.requestSubmit(); event.preventDefault(); }" />
-                        <button type="submit" class="button-third">✅</button>
+                            onkeydown="if(event.key==='Enter'){ submitRename(this); }" />
+
+                        <!-- Check button triggers renameNote -->
+                        <button type="button" class="button-third" onclick="submitRename(this)">✅</button>
                     </form>
 
                     <button type="button" class="button-third" onclick="toggleRename(this)">✏️</button>

@@ -198,19 +198,56 @@ function toggleRename(button) {
     input.setSelectionRange(input.value.length, input.value.length);
 }
 
+// Handled submitting a rename in real time
 function submitRename(button) {
     const form = button.closest("form");
     const input = form.querySelector(".input-rename");
-    const newName = input.value.trim();
+    const newNameField = form.querySelector("input[name='new_name']");
+    const sprintFolder = form.querySelector("input[name='sprint_folder']").value;
+    const oldName = form.querySelector("input[name='old_name']").value;
+    let newName = input.value.trim();
     const extension = input.dataset.extension || ".txt";
 
     if (!newName) {
         alert("Please enter a valid filename.");
-        return false;
+        return;
     }
 
-    // Set full new name with extension
-    form.querySelector("input[name='new_name']").value = newName + extension;
-    return true;
+    // Ensure extension is present
+    if (!newName.endsWith(extension)) {
+        newName += extension;
+    }
+
+    // Fill in hidden field (not required but keeps it clean)
+    newNameField.value = newName;
+
+    // Send POST request
+    fetch("/rename_note", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: new URLSearchParams({
+            sprint_folder: sprintFolder,
+            old_name: oldName,
+            new_name: newName
+        })
+    }).then(response => {
+        if (response.ok) {
+            // Update display
+            const listItem = form.closest("li");
+            const fileLink = listItem.querySelector(".file-name a");
+            fileLink.textContent = newName;
+            fileLink.href = `/static/saved_notes/${sprintFolder}/${newName}`;
+
+            // Show name span, hide form
+            form.style.display = "none";
+            listItem.querySelector(".file-name").style.display = "inline";
+        } else {
+            alert("Rename failed.");
+        }
+    }).catch(() => {
+        alert("Rename failed.");
+    });
 }
 
