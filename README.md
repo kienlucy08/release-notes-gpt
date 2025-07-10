@@ -18,7 +18,17 @@ A Flask web app to help teams generate, regenerate, and save professional releas
 
 ## Visual
 
-![image](https://github.com/user-attachments/assets/c1b6742e-71ae-40d2-aac5-08662e2a9937)
+Overall View:
+<img width="1543" height="2036" alt="image" src="https://github.com/user-attachments/assets/0dc8151b-80b2-4166-8515-8c433c513b32" />
+
+Task Selection:
+<img width="1553" height="1963" alt="image" src="https://github.com/user-attachments/assets/4910d255-8094-4fc3-bad3-a614caa2ff3e" />
+
+Generation View:
+<img width="1458" height="1959" alt="image" src="https://github.com/user-attachments/assets/fbea8df6-21ed-4376-8afd-85ee90f7a090" />
+
+Example File View:
+<img width="1874" height="1380" alt="image" src="https://github.com/user-attachments/assets/92836271-e5db-4ae6-b974-9b4b90ce5a0f" />
 
 ---
 
