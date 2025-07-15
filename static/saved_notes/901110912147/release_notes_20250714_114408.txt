@@ -1,0 +1,14 @@
+**Feature: Enhance Site Visit Dashboard Survey Filtering Logic**  
+Improve UX/UI | Dashboard Tables  
+Implemented logic to filter survey types based on the purpose of the site visit, ensuring only compatible surveys can be added to a site visit based on its designated purpose.
+*Details:*  
+• Added logic to filter surveys based on the purpose selected for the site visit: Inspection or Close out Package (COP).
+• Specific survey types are now restricted based on the purpose:
+   - For Inspection purpose: Only Compound, Structure, Guy, and PNT surveys are allowed.
+   - For COP purpose: Only COP surveys are permitted.
+• When creating a new site visit with a selection of surveys, the purpose is automatically set based on the survey types chosen.
+• Implemented a special right-click menu for incompatible surveys to prevent users from adding them to a site visit.
+*Impact to Users:*  
+• Streamlines the process of adding surveys to site visits by ensuring only compatible surveys are available for selection.
+• Prevents errors and confusion by restricting survey choices based on the purpose of the site visit.
+• Improves efficiency and accuracy when managing different types of site visits.

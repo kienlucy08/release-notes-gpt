@@ -38,7 +38,7 @@ def get_sprint_lists(folder_id):
     all_lists = get_lists_from_folder(folder_id)
     return [lst for lst in all_lists if "sprint" in lst["name"].lower()]
 
-def get_tasks_in_list(list_id, debug=False):
+def get_tasks_in_list(list_id, debug=False, include_subtasks=True):
     """
     Fetches all tasks from a ClickUp list, including closed tasks and subtasks
     
@@ -55,6 +55,8 @@ def get_tasks_in_list(list_id, debug=False):
         resp = requests.get(url, headers=HEADERS)
         resp.raise_for_status()
         chunk = resp.json().get("tasks", [])
+        if not include_subtasks:
+            chunk = [task for task in chunk if not task.get("parent")]
         tasks.extend(chunk)
         if len(chunk) < 100:
             break
