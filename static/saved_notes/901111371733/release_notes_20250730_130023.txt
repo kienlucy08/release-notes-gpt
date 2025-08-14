@@ -1,0 +1,7 @@
+**Feature: Create QA/QC Workflow for COP Survey**  
+Improve UX/UI | Survey Editor  
+Develop a Quality Assurance/Quality Control (QA/QC) user interface editor specifically for COP/Ericsson style surveys to enhance the surveying workflow.
+*Details:*  
+• Design layout for QA/QC workflow can be found in the provided Figma link.
+*Impact to Users:*  
+• Users will have a dedicated tool to perform QA/QC checks on COP/Ericsson style surveys, improving survey accuracy and efficiency.

@@ -79,7 +79,7 @@ def get_all_tasks_from_folder_lists(folder_id, debug=False):
     all_tasks = []
     lists = get_lists_from_folder(folder_id)
     for lst in lists:
-        tasks = get_tasks_in_list(lst["id"], debug=debug)
+        tasks = get_tasks_in_list(lst["id"], debug=debug, include_subtasks=True)
         all_tasks.extend(tasks)
     return all_tasks
 
@@ -213,12 +213,47 @@ def assign_to_sprint_by_close_date(task, sprint_ranges):
             return sprint_name
     return None
 
+from collections import Counter
+
+def find_sprint_label_ids(folder_id, sprint_field_id):
+    tasks = get_all_tasks_from_folder_lists(folder_id)
+    label_counter = Counter()
+
+    for task in tasks:
+        for field in task.get("custom_fields", []):
+            if field["id"] == sprint_field_id:
+                value = field.get("value")
+                if isinstance(value, list):
+                    for v in value:
+                        label_counter[v] += 1
+                elif value:
+                    label_counter[value] += 1
+
+    return label_counter
+
+def find_tasks_with_label(folder_id, sprint_field_id):
+    tasks = get_all_tasks_from_folder_lists(folder_id)
+    for task in tasks:
+        task_name = task["name"]
+        task_id = task["id"]
+        for field in task.get("custom_fields", []):
+            if field["id"] == sprint_field_id:
+                value = field.get("value")
+                if isinstance(value, list):
+                    for v in value:
+                        print(f"{task_name} (Task ID: {task_id}) → Label ID: {v}")
+                elif value:
+                    print(f"{task_name} (Task ID: {task_id}) → Label ID: {value}")
+
+find_tasks_with_label(PRODUCT_FOLDER_ID, SPRINT_CUSTOM_FIELD_ID)
+
 
 # ---------------------- MAIN EXECUTION ----------------------
 
 if __name__ == "__main__":
     # 1. Get sprint lists and date ranges
     sprint_lists = get_sprint_lists(PRODUCT_FOLDER_ID)
+    print(sprint_lists)
     sprint_ranges = {}
 
     for sprint in sprint_lists:

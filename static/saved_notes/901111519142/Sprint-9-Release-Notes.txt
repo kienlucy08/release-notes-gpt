@@ -1,0 +1,78 @@
+**DevOps: Spin Down Clean Room CA Instance**  
+*This might be too complicated for a field tech to understand and isn’t necessary for the company release notes. However, it is important to acknowledge for software development updates.*
+
+**Feature: Add Purpose Dropdown to Site Visit Dashboard Table**  
+Improve UX/UI | Dashboard Tables  
+Added a Purpose dropdown to the site visit dashboard table for improved functionality and user experience.
+*Details:*  
+- Scope of Work dropdown functionality added to the site visit dashboard table.
+- Ensured proper population of surveys based on different Scope of Work selections.
+- Fixed glitch where navigation to specific pages was incorrect when changing dropdown selections.
+*Impact to Users:*  
+- Users can now easily filter surveys based on different Scope of Work categories.
+- Improved navigation and searchability within the dashboard table.
+
+**Bug: Downloading Survey Payloads Causes Double Download**  
+Improve UX/UI | Dashboard Surveys  
+Fixed an issue where downloading a survey payload resulted in a double download process, triggering multiple file downloads unnecessarily.
+*Details:*  
+- Prompting a download would show a warning for multiple files, leading to two downloads.
+- Resolved the issue to ensure only a single download is initiated for survey payloads.
+*Impact to Users:*  
+- Users will no longer experience duplicate downloads when retrieving survey payloads.
+- Enhances user experience by streamlining the download process.
+
+---
+
+**Feature: Create Type Definitions and Mappers for Backend Entities**  
+System Hardening | Backend  
+Implement type definitions for all backend entities in the shared workspace, replacing TypeORM entities with TypeORM schema objects for better separation of concerns. Move DTO definitions to the shared workspace and create mapper objects for entities and DTOs, removing AutoMapper from the project for improved maintainability.
+*Details:*  
+• Implemented type definitions for all backend entities.  
+• Replaced TypeORM entities with TypeORM schema objects.  
+• Moved DTO definitions to the shared workspace.  
+• Created mapper objects for entities and DTOs.  
+*Impact to Users:*  
+• Users will experience improved maintainability and separation of concerns within the backend system.
+
+**Enhancement: Remove Requirement of GF Survey Presence for Guyed Tower Site Visit Processing**  
+System Hardening | Backend Processing  
+Adjusted the backend processing pipeline to allow guyed tower site visits to be processed without requiring a guy facilities survey, enhancing the workflow efficiency.
+*Details:*  
+• Updated backend processing to make GF surveys optional for site visit processing.  
+• Adjusted processing eligibility requirements to allow for site visits without GF surveys.  
+*Impact to Users:*  
+• Users can now process guyed tower site visit data without including a guy facilities survey, reducing unnecessary work and improving workflow efficiency.
+
+*Note: This backend adjustment may not directly impact end-users but enhances the efficiency of the processing workflow for field technicians.*
+
+---
+
+**Enhancement: Remove Requirement of P&T Survey from Lattice Tower Site Visit Processing**  
+System Hardening | Backend Processing Pipeline  
+Enhancement to adjust the backend processing pipeline to allow lattice tower site visits to be processed and reported without the presence of a P&T survey, if not allocated.
+*Details:*  
+• Adjusted processing eligibility requirements to make P&T surveys optional for site visit processing.  
+• No changes to the site visit QC Editor UI were made.  
+• Altered processing button activation criteria to activate the button when all allocated surveys have been QC'd, even if only Compound + Structure surveys are present.  
+• Reconfigured processing endpoint to not queue the P&T worker when that survey is not present.  
+*Impact to Users:*  
+• Field technicians can now process lattice tower site visit data without including a P&T survey, reducing additional work that is not required.  
+• Usable reports can be generated from the web app even for lattice tower inspections without P&T data.  
+*Note: This might be too complicated for a field tech to understand and isn’t necessary for the company release notes. However, it is important to acknowledge for software development updates.*  
+
+**Feature: Validate Uploader Endpoints/ TUS Reference Implementation**  
+System Hardening | Backend Processing  
+Ensuring correct path usage for scans uploaded, correlating the path to the specific site, and potentially updating TUS implementation with the reference implementation for path handling.
+*Details:*  
+• Verification of uploader to use the correct path for scans uploaded under specific sites.  
+• Audit the current TUS implementation for possible optimizations or using the updated reference implementation.  
+*Note: This task focuses on backend processing optimizations and may not be directly visible to end users.*  
+
+**Feature: Setup EC2 Instance for Label Studio Annotation**  
+System Hardening | Backend Processing  
+Deployment of Label Studio to an EC2 instance in AWS, establishing a data link to S3, and configuring access for contributors.
+*Details:*  
+• Deployment of Label Studio to an EC2 instance with data link set up to S3.  
+• Access set up for contributors to log in, navigate to assigned images, and annotate them.  
+*Note: This task is backend-focused and involves setting up infrastructure for annotation tasks, not directly impacting end users.*

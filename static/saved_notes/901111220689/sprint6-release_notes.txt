@@ -1,0 +1,174 @@
+**Feature: Dashboard's Table Reactivity**  
+Improve UX/UI | Dashboard Tables  
+Enhancing the reactivity of the dashboard table to operations like creating site visits, importing surveys, and generating reports for a smoother user experience.
+*Details:*  
+- Implement reactive behavior for dashboard tables to reflect changes instantly after performing operations.
+- Ensure that creating site visits, importing surveys, and generating reports update the dashboard tables in real-time.
+*Impact to Users:*  
+- Users will experience a more dynamic and responsive dashboard, improving efficiency and visibility of data changes.
+
+**Bug: Error Dialog Hover Pane Blocking Clear Queues Button**  
+Improve UX/UI | Site Visit Pages  
+Fixing the issue where the error dialog hover pane obstructs the clear queues button on Site Visit pages.
+*Details:*  
+- Error dialog hover pane currently blocks the clear queues button, preventing its functionality.
+- Ensure users can easily close the error dialog hover pane to access and utilize the clear queues button.
+*Impact to Users:*  
+- Users can now clear queues without any hindrance from the error dialog hover pane.
+
+**Enhancement: Sites Table - Create Report Spinner on Report Creation**  
+Improve UX/UI | Dashboard Sites Table  
+Enhancing the Sites table by displaying a spinner immediately upon report generation for improved user experience.
+*Details:*  
+- Implement logic to show a spinner in the report entry when generating a report for a site.
+- Ensure the spinner appears promptly upon report generation without the need to refresh the page.
+*Impact to Users:*  
+- Users will have visual feedback with the spinner indicating report generation progress, enhancing usability and workflow efficiency.
+
+**Bug: Dashboard Not Reloading When Allocating to Site Visit**  
+Improve UX/UI | Dashboard Site Visits  
+Fixing the issue where the site visits table does not refresh automatically when allocating surveys to a site visit, requiring manual page refresh for updates to appear.
+*Details:*  
+- Site visits table fails to reload upon creating a new site visit from the survey table in the dashboard.
+- Ensure that newly created site visits are immediately displayed in the site visits table without the need for manual refresh.
+*Impact to Users:*  
+- Users will see newly allocated surveys reflected in the site visits table without having to manually refresh the page.
+
+**Bug: Compound "Other Equipment" Location Field Width Issue**  
+Improve UX/UI | QC Editor  
+Resolving a recent UI issue where the Location field of Other Equipment records appears narrower than intended in the QC Editor.
+*Details:*  
+- The Location field of Other Equipment records is displaying at a reduced width, impacting the layout and usability.
+*Impact to Users:*  
+- Users will see the Location field restored to its normal width, enhancing readability and usability in the QC Editor.
+
+**Bug: Silent Survey UI Error**  
+Improve UX/UI  
+Addressing a UI bug related to the survey QA UI, specifically concerning the image loading QAPhoto components.
+*Details:*  
+- An error in the console indicates an empty string being passed to the src attribute, potentially causing unnecessary network downloads.
+- Fix the error related to the image loading components in the survey QA UI.
+*Impact to Users:*  
+- Users will no longer encounter the error message related to the image loading components in the survey QA UI.
+
+*Note: The last bug fix involves backend UI adjustments that may not directly impact end-users but are crucial for maintaining a stable and error-free UI experience.*
+
+---
+
+**Bug: Hide non-functional delete button Guy Compounds**  
+Improve UX/UI | Guy Facilities Survey  
+The delete button in the Guy Compounds section of the Guy Facilities survey does not work and should be removed from the records.
+*Details:*  
+• Delete buttons are present for each compound in the Guy Compounds section.  
+• Clicking the delete button does not delete the selected compound.  
+*Impact to Users:*  
+• Users will no longer see non-functional delete buttons, improving the user experience in the survey.
+
+**Bug: P&T observation elevations not populating in leg records after first index**  
+Improve UX/UI | Survey123 Integration  
+Observation heights are not automatically populated for leg records after the first index, leading to manual data entry requirements and potential errors in P&T analysis.
+*Details:*  
+• Observation heights are not populated for legs with an index greater than 1.  
+• Workaround for imputing heights from observation_elevations_s is not functioning correctly.  
+*Impact to Users:*  
+• Technicians must manually enter observation heights for each record after the first index.  
+• Errors may occur in the P&T analysis if heights are not provided during QC.
+
+**Feature: Template table migration for scope of work type**  
+Business Development | Database Migration  
+Migrating the database to differentiate between template types for Inspection Templates versus COP by including a scope of work column in the template table.
+*Details:*  
+• Adding a scope of work column to the template table.  
+• Ensuring existing template rows are updated with the correct type.  
+• Updating the template UI to allow editing of the template type.  
+*Impact to Users:*  
+• Users can now distinguish between different template types for Inspection Templates versus COP.  
+• Improved management and organization of templates based on scope of work type.
+
+*Note: The following Bug and Feature details are more backend-focused and may not be necessary for the company release notes. However, they are important for software development updates.*
+
+---
+
+**Bug: Dashboard Doesn't Reload After Importing Surveys**  
+Improve UX/UI | Dashboard  
+The dashboard survey table fails to reload automatically after importing surveys, requiring a manual page refresh to display the new data.
+*Details:*  
+• Survey table does not update with imported data until the page is manually refreshed.  
+*Impact to Users:*  
+• Users need to refresh the page to view newly imported surveys, causing inconvenience.
+
+**Feature: Implement CASL Factory in Frontend**  
+Platform Expansion | Frontend  
+Refactor frontend code to utilize a single CASL ability factory as a central source of truth for both frontend and backend applications.
+*Details:*  
+• Create a shared workspace for frontend and backend code.  
+• Refactor ability factory to use generic type definitions.  
+• Implement Ability Provider and Can component as per CASL library documentation.  
+*Impact to Users:*  
+• Enhances code maintainability and consistency between frontend and backend systems.
+
+**Enhancement: Remove Structure Type Field from Structure Base & Foundation Section**  
+Improve UX/UI | Structure Survey QC Editor  
+The redundant display of the Structure Type field in both the Structure Overview and Structure Base & Foundation sections of the QC Editor is unnecessary and should be removed from the latter.
+*Details:*  
+• Structure Type field appears twice in the QC Editor.  
+*Impact to Users:*  
+• Simplifies the interface by eliminating duplicate fields.
+
+**Feature: Setup Processing Button for COP Site Creation**  
+Platform Expansion | Site Visit Page  
+Refactor the site visit page to accommodate the new Scopes of Work database/API functionality, including updating logic for selecting and associating the proper scope of work with a site visit.
+*Details:*  
+• Update site visit creation process to include new scope of work.  
+• Implement a modal dialog for COP report generation.  
+• Filter COP report type templates during report generation.  
+*Impact to Users:*  
+• Streamlines COP site creation process with improved functionality for selecting and associating scopes of work.  
+*Note: This might be too complicated for a field tech to understand and isn’t necessary for the company release notes. However, it is important to acknowledge for software development updates.*
+
+---
+
+**Bug: Multiple Missing Credentials Toast Errors Redirect Issue**  
+Improve UX/UI | User Authentication  
+Users are encountering multiple missing credentials toast errors when attempting to access a page with invalid credentials or after switching instances. Instead of multiple errors, users should be redirected to the login page seamlessly.  
+*Details:*  
+- Errors occur when switching instances or using invalid credentials.
+- Users should be redirected to the login page directly to avoid multiple errors.  
+*Impact to Users:*  
+- Seamless redirection to the login page for a better user experience.
+
+**Feature: Setup Processing Button for COP Site Creation**  
+Improve UX/UI | Backend Integration  
+Refactored the site visit page to align with new Scopes of Work database/api functionality. This involves updating logic to send patch requests for site visits, associate proper scopes of work with site visits, and introduce a modal dialog for COP report generation similar to the inspection report modal.  
+*Details:*  
+- Refactored site visit page to work with new Scopes of Work database functionality.
+- Updated logic for selecting and associating scopes of work with site visits.
+- Introduced modal dialog for COP report generation.  
+*Impact to Users:*  
+- Users can now efficiently generate COP reports with the new modal dialog.
+- Improved alignment with new Scopes of Work functionality for better data management.
+
+**Enhancement: Upgrade Organization Pages in Frontend**  
+Improve UX/UI | Frontend Development  
+Enhanced organization pages in the frontend by implementing the new Data Table component and refactoring conditional logic for organization management. Updated the 'organizations/all' page to include organization memberships and managed organizations for admin users, along with the ability to switch between organizations.  
+*Details:*  
+- Refactored organization pages to utilize the Data Table component.
+- Updated conditional logic for organization management.
+- Enhanced 'organizations/all' page to display memberships and managed organizations.
+- Added functionality to switch between organizations on the page.  
+*Impact to Users:*  
+- Improved organization page interface and functionality for better user experience.
+
+**Feature & Enhancement: Implement God User & Admin User Functionality**  
+Business Development | User Management  
+Introduced a God mode user with admin privileges to assign admin permissions to other users. Created migration files for automatic generation of the God mode account if not existing, and implemented logic for frontend and backend to accommodate God mode user permissions. Refactored services and modules to support this functionality and enhanced the admin console page for user designation.  
+*Details:*  
+- Created God mode user with all admin permissions.
+- Implemented logic for frontend and backend to handle God mode user permissions.
+- Refactored services and modules for user management.
+- Enhanced admin console page for user designation and admin privileges.  
+*Impact to Users:*  
+- Users can now designate admin users and manage permissions efficiently.
+- Improved user management capabilities for admins and super admins.
+
+*Note: The last DevOps task involves complex backend refactoring and user management enhancements that may not be directly visible to all users.*

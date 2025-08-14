@@ -1,0 +1,35 @@
+**Bug: Map card, Photo objects in QC Editor overlays top navigation items on scroll**  
+Improve UX/UI | QC Editor  
+This bug causes the map card and photo objects in the QC Editor to overlay top navigation items when scrolling, blocking important on-screen interactions until the page is scrolled to the top or the map card is scrolled into the browser bar.
+*Details:*  
+• Occurs on both the app and test environments.  
+• Map card overlays Save and Mark as Complete buttons, user email, account ID, review indicator, buttons, toggle, and Organization picker.  
+*Impact to Users:*  
+• Users experience temporary blockage of important on-screen interactions.  
+• Desired outcome is for the map card to smoothly move underneath the QC Editor top bar when scrolling downwards.
+
+**Feature: Dashboard backend pagination and filtering**  
+Improve UX/UI | Dashboard  
+Currently, all surveys, site visits, and sites are fetched from the backend in the dashboard, which may become problematic with large volumes of data. To address this, the most recent subset of data should be fetched initially, and pagination and filtering should be moved to the backend for improved performance.
+*Details:*  
+• Implement pagination for surveys, site visits, and sites on the dashboard.  
+• Move filtering to the backend for faster query results.  
+*Impact to Users:*  
+• Improved dashboard performance with large data volumes.  
+• Efficient data retrieval and display for users.
+
+**Enhancement: Uploader uses Shared Library - rework**  
+Improve UX/UI | Frontend  
+The uploader frontend components and providers need to be moved into a shared workspace, with existing components migrated to use these new components. The build pipeline for the uploader should be maintained, and efforts to configure Tailwind CSS should be made.
+*Details:*  
+• Transition frontend components and providers to a shared workspace.  
+• Ensure the build pipeline for the uploader functions correctly.  
+*Note: This task is ongoing and will involve continuous migration of components as development progresses.*
+
+**Feature: Package and Structural audit of the Electron application**  
+System Hardening | Application Refactoring  
+A full audit and refactor of all packages used in the Electron application is necessary. Updating packages to the latest versions and making structural changes to accommodate these updates is crucial for long-term maintenance and modernization.
+*Details:*  
+• Update all packages to the latest versions.  
+• Refactor the application structure to align with the latest packages.  
+*Note: This process may involve significant rework due to API changes, deprecated packages, and modernizing the application's tooling.*
