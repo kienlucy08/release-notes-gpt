@@ -1,0 +1,39 @@
+**Feature: Refactor Scan/File Table to Use New Datatable**  
+Improve UX/UI | File Management  
+Refactored the File Table to utilize the new datatable for better file management capabilities.
+*Details:*  
+• Implemented features for file upload, download, and deletion.  
+• Enabled bulk deletion of files.  
+• Added filtering options for files.  
+
+*Impact to Users:*  
+• Users can now easily upload, download, delete, and manage files efficiently.  
+• Enhanced user experience with improved file management functionalities.  
+
+**Feature: Survey Table Server Side Sorting + Cleanup**  
+Improve UX/UI | Survey Management  
+Implemented server-side sorting and cleanup for the Survey Table for better organization and efficiency.
+
+*Details:*  
+• Enhanced sorting functionality for surveys.  
+• Conducted cleanup to improve the overall performance of the Survey Table.  
+
+*Impact to Users:*  
+• Users can now sort surveys more effectively.  
+• Improved system performance for better user experience during survey management.  
+
+**Feature: Uploader: Create Base Page Structure and Links Between Pages Consistent with the MVP**  
+Improve UX/UI | File Management  
+Established the core features of the MVP for the Uploader, including creating a base page structure and inter-page navigation consistency.
+
+*Details:*  
+• Set up a sidebar with Dashboard and Upload sections.  
+• Dashboard section to display current scans in progress or queued (future logic implementation).  
+• Upload section lists organization sites in a DataTable with specific columns.  
+
+*Impact to Users:*  
+• Users can easily navigate between Dashboard and Upload sections.  
+• Improved organization and visibility of current scans and site information.  
+• Streamlined access to site-related actions and bulk upload functionalities.  
+
+*Note: This might be too complicated for a field tech to understand and isn’t necessary for the company release notes. However, it is important to acknowledge for software development updates.*

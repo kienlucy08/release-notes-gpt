@@ -1,0 +1,12 @@
+**Organization Owner Role MVP Features**  
+Business Development | User Management  
+Introducing the minimum viable product (MVP) requirements for the Organization Owner role to logically segment existing actions for User and Owner roles within a baseline Role-Based Access Control (RBAC) system.
+*Details:*  
+• Org Owners can invite and remove users, change member roles, access specific navigation items, delete unallocated surveys, and more within their Organization.
+• Roles are scoped to the Organization, ensuring data and membership privacy.
+*Impact to Users:*  
+• Org Owners can efficiently manage user roles and permissions within their Organization.
+• Enhanced data security by restricting access to sensitive features and data.
+• Simplifies user management and access control processes for Organization Owners.
+
+*Note: This detailed RBAC roadmap will be gradually implemented post the deployment of the baseline RBAC system.*

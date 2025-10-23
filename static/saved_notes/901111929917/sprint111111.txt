@@ -1,0 +1,127 @@
+**Feature: Uploader MVP: Bulk Uploads w/ Geofencing Linkage To Sites/Scans**  
+*Improve UX/UI Business Development | Field Enablement*  
+Creates a bulk upload form enabling the upload of multiple files to separate sites/scans based on geofencing logic and metadata, with a dedicated outbox for tracking.
+*Details:*  
+• Implemented a Bulk Upload Form for smart uploads with automatic association to correct sites/scans using metadata and GPS logic.  
+• Added an outbox feature for tracking uploaded files.  
+*Impact to Users:*  
+• Field technicians can upload entire folders of photos grouped by site and scan automatically.  
+• QA reviewers can trust correct matching of uploaded files to sites/scans.  
+• Reduces manual labor for large-scale uploads, minimizing errors and enabling enterprise-scale automation.  
+
+*Note: This feature may involve complex backend processes for file parsing and association, which may not be relevant for general users.*
+
+---
+
+**Feature: Geofenced File Grouping with Adjustable Radius**  
+Improve UX/UI | Bulk Uploads  
+Introducing the ability to group files based on location data using a geofencing tool with an adjustable radius, providing users with control over file-site assignments.
+*Details:*  
+• Implemented a feature to group files based on GPS data within a specified radius.  
+• Added a slider for users to adjust the geofencing radius for accurate groupings.  
+• Included failsafes for handling metadata issues or location-less files.  
+*Impact to Users:*  
+• Users can now easily assign files to sites based on location data.  
+• Improved accuracy in site associations and prevents mismatched assignments.  
+• Speeds up bulk uploads and enhances data accuracy for users managing large datasets.  
+
+*Note: This feature involves complex backend logic and may not be relevant for all users.*
+
+---
+
+**Bug: Dashboard Survey Table Reactivity on Survey Deletion**  
+Improve UX/UI | Dashboard  
+Deleting a survey on the QA Dashboard does not dynamically remove it from the list, requiring a page refresh for the change to reflect.
+*Details:*  
+• Surveys are not dynamically removed from the list upon deletion.  
+*Impact to Users:*  
+• Users need to manually refresh the page to see deleted surveys removed.
+
+**Bug: Dashboard Survey Table Reactivity on Survey Imports**  
+Improve UX/UI | Dashboard  
+Survey imports on the QA Dashboard do not dynamically show up in the dashboard, necessitating a page refresh for visibility.
+*Details:*  
+• Imported surveys do not dynamically appear in the Survey table.  
+*Impact to Users:*  
+• Users must refresh the page to view imported surveys.
+
+**Bug: Dashboard Survey Image Exports Failure Handling**  
+Improve UX/UI | Dashboard  
+Enhancement to handle failed image exports, display failure status, and provide an option to retry the export.
+*Details:*  
+• Failed image exports will be marked as "failed" in the database.  
+• UI will show a failure indication and allow users to retry the export.  
+• Addition of a deletion option for failed exports to regenerate if needed.
+*Impact to Users:*  
+• Users will be informed of failed image exports and can retry them if necessary.
+
+**Bug: Photos Missing in Child Tables of Site in Sites Browser**  
+Improve UX/UI | Sites Browser  
+Photos stored in child tables of a site are not displayed in the Sites browser, impacting pre-report review.
+*Details:*  
+• Only photos stored in the main site table are visible, not those in child tables.  
+*Impact to Users:*  
+• Users cannot view all photos related to a site in the Sites browser for pre-report rotation.
+
+**Feature: MVP Implementation of Report Writer**  
+Business Development  
+Initial implementation of Report Writer functionality allowing actions such as allocating surveys, editing site visit attributes, managing survey data, processing visits, generating reports, and more within a baseline RBAC system.
+*Details:*  
+• Report Writers can perform a range of actions related to surveys and site visits.  
+• RBAC system segments existing actions for the "User" role.  
+*Impact to Users:*  
+• Report Writers gain capabilities to manage surveys, site visits, and generate reports effectively.  
+*Note: This might be too detailed for a field tech to understand and isn't necessary for the company release notes but is important for software development updates.*
+
+---
+
+**Feature: MVP Implementation of Project Manager**
+Improve UX/UI Business Development | RBAC System, Dashboard, Reports  
+A baseline RBAC system is implemented for Project Managers, granting them specific actions related to survey review, site visit processing, dashboard access, and report generation.
+*Details:*  
+- Project Managers can view survey review status, indicators, and incomplete fields
+- They can update survey field review status and process site visits
+- Access to Sites tab on the Dashboard and Sites navigation item is granted
+- Report generation capabilities are provided
+*Impact to Users:*  
+- Project Managers have streamlined access and control over survey review processes
+- Improved efficiency in processing site visits and generating reports
+
+**Feature: Refactor and Generalize Site Visit Page for Varying Scopes of Work**
+Improve UX/UI | Site Visit Page  
+The site visit page is refactored to accommodate different scopes of work, ensuring flexibility and adaptability for various project requirements.
+
+**Feature: Implement Image Viewer for Object Detections/Recognition**
+Improve UX/UI | Image Viewer  
+An image viewer component is introduced for viewing object detections and recognitions, enhancing the visual representation of scan results.
+*Details:*  
+- Implement a viewer for images and their detections
+- Display recognition classes and scores
+- Show bounding boxes for object detections
+- Highlight scores and classes
+*Impact to Users:*  
+- Users can easily view and analyze object detections and recognitions in scans
+- Improved visualization aids in understanding scan results effectively
+
+**Feature: Wire up Scan/FileTable UI to Backend Functions**
+Improve UX/UI | Backend Integration  
+Connect backend functions to the Scan/FileTable UI, replacing mock data with real data for detections and metadata, enabling download functions and inference submissions.
+*Details:*  
+- Connect backend detections and metadata to the front end
+- Implement 'Detect objects' buttons for various scan/file scenarios
+- Enable download image with annotations function
+*Impact to Users:*  
+- Users can download images with annotations and classifications
+- Improved accuracy in inference submissions and reporting
+- Enhanced functionality for managing scans and files effectively
+
+**Feature: Ability to Create New Scope of Work and Associate Survey Types**
+Improve UX/UI | Scope of Work Management  
+Users can now create new scopes of work, define associated survey types, and manage organization-specific scopes of work with editing and deletion restrictions in place.
+*Details:*  
+- Enable creation of new scopes of work with name, type, and default label
+- Associate survey types with newly defined scopes
+- Allow editing and deletion of organization-specific scopes
+*Impact to Users:*  
+- Enhanced customization options for defining project scopes and associated survey types
+- Improved organization-specific scope management for better project planning and execution.

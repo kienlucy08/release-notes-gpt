@@ -1,0 +1,119 @@
+**Enhancement: Modify Processing Dialog for Manual GPS Centroid Input**  
+Improve UX/UI | Processing Dialog  
+Enhanced the post object detection processing dialog to allow users to manually input the GPS centroid of the tower, providing more control over the data input process.  
+*Details:*  
+- Added an optional GPS picker on the confirmation dialog for selecting the tower's centroid.
+- Included a checkbox 'Manually input tower center' which, when checked, displays the GPS picker.
+- The GPS picker is centered around a drone photo and fully zoomed in satellite mode.
+- Users can either use the picker on the map or manually enter the coordinates.
+- The entered GPS coordinates are sent to the backend job for using as the tower center.  
+*Impact to Users:*  
+- Users now have the ability to manually input the tower's centroid for more precise data handling.
+- Provides flexibility in data processing and enhances user control over location accuracy.
+
+**Enhancement: Controller and Service for Embedding Sets**  
+Field Enablement | FieldSync App  
+Developed a Controller and Service feature that enables super users to interact with embedding sets within the FieldSync App, allowing for easy management and manipulation of sets.  
+*Details:*  
+- Restricted functionality to Superusers only.
+- Initially focused on the deletion of embedding sets.
+*Note: This feature is exclusively for backend software team updates and not relevant for company-wide release notes.*
+
+**Enhancement: Frontend UI Admin Tools for CRUD on Embedding Sets and Chunks**  
+Improve UX/UI | Admin Tools  
+Implemented a user-friendly Frontend UI table for super user admins to view and delete embedding sets and chunks associated with a specific survey type, improving data management capabilities within the application.  
+*Details:*  
+- Users can view and delete embedding sets directly from the Frontend UI.
+- Creation of embedding sets will be handled by langflow for the time being.  
+*Impact to Users:*  
+- Enhanced visibility and control over embedding sets and chunks for improved data organization.
+- Streamlines the deletion process and simplifies data management tasks for super user admins.
+
+---
+
+**Enhancement: Migration, Controller, and Service for Chat Sessions**  
+Platform Expansion | Chat Sessions  
+Create migrations, controllers, and services to support chat queries and responses for each survey, storing important fields like messages, embeddings, and roles (user or agent).
+*Details:*  
+• Implement migrations to support chat sessions for surveys.  
+• Store user messages, embeddings, and roles in the database.  
+*Impact to Users:*  
+• Users can engage in chat sessions within surveys.  
+
+**Enhancement: Production Ready Langflow Flows and Components**  
+System Hardening | Langflow Integration  
+Structure Langflow for production readiness, create APIs for chat and embedding flows, and ensure consistent endpoints and environment variables during deployments.
+*Details:*  
+• Develop APIs for chat and embedding flows.  
+• Implement strict controls on production flows to prevent modification.  
+*Impact to Users:*  
+• Improved stability and reliability of Langflow integration.  
+
+**Enhancement: Frontend UI for Chat Interface**  
+Improve UX/UI | Chat Interface  
+Develop a user interface for a single survey chatbot, with potential for expansion to other parts of the application.
+*Details:*  
+• Create a user-friendly chat interface for surveys.  
+• Implement the chat session concept outlined in the QC Editor UI.  
+*Impact to Users:*  
+• Users can easily interact with chatbots within surveys.  
+
+**Feature: Inference Pipeline Backend: Connect Image Detections with QC Editor**  
+Platform Expansion | QC Editor, Image Processing  
+Integrate AI detections with the QC Editor, allowing QC Technicians to view and utilize AI-detected images within their workflow.
+*Details:*  
+• Backend service to fetch top detections per class per elevation slice.  
+• Ability to route selected detection images into the QC workflow.  
+*Impact to Users:*  
+• QC Technicians can quickly populate survey data with relevant annotated images.  
+• Improves QC speed and accuracy.  
+*Note: This feature is more backend-focused and may not be relevant for all users.*
+
+---
+
+Error generating part 3: Input too long for a single OpenAI call.
+
+---
+
+**Feature: Uploader: Implement Organizations**  
+Business Development | User Enablement  
+A new feature is added to the Uploader tool allowing users to select and work within specific organizations, ensuring data isolation, compliance, and workflow efficiency.
+*Details:*  
+- Implemented an organization selector component in the Uploader tool UI.
+- Users can now select their desired organization from a dropdown menu.
+- Records are filtered to show only the selected organization's data for upload.
+- Uploaded files are correctly associated with the chosen organization.
+- Users can seamlessly switch between organizations mid-session.
+*Impact to Users:*  
+- Users can now upload files with confidence, knowing they are working within the correct organization.
+- Prevents accidental data leakage or compliance issues.
+- Saves time by streamlining the workflow for users belonging to multiple organizations.  
+*Note: This might be too complicated for a field tech to understand and isn’t necessary for the company release notes. However, it is important to acknowledge for software development updates.*
+
+---
+
+Error generating part 5: Input too long for a single OpenAI call.
+
+---
+
+**Safety Climb COP Editor Feature**  
+Improve UX/UI | Site Visit Page, QC Editor  
+Allows users to input and track specific safety climb COP information for site visits, including top-level attributes, pre-install work details, install work, post-install work, catch-all information, and flags.  
+*Details:*  
+- Added fields for top-level attributes such as Site Name, Site Id, Survey Type, Customer, and more.
+- Included sections for Pre-Install Work, Install Work, Post-Install Work, Catch All, and Flags.
+- Updated to capture the technician's signature image for use in reports.  
+*Impact to Users:*  
+- Users can now efficiently input and track Safety Climb COP information for site visits.
+- Improved organization and visibility of important details for each stage of the safety climb process.
+
+**Update/Upgrade Current Google Maps API Library in Frontend**  
+System Hardening  
+Enhances the frontend by updating or upgrading the current Google Maps API library to address issues related to the depreciation of Map Markers.  
+*Details:*  
+- The current Google Maps API library used in the frontend is outdated and causing Map Markers to depreciate.
+- Updating or upgrading the library will resolve issues related to Map Marker functionality.  
+*Impact to Users:*  
+- Users will experience improved functionality and reliability with Map Markers on the frontend.
+- Ensures a seamless and up-to-date mapping experience for users.  
+(Note: This might be too technical for field techs and is not necessary for the company release notes but important for software development updates.)

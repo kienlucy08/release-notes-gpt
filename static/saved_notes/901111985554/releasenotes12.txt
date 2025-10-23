@@ -1,0 +1,160 @@
+**Feature: Uploader MVP: Exportable Upload Log**  
+Improve UX/UI Business Development | Uploader  
+Introducing a new feature allowing users to export a clear record of their upload activity, enhancing data tracking and support ticket resolution for Field Service staff.
+*Details:*  
+• Two levels of implementation: Simple and Session-level  
+• Functional scope includes exporting recent upload transaction logs and session-level logs  
+• Acceptance criteria for Upload Log CSV content and accuracy outlined  
+*Impact to Users:*  
+• Users can now easily download a transaction log for each upload, ensuring data integrity and visibility  
+• Field Service staff benefit from faster issue resolution with access to detailed upload transaction records
+
+*Note: This feature is a backend enhancement primarily for software development updates.*
+
+---
+
+Error generating part 2: Input too long for a single OpenAI call.
+
+---
+
+**Enhancement: Uploader Releases Page**  
+Improve UX/UI | Uploader Page  
+Enhancing the releases page on the frontend to improve user experience with the uploader. This update includes sorting the most recent version first, clarifying Mac or Windows releases, and organizing older versions in the database. Implementing two tabs, one for Mac and one for Windows, similar to the survey table design.
+
+*Details:*  
+• Sort the most recent uploader version to show first for improved clarity.  
+• Differentiate between Mac and Windows releases for easier identification.  
+• Organize older uploader versions in the database for better management.
+
+*Impact to Users:*  
+• Users can easily find the latest uploader version at the top of the list.  
+• Clear distinction between Mac and Windows releases for the users.  
+
+**Enhancement: Reskin/Rework Organization Drop Down Header Component**  
+Improve UX/UI | Organization Dropdown  
+Revamping the organization dropdown by reskinning and reworking it for better functionality. Changes include removing the user's UUID, displaying the currently selected organization, and preventing rapid organization swapping by closing the component when an organization is selected. Additionally, supporting scrolling for users with multiple organizations.
+
+*Details:*  
+• Remove the user's UUID and show the selected organization instead.  
+• Close the component after an organization is selected to prevent rapid swapping.  
+• Enable organization scrolling for users with many organizations.
+
+*Impact to Users:*  
+• Users can quickly identify the selected organization without the UUID clutter.  
+• Prevents accidental organization switches for smoother navigation.  
+• Improved usability for users with numerous organizations.  
+
+*Note: The following details involve frontend changes and are more user-facing. This might be too complicated for a field tech to understand and isn’t necessary for the company release notes. However, it is important to acknowledge for software development updates.*
+
+---
+
+**Feature: Migration, Controller, and Service to Support Embeddings**  
+Platform Expansion  
+Create migrations, Controllers, and Services to support embeddings for survey types, embedding sets, and embedding chunks, allowing users to experiment with different embeddings for survey types.  
+*Details:*  
+• Added relation to survey_type_embedding_set for survey_type.  
+• Defined fields for survey_type_embedding_set: name, embedding_model, chunking_strategy, chunk_size, chunk_overlap, is_active.  
+• Defined fields for survey_type_embedding_chunk: chunk_index, chunk_text, embedding.  
+
+**Feature: Update DNS Routing for Langflow**  
+Platform Expansion  
+Updated DNS routing for langflow to allow access from browsers and the fieldsync web application using Pulumi to create Route 53 DNS records.  
+*Details:*  
+• Created DNS routes: test-langflow.fieldsync.io to ECS test cluster, app-langflow.fieldsync.io to ECS prod cluster.  
+• Refer to workspaces/cloud/component/presentationLayer.ts for DNS record creation details.
+
+**Feature: Add Langflow Service to Local Dev and ECS**  
+Platform Expansion  
+Added Langflow service to local development environment (docker-compose) and AWS/ECS cloud environments using Pulumi for infrastructure setup.  
+*Details:*  
+• Included Langflow in docker-compose.yml for local development with a PostgreSQL instance.  
+• Documented required environment variables in .env.example and set up necessary endpoints in .env.  
+• Integrated Langflow into AWS ECS infrastructure by creating a cluster to run Langflow tasks.  
+• Referenced examples in current infrastructure components like companionCluster.ts and reportCluster.ts.  
+• Configured required Github secrets and variables.  
+
+*Note: The details of the DevOps tasks are primarily backend-focused and may not be necessary for general release notes.*
+
+---
+
+**Bug/Feature/Enhancement/Combination**  
+**Update Postgres Version and Enable Extensions**  
+Platform Expansion | System Hardening  
+Updating the local development and RDS Postgres instances to version 16+ and enabling pgai, pgvectorscale, pgvector, and postgis extensions to support vector datatypes for embeddings.  
+*Details:*  
+- Update Postgres in local dev docker-compose.yml to a later version and enable pgai, pgvectorscale, pgvector, and postgis extensions.
+- Upgrade RDS instance to a compatible version in AWS, ensuring compatibility with local dev instance and enabling the required extensions.
+- Ensure data migration to support langflow database alongside fieldsync database.
+*Impact to Users:*  
+- Users can benefit from enhanced data storage capabilities with vector datatypes.
+- Improved compatibility and functionality for embedding data.
+- Proper migration ensures data integrity and supports additional database functionalities.
+
+**Feature: Elevation Estimates for Detected Objects**  
+Improve UX/UI | Business Development  
+Implement elevation estimates for detected objects in drone imagery to enhance tower component association and streamline workflows for users.  
+*Details:*  
+- Enhance object detections with approximate elevation (AGL) for better tower part association.
+- Allow automatic grouping of detections into elevation slices for efficient inventory management.
+- Provide a lighter-weight experience for field technicians with more usable drone data.
+*Impact to Users:*  
+- Project Managers can make faster decisions without manual elevation measurements.
+- QC Technicians can quickly inventory on-tower components for follow-up actions.
+- Field Technicians benefit from more usable drone data, reducing the need for manual tower climbs.  
+
+*Note: The technical details provided for the Postgres update may be too complex for field techs and are more relevant for software development updates.*
+
+---
+
+**Enhancement: Integrate Detection Branch for AGL Estimation**  
+System Hardening | Detection Table  
+Implemented the integration of a detection branch to store AGL (Above Ground Level) estimation in the detection table for improved data accuracy and tracking.  
+*Details:*  
+- Updated the file process worker to store detection AGLs effectively.
+- Enhanced the algorithm using hardened metadata to improve accuracy, such as dynamically obtaining X & Y photo resolution and utilizing drone focal length data.  
+*Impact to Users:*  
+- Users will experience more precise AGL estimations stored in the detection table, ensuring better data integrity.
+
+**Enhancement: Enhance Drone Metadata Extraction**  
+System Hardening | Metadata Extraction  
+Enhanced and fortified the extraction of drone metadata to ensure comprehensive data collection across different DJI drone models for fields like PixelXDimension, ExposureTime, FNumber, and more.  
+*Details:*  
+- Tested metadata extraction using sample drone images and relevant metadata dumps to validate data display accuracy.
+- Improved the extraction process to handle various DJI drone models' data presentation differences effectively.  
+*Impact to Users:*  
+- Users will benefit from more reliable and complete metadata extraction from DJI drone images, leading to better data understanding and analysis.
+
+*Note: These updates involve backend enhancements for data processing and may not directly impact end-users. They are crucial for data accuracy and system performance.*
+
+---
+
+**Enhancement: Migrate Detection Table to Include Height AGL from Estimation Process**  
+Platform Expansion | Data Migration  
+Migrate the detection table to include the estimated above ground level (AGL) in meters for each detection, alongside other parameters.
+*Details:*  
+• Add objectHeightAGL field to the detection table for estimated above ground level.
+• Update the migration process to include AGL for each detected object.
+• Include confidence interval for estimated parameters.
+*Impact to Users:*  
+• Users will have access to more precise data regarding the height above ground level for detected objects.
+• Enhances the accuracy and completeness of detection information.
+
+**Enhancement: Multiselect Filtering on Detection Types**  
+Improve UX/UI | Detection Filtering  
+Enable multiselect functionality on the detection filter dropdown menu to allow users to select multiple detection types simultaneously.
+*Details:*  
+• Implement multiselect feature for filtering detection types.
+*Impact to Users:*  
+• Users can now filter for multiple detection types at once, improving search and analysis efficiency.
+
+**Enhancement: Refactor Scan/File Table to Conform with Composable Format**  
+Improve UX/UI | Data Table Refactoring  
+Update the Scan/File table to align with the new shared composable DataTable format, ensuring consistency and compatibility with other tables.
+*Details:*  
+• Refactor the Scan/File table structure to match the new shared composable DataTable format.
+• Validate the Scan/File table for all user flows.
+*Impact to Users:*  
+• Provides a standardized and consistent user experience across tables.
+• Ensures seamless navigation and interaction with the Scan/File data.  
+
+*Note: The Refactor Scan/File Table task is more backend-focused and may not be directly visible to the end-users. This update aims to optimize the structure and functionality of the table for improved performance and maintainability.*

@@ -1,0 +1,21 @@
+**Feature: Uploader MVP: Single Site Uploads + Outbox**  
+*Strategic Theme: Improve UX/UI, Business Development*  
+*Area of Impact: Field Enablement*  
+
+Enable streamlined site-specific uploads with success and failure messaging. This feature includes adding an outbox component to stage single site uploads, transitioning from a per scan to a per site basis, and updating logic to allow users to allocate scans similar to how surveys are allocated in the web app.
+
+*Details:*  
+- Implement an outbox component for single site uploads
+- Move from per scan to per site basis for easier allocation
+- Update logic to support scan allocation within the site view
+
+*Impact to Users:*  
+- Field technicians can quickly upload and allocate photos to sites
+- QA reviewers can view upload outcomes and retry failed files easily
+- Project managers can ensure data accuracy by uploading images to the correct site
+- Backend developers can reliably associate files with the correct site in the database
+- Users receive success and failure messages in the outbox, reducing the need for support tickets
+
+*Note: This feature focuses on improving the efficiency and reliability of site uploads, benefiting various user roles within the system.*
+
+*This might be too complicated for a field tech to understand and isn’t necessary for the company release notes. However, it is important to acknowledge for software development updates.*

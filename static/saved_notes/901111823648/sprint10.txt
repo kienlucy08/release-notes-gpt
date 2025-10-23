@@ -1,0 +1,115 @@
+**Feature: Queue/Job for Image Inference with Roboflow Integration**  
+Platform Expansion  
+Introduce a queue/job system for image processing and machine learning tasks, particularly for passing images to Roboflow for detection using API keys.  
+*Details:*  
+- Establish a file queue for image processing operations
+- Create a job to send images to Roboflow for detection, starting with a hardcoded model
+- Plan for a migration/table to manage available models for detection
+- Job inputs include scan UUID, file UUID, organization UUID, and account UUID
+- Process involves fetching image data, passing it to Roboflow, waiting for inference results, and storing data in a detection table
+- Store recognition score and class, as well as bounding box data for object detections
+- Develop Postman endpoints for testing, with all testing conducted in Postman initially
+*Impact to Users:*  
+- Enables efficient image processing and machine learning operations
+- Simplifies image detection and classification tasks
+- Provides a structured approach for managing models and inference data
+
+**Feature: Detection API Endpoints and Service Implementation**  
+Platform Expansion  
+Create API endpoints and a service for managing detections, including CRUD operations on the detection table.  
+*Details:*  
+- Develop a controller to handle API requests related to detections
+- Implement a service to manage Create, Read, Update, and Delete operations for detection data
+*Impact to Users:*  
+- Allows users to interact with detection data through dedicated API endpoints
+- Streamlines the handling of detection records
+
+**Feature: Server-Side Sorting for File Table**  
+Improve UX/UI  
+Enhance the scan table with backend functions for server-side sorting and update frontend components to support this feature.  
+*Details:*  
+- Create backend functions to enable server-side sorting for the scan table
+- Update frontend components to facilitate sorting operations on the server side
+*Impact to Users:*  
+- Enhances user experience by enabling efficient sorting of files in the scan table
+
+**Bug: Image Export Failure with QC Editor Images**  
+Improve UX/UI  
+Addressed an issue where image exports failed when images were added in the QC editor due to all images having the S123 token appended to the URL.  
+*Details:*  
+- Images added via the QC editor were failing upon export due to the appended S123 token to all URLs
+- Revised the process to detect URLs from platforms like ArcGIS Online and only append the S123 token to those specific images
+*Impact to Users:*  
+- Resolves image export failures related to images added through the QC editor
+- Ensures successful image exports without token-related issues
+
+*Note: The following DevOps task involves backend software updates and may not be relevant for general release notes.*
+
+---
+
+**Enhancement: Initial Session Entities Enhancement for Security**  
+Improve UX/UI System Hardening | Security, Authorization  
+Enhanced the session entities with improved security measures including randomizing URLs, managing revocation, and enforcing expiration times to enhance the platform's security.
+*Details:*  
+- Replaced unsafe UUIDs with secure, randomized URL strings.
+- Implemented revocation mechanism for session entities instead of deletion.
+- Set absolute 24-hour expiration time for session entities and HTTP cookies.
+- Created migration file to update older session entities.
+- Refactored account, session, and authorization services.
+- Secured session ID from exposure in the frontend.
+- Ensured HTTP cookie properties align with session management best practices.
+*Impact to Users:*  
+- Improved platform security by using secure, randomized URLs.
+- Users can now revoke sessions for various reasons without losing data.
+- Enhanced protection with absolute session expiration times.
+- Seamless transition for users with updated session entities.
+- Improved backend security measures for user sessions.
+
+**Feature: Web App SaaSification: Field Technician Role**  
+Improve UX/UI | User Roles  
+Introduced a new user role, Field Technician, focused on data collection activities to provide better segmentation of user-facing permissions and enhance data validation processes.
+*Details:*  
+- Field Technicians can receive platform or organization-specific invitation emails.
+- Field Technicians can log in and view organization membership lists.
+- Restricted access to Dashboard, Sites, Customers, Templates, Scope of Work, and Import features.
+*Impact to Users:*  
+- Field Technicians can now efficiently manage data collection tasks.
+- Improved platform usability with specialized user roles.
+- Enhanced data security and validation with restricted access for Field Technicians.
+
+*Note: The Field Technician Role feature is designed to optimize data collection workflows and improve user segmentation. This update enhances data security and validation processes within the platform.*
+
+---
+
+**Feature: Queue/Job for Sending Images to Roboflow for Inference**  
+Platform Expansion | Image Processing  
+Introduce a queue and job system to facilitate sending images for machine learning operations to Roboflow for inference, initially with a hardcoded model for testing purposes. This feature includes setting up endpoints for testing in Postman and will eventually involve creating a migration/table to manage available models for detection and classification.
+*Details:*  
+• Implement a new queue and job to pass images to Roboflow for detection, requiring an API key.  
+• Develop job inputs including scan UUID, file UUID, organization UUID, and account UUID.  
+• Process the job by fetching image data, sending it to Roboflow, storing inference data, and saving scores, classes, and bounding box data for object detection.  
+• Write Postman endpoints for testing the image inference process.  
+*Impact to Users:*  
+• Users can efficiently trigger image inference jobs for machine learning operations.  
+• Provides a streamlined process for storing and managing inference data for image recognition and object detection.  
+
+**Feature: Database Migration for Detections**  
+Platform Expansion | Data Management  
+Implement a detection table to store object detection data, enhancing the platform's capabilities for managing and storing information related to detections.
+*Details:*  
+• Create a detection table to store object detection data.  
+• Utilize the provided database diagram for implementing the new detection table structure.  
+*Impact to Users:*  
+• Enables efficient storage and retrieval of object detection data for improved data management and analysis.  
+
+**Bug: Site Visits Renaming Glitch**  
+Improve UX/UI | Dashboard Site Visits  
+Address an issue where Site Visits on the Dashboard may intermittently display as "N/A" instead of their proper names, affecting searchability and causing temporary data inconsistency.
+*Details:*  
+• Glitch causes Site Visit names to change to "N/A" during actions like downloading attached survey payloads.  
+• Proper site names may be restored after clicking into the affected Site Visit or refreshing the page.  
+*Impact to Users:*  
+• Users may experience confusion when searching for Site Visits by name or ID.  
+• Temporary data inconsistency may occur, affecting the overall user experience.  
+
+*Note: The database migration and backend development tasks may not directly impact end users and are primarily focused on enhancing system functionalities.*

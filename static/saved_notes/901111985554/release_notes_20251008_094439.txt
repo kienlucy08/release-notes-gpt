@@ -1,0 +1,14 @@
+**New Light System COP Survey QC Editor Creation**  
+Feature  
+*Strategic Theme: Improve UX/UI* | *Area of Impact: QC Editor, Survey Creation*  
+Developed a new survey type "Light System COP" with detailed attributes and parameters for improved data collection and organization in the QC Editor.  
+*Details:*  
+- Added top-level attributes such as Site Name, Site ID, Survey Type, Customer, and more for easy reference and data entry.
+- Included survey-specific parameters like Assets Installed, Work Completed, and Return Visit Needed to streamline survey creation and review processes.
+- Created sections for Lighting System COP Overview and Pre-Install Work with relevant fields and dropdown options.
+  
+*Impact to Users:*  
+- Users can now create and manage Light System COP surveys with structured and comprehensive information.
+- Improved visibility and data accuracy in the QC Editor for better quality control and survey processing.
+
+*Note: This feature significantly enhances the survey creation process in the QC Editor and may require training for users unfamiliar with the new survey type and parameters.*

@@ -1,0 +1,1 @@
+Error generating part 1: Input too long for a single OpenAI call.
