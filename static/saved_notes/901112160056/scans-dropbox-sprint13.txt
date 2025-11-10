@@ -1,0 +1,19 @@
+**Feature: QA Dashboard Scans Tab Addition**  
+Improve UX/UI Business Development | QC Workflows  
+Enhances the QA Dashboard by adding a new "Scans" tab, allowing QC users to manage and associate scans with site visits, streamlining workflows and improving efficiency.
+*Details:*  
+• Added a new "Scans" tab alongside existing tabs for Surveys, Site Visits, and Sites.  
+• Users can now associate scans with site visits directly from the Scans tab.  
+• Surface existing Scan page functionality within the new tab, including object detections, metadata viewing, and image filtering.  
+• Implemented scan-to-site-visit association for smoother workflow integration.  
+*Impact to Users:*  
+• QC users can now manage and link scan images to surveys from a single location.  
+• Enables richer survey editing by including linked scan images.  
+• Improves efficiency by centralizing all tools within the QA Dashboard.  
+• Foundation laid for future scan-survey integration features.  
+
+*Note: This detailed technical approach and scope of change might be more suitable for the backend development team and may not be necessary for all company-wide release notes.*
+
+---
+
+Error generating part 2: Input too long for a single OpenAI call.

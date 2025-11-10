@@ -1,0 +1,13 @@
+**Feature: Automated Scan File Delivery to Dropbox**  
+Efficiency Customer Experience Simplicity Rapid Implementation Foundation | Operations, Project Managers, Customers  
+Allows Project Managers to easily deliver completed scans to customer Dropbox with one click, eliminating the manual export/upload process and improving customer experience.
+*Details:*  
+• Introduced a "Send to Dropbox" button on the Scan page.  
+• Dialog prompts user to input the customer's email and Dropbox file request link.  
+• System delivers all scan files to customer's Dropbox via file request API.  
+*Impact to Users:*  
+• Project Managers can deliver scan files quickly with one click.  
+• Operations team members no longer need to manually export, download, and upload zip files for each survey.  
+• Customers receive scan files directly in their Dropbox for immediate access in their existing workflows.  
+
+*Note: This feature includes detailed user stories, affected user flows, current and target flow comparisons, functional scope, primary and alternate flows, and edge cases that outline the entire process. This level of detail may be more suitable for internal development teams.*
