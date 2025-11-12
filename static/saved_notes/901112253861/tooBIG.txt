@@ -1,0 +1,33 @@
+**Enhancement: Overhaul Processed Site <> Reprocessing Site Visit Relationship**  
+Improve UX/UI Platform Expansion | Site Management, Reporting  
+Revamped the site visit reprocessing workflow to eliminate the need for deleting entire site records when updates are required, enhancing user experience and data management capabilities.
+*Details:*  
+• Redesigned the system to allow reprocessing of site visits without necessitating the deletion of parent site records.  
+• Implemented changes to enable appending new site visits to existing site records, facilitating comprehensive tracking of site history.  
+• Automated the clearance of worker queues, reducing manual intervention requirements.  
+• Addressed issues with multi-survey site visits failing partway through, no longer mandating complete site deletion for partial failures.  
+• Investigated and resolved the root cause enforcing site deletion for reprocessing despite database schema supporting a one-to-many relationship between Site and SiteVisit.  
+*Impact to Users:*  
+• Users can now update site visit data without losing the complete site history.  
+• Enhances user experience by removing the counterintuitive "delete to update" process.  
+• Enables appending new follow-up inspection visits to existing sites, meeting critical needs for tracking site history.  
+• Automation of worker queue clearance streamlines workflows and reduces manual tasks.  
+• Allows for tracking site evolution over multiple visits, improving data analysis capabilities.  
+
+*Note: This enhancement focuses on backend system restructuring and may not be easily understood by field technicians, but it is crucial for software development updates.*
+
+---
+
+**Enhancement: Database Migration for Survey Payload Embeddings Set and Embedding Chunk Tables**  
+Platform Expansion  
+Create migrations to establish a survey_embedding_set table and survey_embedding_chunk table for storing embedded and vectorized survey payloads for AI analysis. This enhancement links the survey_embedding_set table to survey_id and the survey_embedding_chunk table to survey_embedding_set id, allowing for efficient storage and retrieval of survey data.  
+*Details:*  
+- Define survey_embedding_set table with fields for id, name, embedding model, survey type, chunking strategy, chunking size, isActive, surveyID, editedAt, and createdAt.
+- Define survey_embedding_chunk table with fields for id, name, chunk index, chunk text, embedding, embeddingSetID, editedAt, createdAt, and metadata.
+  
+*Impact to Users:*  
+- Improved storage and retrieval of survey data for AI analysis.
+- Enhanced efficiency and organization of embedded survey payloads.
+- Streamlined processing of survey data for analysis.  
+
+*Note: This might be too complicated for a field tech to understand and isn’t necessary for the company release notes. However, it is important to acknowledge for software development updates.*

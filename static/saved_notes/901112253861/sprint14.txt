@@ -1,0 +1,203 @@
+**Disable AI Summary Without Embedding Enhancement**  
+*Tags: Enhancement*  
+*Strategic Theme: Improve UX/UI* | *Area of Impact: Survey Processing*  
+When a survey lacks an embedding, the AI summary will be disabled to prevent inaccuracies.
+*Details:*  
+- Disable AI summary for surveys without embedding available.
+*Impact to Users:*  
+- Users will avoid seeing inaccurate AI summaries for surveys without embedding.
+
+**Admin Setting for Active Embedding on Survey Type Enhancement**  
+*Tags: Enhancement*  
+*Strategic Theme: Improve UX/UI* | *Area of Impact: Survey Management*  
+Admins can now designate the active embedding set for each survey type to ensure only one is active at a time.
+*Details:*  
+- Admin ability to set active embedding for survey types.
+- Ensure AI summary uses the designated active embedding.
+*Impact to Users:*  
+- Prevents confusion by having only one active embedding for each survey type.
+
+**Langflow RAG Flow Data Cleaning Enhancement**  
+*Tags: Enhancement*  
+*Strategic Theme: Platform Expansion* | *Area of Impact: Data Processing*  
+A Langflow custom component has been developed to remove S123-specific data from surveyPayload before querying to LLM.
+*Details:*  
+- Creation of a custom component to clean S123 data from surveyPayload.
+*Impact to Users:*  
+- Improves data integrity by eliminating irrelevant S123 information.
+- Enhances the efficiency of data processing within Langflow.
+
+*Note: The last enhancement is backend-focused and involves data cleaning processes. It may be technical for field technicians and is more pertinent to software development updates.*
+
+---
+
+Error generating part 2: Input too long for a single OpenAI call.
+
+---
+
+**Enhancement: Admin Survey Type Embeddings Creation**  
+Platform Expansion | FieldSync App  
+Allows admins to upload a file triggering the langflow web hook to generate an embedding set for a specific survey type, simplifying embedding set creation within the FieldSync app.  
+*Details:*  
+- Implementation of file upload functionality for admins.
+- Integration of langflow web hook for embedding set generation.
+*Impact to Users:*  
+- Admins can now efficiently create embedding sets for surveys.
+- Streamlines the process of adding embedding sets within the FieldSync app.
+
+**Enhancement: Regenerate AI Survey Summary Button**  
+Platform Expansion | AI Functionality  
+Introduces a "Regenerate" button for admin users to refresh AI responses, aiding in testing embeddings rather than actual user interactions.  
+*Details:*  
+- Addition of the "Regenerate" button for AI summary refreshing.
+- Designed for admin testing of new embeddings and LLM generation.
+*Impact to Users:*  
+- Admins can now easily test AI summaries with updated embeddings.
+- Facilitates the testing of new embeddings and enhances admin workflow efficiency.
+
+**Feature: Survey Type Name-based Langflow Embedding Creation**  
+Platform Expansion | Langflow Integration  
+Updates the langflow embedding creation flow to utilize survey type names instead of IDs, simplifying the process of creating embedding sets.  
+*Details:*  
+- Implementation of survey type name usage for embedding creation.
+- Removal of complexity caused by differing IDs between test and production environments.
+*Impact to Users:*  
+- Users can now effortlessly create embedding sets based on survey type names.
+- Enhances the ease of generating embedding sets from langflow.
+  
+*Note: The following details involve backend software updates that may be too complex for field technicians and are not necessary for company release notes.*
+
+---
+
+**Enable Editing in P&T QC Editor for Structure Height Field**  
+Enhancement  
+Strategic Theme: Improve UX/UI  
+Area of Impact: P&T QC Editor - Structure Height Field  
+
+Aiming to improve user experience, this enhancement allows editing of the structureHeight field in the P&T QC Editor, ensuring consistency in height values across surveys within the same Site Visit.
+*Details:*  
+• Users can now edit the structureHeight field in the P&T QC Editor, aligning with existing editing capabilities in the Structure survey.  
+• Edits to the field save successfully, preventing mismatched height values.  
+• Clear warning messages prompt users to update corresponding height values in both surveys for data consistency.  
+
+*Impact to Users:*  
+• Inspection QC-ers can now maintain consistent height values across surveys within Site Visits.  
+• Eliminates discrepancies in calculations and reporting dependent on accurate height values.  
+
+*Note: This may be too technical for field techs and is mainly relevant for software development.*
+
+---
+
+**Display Detection Indicator on Scans Page**  
+Enhancement  
+*Strategic Theme:* Improve UX/UI  
+*Area of Impact:* Scans Page - Detection Status Visibility  
+
+Aiming to enhance the Scans page by displaying a detection indicator that shows the progress of requested detections to all users, preventing duplicate requests and confusion about detection status.  
+*Details:*  
+- Currently, only the user who requested detections can see the progress bar, leading to potential issues like duplicate requests and confusion.  
+- Proposed improvement includes displaying a progress bar with counts, a "Detections complete" message, error state indication, and blocking new requests during processing.  
+*Impact to Users:*  
+- All users accessing the Scan can monitor detection progress in real-time.  
+- Prevents duplicate detection requests and confusion about the detection status.  
+- Enhances efficiency by blocking new requests during processing.  
+
+*Note: This detailed description of the enhancement might be too technical for general release notes and more suitable for the development team.*
+
+---
+
+**Generalize Cloud Transfers**  
+Platform Expansion | Cloud Storage Integration  
+Refactor the existing Dropbox upload job processor to support multiple cloud storage providers (Box, Google Drive, OneDrive, S3) through a unified interface using official provider SDKs.
+
+*Details:*  
+- Created a provider-agnostic cloud transfer system.
+- Implemented support for 5 cloud providers: Dropbox, Box, Google Drive, OneDrive, S3.
+- Maintained existing features: streaming, progress tracking, concurrency control.
+- Introduced consistent error handling and logging across providers.
+- Developed a structure to easily add new providers in the future.
+
+*Impact to Users:*  
+- Users can now transfer files seamlessly across multiple cloud storage providers.
+- Enhanced reliability and performance with support for various cloud services.
+- Improved error handling for a smoother user experience.
+
+*Note: This might be too complicated for a field tech to understand and isn’t necessary for the company release notes. However, it is important to acknowledge for software development updates.*
+
+---
+
+**Feature: UI Implementation for Adding Scan Files to QC Editor**  
+**Strategic Theme:** Improve UX/UI  
+**Area of Impact:** QC Editor  
+A new UI element has been added to the QC Editor to display suggested detections and allow users to easily attach them.
+*Details:*  
+• Implemented UI element in QC Editor for displaying suggested detections.  
+• Users can now easily attach detections to the QC editor.  
+*Impact to Users:*  
+• Users can now view suggested detections in a clear UI element within the QC Editor.  
+• Streamlines the process of attaching detections, improving workflow efficiency.
+
+---
+
+Error generating part 8: Input too long for a single OpenAI call.
+
+---
+
+**Optimize Data Intake Entity Creation for Efficiency**  
+*Improvement*  
+*Strategic Theme: System Hardening* | *Area of Impact: Data Processing Pipeline*  
+
+Enhancing the efficiency of creating entities during data intake jobs to address inefficiencies in database writes and processing. The current process involves filtering out irrelevant "shell arrays" that contain minimal data points provided by survey forms but are not user inputs, requiring null and length checks for proper filtering.
+*Details:*  
+- Implement filtering for shell arrays in survey data processing
+- Perform combined null and length checks on fields in repeat arrays to filter out true shells
+*Impact to Users:*  
+- Improved efficiency in processing survey data
+- Ensures accurate filtering of irrelevant data points
+- Enhances overall system performance
+
+*Note: This might be too complicated for a field tech to understand and isn’t necessary for the company release notes. However, it is important to acknowledge for software development updates.*
+
+---
+
+**Link to High-Resolution Images in Scan Page**  
+Enhancement  
+Strategic Theme: Improve UX/UI | Area of Impact: Scan Page Image Viewer  
+Enhance the image viewing experience on the Scan page by allowing users to access high-resolution original images for detailed inspection, creating consistency with the QC Editor feature.  
+*Details:*  
+• Add a download/view button on the Scan page image viewer to open full-resolution original images in a new browser tab.  
+• Ensure the button functions correctly for all image formats present in scans.  
+• Match button styling and placement with the QC Editor's implementation.  
+*Impact to Users:*  
+• Users can now inspect images in detail by accessing high-resolution originals.  
+• Consistent image-viewing experience across the platform improves usability.  
+
+*Note: This might be too complicated for a field tech to understand and isn’t necessary for the company release notes. However, it is important to acknowledge for software development updates.*
+
+---
+
+**Polish Elevation Slices View in Detections**  
+Enhancement  
+*Improves user experience and clarity in the Scans page Elevation View accordion labels.*  
+*Details:*  
+- Reformatting accordion labels to display "<height> - <height> AGL (UNITS)" format.
+- Preferred format: <#> - <#> AGL (feet) (<#> files, <#> detections)
+- Current format: <#>' - <#>' AGL (<#> files, <#> detections)
+- Future plans include default unit settings for Organizations and an override toggle on the Scans page.
+*Impact to Users:*  
+- Clearer and more informative display of elevation slices in the Detections section.
+
+**Add Unit Declarations to Detection Height Estimations + Convert to Feet**  
+Feature Enhancement  
+*Improves usability and efficiency by adding unit labels and converting height estimates to feet.*  
+*Details:*  
+- Display unit labels on all height estimates (e.g., "45.2 m" or "148.3 ft").
+- Convert all height estimates from meters to feet to align with US-based telecom crews.
+- Conversion formula: Multiply by 3.28084.
+- Ensure appropriate precision (2 decimal places).
+- Implementation on all detection height displays on the Scans page.
+*Impact to Users:*  
+- Users will now see height estimates with clear unit labels.
+- Eliminates the need for manual conversion, speeding up tower inventorying and reporting workflows.  
+
+*Note: The calculations and conversions mentioned in these enhancements might be too technical for general users and are more relevant for the software development team.*
