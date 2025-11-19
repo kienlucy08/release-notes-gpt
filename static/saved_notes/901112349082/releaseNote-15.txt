@@ -1,0 +1,121 @@
+**Feature: Metadata Embeddings - Context & Payload Document Embeddings**  
+Platform Expansion | Database, Search Functionality  
+Enhancing the vectorized embeddings by associating metadata with each document embedding chunk to facilitate proper querying by the LLM.
+*Details:*  
+- For Context Embeddings:
+  - Add embedded metadata called 'section_type' dynamically based on the section.
+  - Main sections for each survey: SITE DETAILS, LOCATION, SITE PHOTOS.
+  - Additional metadata 'record_type' for specific survey types (e.g., Radiation Sources).
+- For Payload Embeddings:
+  - Include metadata for Section Type, Site ID, and Survey Type to reduce similarity search redundancy.
+  - Main sections for each survey payload: SITE DETAILS, LOCATION, SITE PHOTOS.
+  - Additional metadata 'record_type' for specific survey types.
+  - New metadata fields 'site_id' and 'survey_type' linked to 'customer_site_id' and 'survey_type' in the payload.
+*Impact to Users:*  
+- Improved search accuracy with reduced redundancy.
+- Enhanced contextual relevance in search results.
+- Better organization and categorization of survey data for users.
+
+**Feature: Custom Search Component Transfer - AstraDB - PostGres search**  
+Platform Expansion | Database Integration, Search Functionality  
+Developing a custom Search/Query component to validate payloads using Agentic RAG and querying vectorized and non-vectorized collections in AstraDB.
+*Details:*  
+- Custom Search/Query component requirements:
+  - Conduct semantic/similarity search and metadata filter search.
+  - Retrieve data from PostGre database for embedded context and payload sets.
+  - Return 20-30 results based on sections.
+  - Dynamic result method based on section (e.g., site location, site photos).
+  - Able to run in tool mode and callable by agents.
+*Note: This task involves backend development for search functionality and database interactions.*
+  
+*This might be too complicated for a field tech to understand and isn’t necessary for the company release notes. However, it is important to acknowledge for software development updates.*
+
+---
+
+**Feature: Automated Delivery of Drone Scan Datasets to Consilience**  
+Platform Expansion | Field Enablement  
+Enables automated delivery of full scan datasets (drone imagery) from FieldSync to Consilience using API calls, streamlining the process for field technicians and enhancing the value of the desktop Uploader.
+*Details:*  
+- Users can now deliver completed drone scans to Consilience Analytics with a single button click.
+- A warning system is in place to prevent accidental re-delivery of scans.
+- Visibility on scan delivery status is provided to avoid confusion.
+- The system stores the CA assessment ID for future tracking.
+- Reliable delivery of large scan datasets is ensured.
+*Impact to Users:*  
+- Field technicians can save time by avoiding manual file retrieval and slow web uploads.
+- Reduced risk of creating duplicate assessments.
+- Clear visibility on scan delivery status.
+- Improved efficiency in tracking and processing scans.
+
+**Enhancement: Refine Bounding Box Label Positions in Annotated Images**  
+Improve UX/UI | Scans Page - Bounding Box Labels on Annotated Images  
+Enhances the object detection feature by preventing bounding box labels from overlaying each other, ensuring clear association and readability in annotated images.
+*Details:*  
+- Implemented label positioning logic to prevent overlap.
+- Labels automatically reposition to avoid occlusion in dense detection scenarios.
+- Consideration for edge cases and small bounding boxes.
+*Impact to Users:*  
+- Improved readability and usefulness of annotated images for tower asset identification.
+- Enhanced clarity and reporting capabilities for users utilizing object detection.
+
+*Note: The solution involves collision detection algorithms and label placement heuristics, potentially impacting performance in dense detection scenarios.*
+
+**Bug: Compound > Carrier > Feedlines Grouping Issue on Processing**  
+System Hardening | Processing  
+Addressed a bug where grouping of Compound > Carrier > Feedlines was incorrect, impacting data organization during processing.
+*Details:*  
+- Compound surveys were incorrectly grouped with Structure surveys.
+- Resolved the data linkage issue causing the incorrect grouping.
+*Impact to Users:*  
+- Ensures accurate grouping of surveys for proper data processing.
+- Prevents confusion and ensures data integrity during surveys processing.
+
+*Note: This bug fix involves backend data organization and may not directly impact user interface.*
+
+---
+
+**Feature: CONS-MOD Scope of Work Migration**  
+Platform Expansion | Data Management  
+Migration created to establish a global scope of work for Modification Construction in the site visit system to support a new workflow.
+*Details:*  
+• Added a new row to the **scope_of_work** table for **Modification Construction**.  
+• New rows added to the **survey_type** table for various stages of Modification Construction surveys.  
+• Associated surveys with the **cons_mod** scope of work in the table **scope_of_work_survey_types_survey_type**.  
+*Impact to Users:*  
+• Users can now select **Modification Construction** as the scope of work for site visits.  
+• Enables attaching specific technical test files to CONS-MOD site visits.  
+*Note: This might be too complicated for a field tech to understand and isn't necessary for the company release notes. However, it is important to acknowledge for software development updates.*
+
+---
+
+**Feature: QC Editor: CONS-MOD Prework**  
+Improve UX/UI | Survey Processing  
+Introducing top-level attributes and survey parameters for CONS-MOD Prework surveys in the QC Editor, including key information such as site details, survey type, and technician information.
+*Details:*  
+• Added top-level attributes like Site Name, Site Id, Survey Type, Customer, and more for CONS-MOD Prework surveys.  
+• Included survey parameters such as Job Number, Project ID, Project Manager, and Applicable Sectors for detailed survey information.  
+• Implemented accordions for Overview Photos, New Equipment Serials, Overview Photos - Tower, Catch All, and Flags to organize survey data efficiently.  
+*Impact to Users:*  
+• Users can now easily access and input essential information for CONS-MOD Prework surveys in the QC Editor.  
+• Improves data organization and visibility, enhancing the overall survey processing experience.
+
+*Note: This detailed technical information may be more relevant for the development team and may not directly impact end-users.*
+
+---
+
+**Feature: QC Editor: CONS-MOD 48-Hour Turnaround**  
+Improve UX/UI | QC Editor  
+Introducing a new feature for CONS-MOD Rapid Results surveys in the QC Editor, providing top-level attributes, survey parameters, and various accordion sections for improved data organization and visibility.
+*Details:*  
+• Added top-level attributes such as Site Name, Site ID, Survey Type, Customer, and more for quick access.  
+• Included accordion sections for different sectors (Alpha, Beta, Gamma, Delta, Epsilon, Zeta) with specific record structures and photo attachments.  
+• Implemented Tape Drops accordion with Antennas sub-accordion for detailed antenna information and photos.  
+• Optimized UI/UX by recording sector values inside the repeat and suggested grouping records by sector or ordering them alphabetically and by position.  
+• Included fields for lowest, centerline, and highest points of install with corresponding photos.  
+• Added Catch All and Flags accordion sections for additional data entry.  
+*Impact to Users:*  
+• Users can now easily input and view detailed information for CONS-MOD Rapid Results surveys in a structured manner within the QC Editor.  
+• Improved efficiency in data entry and survey processing with organized accordion sections and top-level attributes.  
+• Enhanced user experience with optimized UI/UX suggestions for better data visibility and organization.  
+
+*Note: This might be too complicated for a field tech to understand and isn’t necessary for the company release notes. However, it is important to acknowledge for software development updates.*

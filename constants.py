@@ -39,7 +39,8 @@ FIELD_ID_TO_SPRINT = {
     "6357fdfa-7114-49e7-9dcc-a9ea956936b0" : "Sprint 11 (9/10 - 9/23)",
     "97823526-f21c-440b-aee4-72ec7ebf4d15" : "Sprint 12 (9/24 - 10/7)",
     "bfe3503b-db1c-42cb-9e4f-1dc862855240" : "Sprint 13 (10/8 - 10/21)",
-    "be7ac634-433c-405c-bed1-02a6b7faf19d" : "Sprint 14 (10/22 - 11/4)"
+    "be7ac634-433c-405c-bed1-02a6b7faf19d" : "Sprint 14 (10/22 - 11/4)",
+    "3d30a730-e8f8-43bf-bba7-59a1eb7a7f74" : "Sprint 15 (11/5 - 11/18)"
 }
 # Reusable headers
 HEADERS = {
