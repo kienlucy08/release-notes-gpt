@@ -1,0 +1,82 @@
+**CA Integration: Upload as New Assessment**  
+*Improve UX/UI | Data Upload*  
+Allows users to upload assessments as new ones in ZeitView to prevent errors and confusion when re-uploading to a site.  
+*Details:*  
+- Uploading an assessment twice does not always work in ZeitView, often resulting in unexplained errors.
+- Introducing a "upload as new assessment" dialog to create a new assessment in the site, aligning with Consilience's upload process.  
+*Impact to Users:*  
+- Users can now easily create new assessments without worrying about errors during re-uploads.
+
+**CA Integration: Modal Overhaul - Advanced Options Collapsible**  
+*Improve UX/UI | Data Management*  
+Enhances the file transfers modal in ZeitView by introducing advanced settings options for configuring scan types and specifications during site and assessment creation.  
+*Details:*  
+- Advanced settings dropdown added to allow users to configure scan types (pre-construction, post-construction, capture), drone settings, access road settings, and more.
+- Users can specify details such as height, latitude, and longitude for scans.  
+*Impact to Users:*  
+- Users have more control over scan configurations and can tailor settings to their specific requirements.
+
+**CA Integration: Modal Overhaul - Manual Organization Selector**  
+*Improve UX/UI | Data Transfer*  
+Enables users to specify the organization for file uploads to prevent unintentional placement of files in incorrect organizations in ZeitView.  
+*Details:*  
+- File transfers in ZeitView currently default to the last organization selected by the user, leading to unintended placements.
+- Implementation of API endpoints to prompt users to select an organization before transfer completion.
+- Logic adjustments to maintain a one-to-one relationship between scans and assessments.  
+*Impact to Users:*  
+- Users are now required to select the organization for file uploads, reducing the risk of files ending up in unintended locations.
+- Provides clarity and organization during the file transfer process.
+
+*Note: The logic adjustments made in this enhancement involve backend data management and API handling, which may not be directly noticeable to end-users.*
+
+---
+
+Error generating part 2: Input too long for a single OpenAI call.
+
+---
+
+Error generating part 3: Input too long for a single OpenAI call.
+
+---
+
+**Enhancement: Guy Facilities Data Validation and Manipulation**  
+*Improves UX/UI System Hardening* | *Field Enablement*  
+Enhancements in the Guy Facilities Quality Control (QC) Editor to allow users to view and edit guy wire data associated with compound surveys, addressing issues related to mismatched data pairs and missing tension records.
+*Details:*  
+- Added an "escape hatch" feature in the QC Editor for Guy Facilities, enabling users to manipulate guy levels and position values for each guy wire in a compound survey.
+- Implemented automatic creation of tension records alongside size/color photo pairs collection by setting repeat counts for each compound.
+- Introduced wire position tracking using a custom JavaScript function for both repeats per compound.
+- Required fields for every compound include: size/color repeat's guy level and wire position, tension repeat's guy level, regulation size, strand count, strength type, and wire position.
+- Validation check compares the counts of wire positions in size/color and tension repeats; mismatch handling is based on count validation.
+*Impact to Users:*  
+- Users now have the ability to view and adjust guy wire data in compound surveys, reducing errors and improving data accuracy.
+- Automatic creation of tension records streamlines data collection process and ensures data integrity.
+- Required fields for each compound enhance data consistency across surveys.
+- Validation layer improves data quality and reduces the risk of missing records during data capture.
+
+*Note: This update involves complex backend changes that may be technical for field technicians and is crucial for software development purposes.*
+
+---
+
+Error generating part 5: Input too long for a single OpenAI call.
+
+---
+
+**Feature: QC Editor: CONS-MOD Tower COP**  
+Business Development | Improve UX/UI  
+Introducing a new feature for the CONS-MOD Tower COP survey type in the QC Editor, providing a structured layout for various attributes and attachments to streamline data entry and review processes.  
+*Details:*  
+- Added top-level attributes such as Site Name, Site ID, Survey Type, Customer, and more for ease of access and data entry.
+- Included survey parameters like Job Number, Project Number, and Project Manager to ensure comprehensive survey information capture.
+- Implemented accordion sections for organized data entry of photos and details related to Tower Overview, Safety Climb, Side Lights, and more.
+- Set up repeating sections for Raycaps, Side Lights, Catch All, and Flags to capture specific data points efficiently.
+- Enabled passing of technician signature images for report payloads.  
+*Impact to Users:*  
+- Users can now efficiently input and review data for CONS-MOD Tower COP surveys in a structured and organized manner within the QC Editor.
+- Streamlines the process of capturing and accessing survey information, improving overall efficiency and accuracy.  
+
+*Note: This detailed feature enhancement is more technically focused and may not be directly relevant to all users. It is crucial for the development team's testing and data capture processes.*
+
+---
+
+Error generating part 7: Input too long for a single OpenAI call.

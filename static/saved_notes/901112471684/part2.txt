@@ -1,0 +1,71 @@
+**Feature: CONS-MOD Ground COP**  
+*Improves UX/UI*  
+This feature enhances the CONS-MOD Network COP survey type by adding top-level attributes and survey parameters for improved data collection and visibility. It also introduces a grid layout to maximize screen space and organizes information into accordions for better user experience.
+*Details:*  
+- Added top-level attributes such as Site Name, Site Id, Survey Type, Customer, and more for easier data entry and reference.
+- Utilized grid layouts to maximize screen space and improve the layout of information.
+- Introduced accordions for sections like Site Overview Photos, Install (From Grade), and Tower Overview (From Grade) to organize data efficiently.
+*Impact to Users:*  
+- Users can now easily input and reference essential survey information.
+- Improved layout and organization enhance user experience and efficiency.
+- Grid layouts provide a visually appealing and space-efficient way to view data.
+*Note: This feature heavily focuses on improving data collection and layout within the survey tool and may not directly impact end-users outside of the data entry context.*
+
+Please let me know if you need further information on any of the items listed.
+
+---
+
+**Feature: CONS-MOD Sector COP**  
+Improvement UX/UI | Field Enablement  
+Adds a new feature to the CONS-MOD Sector COP survey type, including top-level attributes, survey parameters, and specific accordions for different sectors.  
+*Details:*  
+- Various top-level attributes like Site Name, Site ID, Survey Type, Customer, etc., are included in the survey.
+- Accordion sections are added for specific sectors like Alpha, each with its set of attributes and images.
+- Sub-accordions for Mount Modification Measurements and Tower Modification Measurements are included.
+  
+*Impact to Users:*  
+- Users can now capture and view detailed information for CONS-MOD Sector COP surveys.
+- Improved visibility and organization of survey data for better field technician efficiency.
+
+**Enhancement: Create Guy Wires Records From 'photos_s' repeats instead of 'tensions_s'**  
+Improve UX/UI | Field Enablement  
+Improves the process of capturing guy wire data by creating records based on photo repeats instead of tension repeats in surveys.  
+*Details:*  
+- Guy wire records will now be generated from photo repeats, providing more comprehensive data.
+- This change aims to avoid gaps in guy wire data and enhance the user experience in the QC Editor.
+- Long-term solution involves reconfiguring the survey and enhancing web app backend for better data handling.
+
+*Impact to Users:*  
+- Technicians can now create more accurate guy wire records based on photo data.
+- Reduces confusion and gaps in guy wire information presented to users in the QC Editor.  
+
+*Note: This information is more backend-focused and may not be crucial for general user understanding, but it is essential for software development updates.*
+
+---
+
+**Bug: Images Uploaded from Local Device to GF Survey not Retained after Save > Refresh**  
+Improve UX/UI System Hardening | Site Visits, GF Survey  
+Images uploaded from a local device to a GF survey are not retained after saving and refreshing the page, leading to broken image previews even though the JSON data indicates the image upload was successful.  
+*Details:*  
+- Only reproducible in a single instance of the GF survey
+- Issue not present in Structure and Compound surveys
+- Issue observed in both app and test instances
+- Uploaded images disappear after saving and refreshing the page, despite successful uploads
+*Impact to Users:*  
+- Users experience broken image previews after saving and refreshing, causing confusion and lost data visibility
+
+**Bug: Spotty Display of Images and Data Fetched from Survey123 in Web App QC Editor (GF Editor)**  
+Improve UX/UI System Hardening | Site Visits, GF Survey  
+Images and data fetched from Survey123 in the Web App QC Editor for a GF survey show spotty display issues, with missing field images present in the JSON view but not displayed in the standard view.  
+*Details:*  
+- Reproducible in a single instance of the GF survey
+- Issue not present in Structure and Compound surveys
+- Entire guy level records are missing in the investigation
+*Impact to Users:*  
+- Users may encounter missing images and data in the QC Editor, affecting data accuracy and completeness
+
+**DevOps: Database Migration**  
+*This might be too complicated for a field tech to understand and isn’t necessary for the company release notes. However, it is important to acknowledge for software development updates.*
+
+**DevOps: Controller/Service**  
+*This might be too complicated for a field tech to understand and isn’t necessary for the company release notes. However, it is important to acknowledge for software development updates.*
