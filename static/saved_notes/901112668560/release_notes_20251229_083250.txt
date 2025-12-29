@@ -1,0 +1,7 @@
+**Feature: Projects - "Change Project Status" Action Button**  
+Improve UX/UI  
+Added an in-row action button to expandable project tables for easily changing project status without opening the Edit Project modal.
+*Details:*  
+• Implemented a new in-row action button for changing project status within expandable project tables.
+*Impact to Users:*  
+• Users can now quickly update project status directly from the project table, streamlining the process without the need to open the Edit Project modal.

@@ -1,0 +1,120 @@
+**Feature: Add Site Name and Site ID to QC Editor Survey Buttons**  
+Improve UX/UI | QC Editor  
+Appended site name and site ID to survey button labels in QC Editors to assist users in confirming the correct surveys attached to site visits without the need to open each survey individually.
+*Details:*  
+• Survey buttons now display as <Survey Type> - <Site Name>, <Site ID> for quick identification.  
+• Enhanced user experience by reducing unnecessary clicks and context-switching during QC workflows.
+*Impact to Users:*  
+• Users can easily confirm correct survey allocation without opening each individual survey.  
+• Streamlines QC processes and improves efficiency.
+
+**Feature: Update Template to Remove File Type Dependency**  
+Improve UX/UI | Report Generation  
+Disabled scopeOfWork inference based on template file type to ensure templates are not concerned with specific file types and to fix COP forcing .xlsx report generation.
+*Details:*  
+• Removed template file type dependency for scopeOfWork.  
+• Resolved issue with COP forcing .xlsx report generation.
+*Impact to Users:*  
+• Users can upload report templates without worrying about file type dependencies.  
+• Ensures accurate report generation without file type restrictions.
+
+**Feature: Remove Survey and Report JSONs from No-Reply Emails**  
+Improve UX/UI | Data Privacy  
+Eliminated inclusion of raw survey JSONs and report JSONs from automated no-reply@fieldsync.io emails sent to users submitting field data and generating reports to improve data privacy, security, and user experience.
+*Details:*  
+• Removed raw survey JSONs and report JSONs from outgoing emails.  
+• Aligns with RBAC vision of restricting access to sensitive data.  
+• Reduces user confusion and potential security risks associated with sharing JSON data via email.
+*Impact to Users:*  
+• Enhances data privacy and security for users submitting field data.  
+• Streamlines communication and reduces user confusion related to raw data access.  
+
+*Note: The last feature update pertains to data privacy and security improvements and may be more technical in nature, not directly impacting user-facing features.*
+
+---
+
+**Feature: CONS-MOD Scope of Work Refactor: CONS-MOD Rapid Results & CONS-MOD COP**  
+Improve UX/UI Business Development | Project Management  
+Replaced the single CONS-MOD scope of work with two separate scopes: CONS-MOD Rapid Results and CONS-MOD COP. This allows for independent processing and delivery timelines for each scope and enables the Projects feature to link related site visits together.
+*Details:*  
+• Added "Modification Construction, Rapid Results" and "Modification Construction, Close Out Package" as new scope choices.  
+• Removed "Modification Construction" from the scope selection dropdowns.  
+*Impact to Users:*  
+• Project Managers can now track Rapid Results and COP scopes separately for easier monitoring.  
+• Simplifies data model and QC workflows for more straightforward processes.
+
+**Feature: Processing for CONS-MOD COP Scope**  
+Improve UX/UI Business Development | Project Management  
+Implemented processing and report generation workflows for the CONS-MOD COP scope, allowing Project Managers to process the four close-out surveys and generate comprehensive reports for final customer delivery.
+*Details:*  
+• Enabled processing of all four surveys (Prework, Network COP, Tower COP, Sector COP) for validation and aggregation.  
+• Implemented report generation for a comprehensive document with customer-ready data.  
+*Impact to Users:*  
+• Project Managers can validate and aggregate survey data efficiently.  
+• Streamlines the generation of comprehensive close-out packages for customers.  
+
+*Note: The scope of work for these features involves database migrations, controller/service development, UI component adjustments, and new long-running job implementations. This is more of a backend process and may not directly impact end-users.*
+
+---
+
+**Feature: CONS-MOD Rapid Results Processing and Report Generation**  
+Business Development Improve UX/UI | Survey Processing, Report Generation  
+Enables Project Managers to process 48-Hour Turnaround surveys, generate standalone reports, and create ZIP packages for customer delivery, streamlining workflows and ensuring consistent formatting.
+*Details:*  
+• Implementation of processing and report generation workflows for Modification Construction Rapid Results scope.  
+• Validation of survey completeness and creation of site records following existing COP patterns.  
+• Two delivery options: standalone reports for internal review and ZIP packages bundling reports with technical test files for complete customer deliverables.  
+*Impact to Users:*  
+• PMs can meet 48-hour customer SLA requirements efficiently.  
+• Eliminates manual report creation and file bundling workflows.  
+• Reduces delivery errors and ensures consistent formatting for Rapid Results deliverables.  
+
+*Note: This is a backend software update and may be too detailed for a field tech to understand but is important for software development.*
+
+---
+
+**Feature: CONS-MOD Rapid Results Technical Test Files (Phase 1)**  
+Improve UX/UI | System Hardening  
+Enables field technicians to upload categorized technical test files (AAT Report, PIM File, Sweep File, OTDR File) to Site Visit detail pages for CONS-MOD workflows, allowing parallel uploads for real-time PM review and bulk download functionality.
+*Details:*  
+• Added four categorized file upload buckets to the Site Visit detail page.  
+• Enabled asynchronous parallel uploads for multiple technicians.  
+• Implemented bulk download functionality for both Site Visit and Site page reports.  
+• Phase 1 utilizes web upload, with Phase 2 integrating Desktop Uploader.  
+• Establishes UI patterns for future Desktop Uploader integration.  
+*Impact to Users:*  
+• Field technicians can upload test files immediately for real-time PM review.  
+• Technicians can replace specific files with corrected versions.  
+• Project managers can easily track uploaded test files and quickly download all files for review.  
+• Ensures complete deliverable packages for customers.  
+
+*Note: This feature involves database migration, controller/service development, UI component work, and long-running job implementation.*
+
+---
+
+**Feature: Attach Supplementary Files to Site Visits**  
+Improve UX/UI Field Enablement | Site Visits, File Management  
+Allows users to attach files directly to Site Visits, creating a "Supplemental Files" section on the Site Visit detail page for better file management and accessibility.
+*Details:*  
+• Added functionality to upload files directly to Site Visits.  
+• Created a new section "Supplemental Files" to display attached files.  
+• Users can now delete accidentally uploaded files.  
+• Enables future scope-specific file requirements for different scopes of work.  
+*Impact to Users:*  
+• Centralized location for all Site Visit documentation.  
+• Simplifies file tracking across systems.  
+• Improves user experience for file management.  
+
+**Feature: ScopeOfWork Refactor: CONS-MOD to CONS-MOD Rapid Results & CONS-MOD COP**  
+Improve UX/UI Business Development | Project Management, Data Model  
+Split CONS-MOD scope into CONS-MOD Rapid Results and CONS-MOD COP for independent processing and delivery timelines, streamlining data model and deliverable management.
+*Details:*  
+• Replaced CONS-MOD with two separate scopes.  
+• Enables clear completion criteria for each scope.  
+• Projects feature allows grouping related site visits.  
+*Impact to Users:*  
+• Simplifies QC workflows and customer delivery processes.  
+• Provides clear tracking for different scope deliverables.  
+• Links related site visits under a single Project for better management.  
+
+*Note: The UI work mentioned is minor and involves updating dropdown options without significant design changes.*

@@ -1,0 +1,31 @@
+I'm ready to assist! Please provide me with the list of completed items that need to be turned into structured release notes.
+
+---
+
+Error generating part 2: Input too long for a single OpenAI call.
+
+---
+
+**Feature: Sunset Langflow ECS Cluster and Functions**  
+System Hardening | Backend  
+Removed all functions, tables, services/controllers, environment variables, pulumi deployment code, deployable flows, and supporting files related to Langflow. Redeployed the application to eliminate the ECS cluster used by Langflow.  
+*Details:*  
+• Removed all functions and resources associated with Langflow.  
+• Migrated and removed any unused tables related to Langflow.  
+• Deleted services/controllers and environment variables that were deprecated.  
+• Eliminated any pulumi deployment code associated with Langflow.  
+• Deleted deployable flows and supporting files specific to Langflow.  
+• Redeployed the application to stop using the ECS cluster utilized by Langflow.  
+*Impact to Users:*  
+• Users will no longer have access to features or functionalities related to Langflow.  
+• Application performance may improve with the removal of unnecessary resources.  
+
+**Enhancement: Uploader - Scans Table**  
+Improve UX/UI | Uploader  
+Added a table for scans in the uploader to allow users to view and filter existing scans, enabling features like deleting scans without hindrance.  
+*Details:*  
+• Created a new table for scans within the uploader.  
+• Users can now filter and view existing scans either in a single site or in a dedicated tab.  
+*Impact to Users:*  
+• Users can now easily access and manage scans within the uploader.  
+• Facilitates the use of features that rely on viewing and deleting scans.

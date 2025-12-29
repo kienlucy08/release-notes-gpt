@@ -1,0 +1,12 @@
+**Feature: Projects Page with Status-based Tabs**  
+Improve UX/UI | Project Management  
+Introducing a new Projects page with status-based tabs (Bidding, Planning, Active, Completed) that display expandable project rows showing associated site visits with aggregated documentation. Additionally, replacing "Project Code" on the site visit page with a project selection dropdown.  
+*Details:*  
+- Created a new Projects page with status-based tabs for Bidding, Planning, Active, and Completed projects.
+- Project rows are expandable to show associated site visits and their documentation.
+- Replaced "Project Code" with a project selection dropdown on the site visit page.
+*Impact to Users:*  
+- Project Managers can now easily access all project-related documentation in one central location.
+- Enables quick responses to audit requests and verification of project completeness.  
+
+*Note: This feature requires creating new pages/views and modifying existing pages/views and forms, enhancing the overall user experience.*
