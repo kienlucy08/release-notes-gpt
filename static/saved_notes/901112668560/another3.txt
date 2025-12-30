@@ -1,0 +1,26 @@
+**Projects - Permissions Integration**  
+*Strategic Theme: Improve UX/UI* | *Area of Impact: Projects*  
+Integrating project features with the permissions system to conditionally render buttons and UI elements based on user permissions.
+*Details:*  
+• Project features now integrated with the permissions system.  
+• Buttons and UI elements will be displayed based on user's permissions.  
+*Impact to Users:*  
+• Users will only see buttons and UI elements they have permission to access.
+
+**Report Generation Dialog Glitch Fix**  
+*Strategic Theme: Improve UX/UI* | *Area of Impact: Reporting*  
+Fixed a bug where the report generation dialog glitches when a user needs to select a different site visit in the site.
+*Details:*  
+• Glitches in the report generation dialog.  
+• Issues when selecting a different site visit.  
+*Impact to Users:*  
+• Improved user experience when selecting different site visits in reports.
+
+**Projects - View / Download Project Deliverables**  
+*Strategic Theme: Improve UX/UI* | *Area of Impact: Projects*  
+Added a column to the Projects Table that displays the number of deliverables associated with each project. Users can click the number to view and download the deliverables.
+*Details:*  
+• New column added to show the number of deliverables.  
+• Dialog added to list and download deliverables when the number is clicked.  
+*Impact to Users:*  
+• Users can easily view and download project deliverables.
