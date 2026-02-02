@@ -1,0 +1,98 @@
+**Feature: RAG/LLM Batch Jobs Research**  
+Tags: Feature  
+Strategic Theme: Platform Expansion  
+Area of Impact: AWS Infrastructure, Agent Workflow  
+Researching the implementation of AWS Bedrock batch inference for processing multiple survey submissions in parallel, providing cost savings and flexibility for workflow performance.
+*Details:*  
+• Confirm compatibility with current models (Sonnet 4.5)  
+• Verify support for agent invocations  
+• Check for Knowledge Base integration  
+• Understand batch job size limits and feature limitations  
+• Test chaining multiple batch jobs with dependencies  
+*Impact to Users:*  
+• Improved performance and cost-effectiveness for processing surveys  
+• Enhanced flexibility in agent orchestration and workflow logic  
+
+**Feature: Create Logging System for Roboflow Scan Feature**  
+Tags: Feature  
+Strategic Theme: Improve UX/UI  
+Area of Impact: Web App Inference  
+Implemented an extensive logging mechanism for Roboflow Scan feature to identify and troubleshoot inference failures retroactively.
+*Details:*  
+• Enhanced error logging for inference job failures  
+• Added hover-over functionality to display error details  
+• Replaced button for rerunning failed detections  
+*Impact to Users:*  
+• Users can easily identify reasons for inference failures  
+• Improved user experience for troubleshooting and re-running detections  
+
+**Feature: Uploader: Revamp Data Structures/Functions to Use Streams for Files**  
+Tags: Feature  
+Strategic Theme: System Hardening  
+Area of Impact: Uploader Performance  
+Overhauled data structures and functions in the uploader to utilize file streams for improved performance and efficiency.
+*Details:*  
+• Rewritten parts to expect file paths instead of file objects  
+• Updated localFileTable to fetch files and info from file paths  
+• Revised dropping files into the app process to work off file locations  
+*Impact to Users:*  
+• Enhanced performance and reduced redundancy in file handling  
+• Improved efficiency in file processing and storage  
+
+**Enhancement: Centralized Editing for Certain Structure Parameters in Inspection Site Visits**  
+Tags: Enhancement  
+Strategic Theme: Improve UX/UI  
+Area of Impact: Site Visits  
+Centralized editing of Structure Parameters, including a new parameter (Structure Height), at the Site Visit level to ensure data consistency and eliminate manual double-entry work.
+*Details:*  
+• Made Structure Height editable at the Site Visit level  
+• Updated editing to automatically propagate changes to child surveys  
+*Impact to Users:*  
+• Eliminated the risk of mismatched data in surveys  
+• Streamlined data entry and synchronization for improved accuracy  
+
+*Note: The following DevOps task involves backend software updates exclusive to the software development team and may not be necessary for general release notes.*
+
+---
+
+**Bug: Navigating to Dashboard Always Goes to Surveys Tab**  
+Improve UX/UI | Dashboard Navigation  
+Users are always directed to the surveys tab on the dashboard, regardless of their previous navigation tab. This bug needs to be fixed to remember the user's previous navigation tab.  
+*Details:*  
+- Users are consistently redirected to the surveys tab upon returning to the dashboard.
+- The system should remember and direct users to their last visited tab on the dashboard.  
+*Impact to Users:*  
+- Users will no longer have to navigate back to their desired tab every time they access the dashboard.
+
+**Bug: Fix "Create New Site" Dialog**  
+Improve UX/UI | Sites Page  
+When creating a new empty site, users are unable to input '.' or '-' characters, causing issues in the UI. The latitude and longitude inputs should be labeled clearly in the dialog box.  
+*Details:*  
+- '.' character is blocked in the latitude and longitude fields.
+- Entering '-' as the first character in latitude or longitude fields triggers an error.
+- Latitude and longitude fields lack clear labels in the dialog box.  
+*Impact to Users:*  
+- Users can now input '.' character in latitude and longitude fields.
+- Leading '-' input in latitude or longitude fields will not cause errors.
+- Clear labeling of latitude and longitude fields for better input understanding.
+
+**Feature: RAG/LLM - Polish Feature Use**  
+Improve UX/UI | Frontend  
+Enhancement to prevent misuse of the feature on scopes of work or surveys not part of the validation LLM feature. It includes UI status updates and notifications for users upon survey submission for validation.  
+*Details:*  
+- Feature will prevent misuse on certain scopes of work like CONS-MOD and JSA.
+- UI status updates and notifications will inform users about validation report progress.  
+*Impact to Users:*  
+- Prevents misuse and unnecessary costs by safeguarding the feature.
+- Keeps users informed about the status of their validation report, enhancing user experience.
+
+**Feature: Implement "Stepper" Component for Easier Permission Granting Workflows**  
+Improve UX/UI | Admin Panel  
+Introduce a Stepper component for smoother permission granting workflows, utilizing the Stepperize library. Replace ShadCN specific components with BaseUI counterparts and implement it in the Admin's Role and Permission dialog.  
+*Details:*  
+- Implement Stepper component using the Stepperize library.
+- Use Stepper component in the Role and Permission dialog for a seamless workflow.  
+*Impact to Users:*  
+- Enhances user experience by simplifying permission granting workflows in the Admin panel.  
+
+*Note: The following bug fix involves complex backend changes that are not necessary for company-wide release notes.*

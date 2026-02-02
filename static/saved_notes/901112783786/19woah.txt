@@ -1,0 +1,96 @@
+**Feature: Research on QC Editor Portability to Mobile**  
+*Strategic Theme:* Business Development  
+*Area of Impact:* QC Editor  
+Mikey will conduct research on the feasibility of replacing Survey123 with a mobile application for QC Editors. This will involve investigating the potential for a mobile application to enhance the QC Editor functionality and provide a demo if applicable.
+
+**Bug: Navigating to Dashboard Always Goes to Surveys Tab**  
+*Strategic Theme:* Improve UX/UI  
+*Area of Impact:* Dashboard Navigation  
+Users are consistently redirected to the surveys tab on the dashboard, even if they were previously on the site visits or sites tab. The navigation should remember the user's previous tab selection.
+
+**Bug: "Your Request Rate is Too High" Error in Bedrock Agent**  
+*Strategic Theme:* System Hardening  
+*Area of Impact:* Bedrock Model Invocation  
+When using the Multi-Agentic RAG Query feature, an error stating "Your request rate is too high" occurs in the deployed web application. This error is related to high request rates and can be fixed by implementing throttling at both the global API level and individual API request endpoints.
+
+*Details:*  
+- Error message appears due to high request rates in the deployed web application
+- Possible causes include low request rates for the current agent model and multiple requests to the Bedrock manager agent
+- Solution involves implementing throttling to control the number of model invocation requests
+
+*Impact to Users:*  
+- Users will not encounter the error message related to high request rates
+- System performance will be optimized with controlled request rates  
+(Note: This fix may involve complex backend configurations not directly relevant to general users.)
+
+**Feature & Update: QC Editor Scan Image Selector Enhancements**  
+*Strategic Theme:* Improve UX/UI  
+*Area of Impact:* QC Editor Workflow  
+Enhancements include adding a scan image metadata viewer to the Scan Image Selector, allowing users to view image metadata without leaving the workflow, and displaying all selected images in the preview section.
+
+*Details:*  
+- Image metadata viewer added to the Scan Image Selector
+- Preview section now displays all selected images
+- Arrow key navigation implemented for easy image browsing
+
+*Impact to Users:*  
+- Users can view image metadata seamlessly within the workflow
+- Preview section shows all selected images for easy review
+- Navigation between images is simplified with arrow key functionality
+
+**Enhancement: Scan Image Viewer Arrow Key Navigation**  
+*Strategic Theme:* Improve UX/UI  
+*Area of Impact:* Scan Image Viewer  
+Users can now navigate through all scan images using arrow keys within the image viewer dialog, allowing for a more efficient review process.
+
+*Details:*  
+- Arrow key navigation added for easy browsing of scan images
+- Navigation works across accordion sections for a seamless user experience
+- Image viewer now displays file name and associated detections
+
+*Impact to Users:*  
+- Users can swiftly navigate through scan images without closing the viewer
+- Improved workflow for reviewing multiple images
+- Enhanced user experience with intuitive image browsing functionalities
+
+---
+
+**Enhancement: QC Editor Scan Image Selector: Arrow Key Navigation and Selection Distinction**  
+Improve UX/UI  
+In the Scan Image Selector, users can now navigate through images using arrow keys without automatically selecting them. They can explicitly choose which images to include, allowing for multiple non-consecutive selections. Visual cues indicate the currently viewed image and those selected for inclusion.
+*Details:*  
+• Arrow keys now navigate through images without selecting them  
+• Added explicit selection action for users to mark images for inclusion  
+• Visual distinction between currently viewed and selected images  
+*Impact to Users:*  
+• Easier review of multiple images before selecting  
+• Ability to select multiple non-consecutive images  
+
+**Enhancement: QC Editor Scan Image Selector: Faster Load Times**  
+Improve UX/UI  
+The Scan Image Selector now loads 10 images per page, improving initial load performance while maintaining virtualized rendering and pagination functionality.
+*Details:*  
+• Reduced page size to load 10 images instead of 200  
+*Impact to Users:*  
+• Faster initial load times for the image selector  
+
+**Feature: Scan Inferences: Automatic Queuing for Object Detection on Upload**  
+Improve UX/UI  
+Users no longer need to manually trigger object detection inferencing for scans. It now automatically queues when individual files are uploaded or a full scan upload completes.
+*Details:*  
+• Automatic triggering of object detection inferencing upon upload  
+• System handles multiple concurrent uploads without performance degradation  
+*Impact to Users:*  
+• Eliminates the need for manual initiation of object detection inferencing  
+• Improved efficiency in managing scan uploads  
+
+*Note: The following features and bugs are more backend-focused and may not be necessary to include in company-wide release notes.*
+
+**Feature: Uploader: CA Transfer Issues**  
+*This might be too complicated for a field tech to understand and isn’t necessary for the company release notes. However, it is important to acknowledge for software development updates.*
+
+**Feature: Uploader: Streaming Files**  
+*This might be too complicated for a field tech to understand and isn’t necessary for the company release notes. However, it is important to acknowledge for software development updates.*
+
+**Feature: Uploader: Settings Bug**  
+*This might be too complicated for a field tech to understand and isn’t necessary for the company release notes. However, it is important to acknowledge for software development updates.*
