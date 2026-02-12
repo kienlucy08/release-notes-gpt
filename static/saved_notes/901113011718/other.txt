@@ -1,0 +1,18 @@
+Error generating part 1: Input too long for a single OpenAI call.
+
+---
+
+**Deficiencies Attributes Bug: Missing Required Attributes for Processing**
+Improve UX/UI | Data Processing
+
+A bug where deficiencies added to Structure or Guy Facilities surveys during QC are missing essential attributes needed for processing, causing failures when certain TIA issues are encountered.
+*Details:*  
+- Deficiencies added during QC lack necessary attributes for processing
+- Missing attributes such as tia_def_identifier and tia_identifier_label
+- Issue caused by changes in TypeORM update affecting null and undefined values in queries
+*Impact to Users:*  
+- Processing failures may occur for deficiencies with specific TIA issues
+- Users may experience issues when retrieving detailed deficiency information
+- Processing deficiencies without all required attributes may lead to data inconsistencies
+
+*Note: This might be too complicated for a field tech to understand and isn’t necessary for the company release notes. However, it is important to acknowledge for software development updates.*

@@ -1,0 +1,116 @@
+**Bug: Antenna Equipment Counts Not Propagating to Report Payloads**  
+Improve UX/UI | Inspection Scope, Structure Survey  
+Antenna equipment counts inputted in the QC Editor are failing to transfer to the report JSON generated from the site visit, causing discrepancies in equipment details displayed in the report.
+*Details:*  
+• Antenna equipment counts entered in the QC Editor are not being reflected in the report JSON.  
+• The report JSON inaccurately shows equipmentPresent as false and the antennaEquipment node as empty.  
+*Impact to Users:*  
+• Users may encounter missing or incorrect equipment details in the generated reports.  
+• Potential confusion for users reviewing reports expecting accurate antenna equipment counts and photos.  
+
+*This might be too complicated for a field tech to understand and isn’t necessary for the company release notes. However, it is important to acknowledge for software development updates.*
+
+---
+
+Error generating part 2: Input too long for a single OpenAI call.
+
+---
+
+**Feature: Uploader Decoupling from Site Creation**  
+Area of Impact | Uploader, Site Management  
+Users can now create new "unallocated" scans and upload files without the need to create a site beforehand. They can now associate the scan with a site visit after uploading the files.
+*Details:*  
+- Users can create scans without associating them to a site beforehand.
+- Users can upload files to scans without the need to create a site first.
+*Impact to Users:*  
+- Simplifies the process by removing the requirement to create a site before uploading scans.
+- Enhances flexibility by allowing users to associate scans with sites after the fact.
+
+**Enhancement: Scan Table Processing Feedback for Height Estimation**  
+Strategic Theme | Improve UX/UI  
+Users will now receive feedback during the height estimation process to indicate progress and completion.
+*Details:*  
+- Added progress feedback during the height estimation process.
+- Upon completion, the page refreshes, and users can view elevations in the elevation view tab with the option to re-run height estimation.
+*Impact to Users:*  
+- Users will see popups displaying estimation progress and completion.
+- Improves user experience by providing visibility into the height estimation process.
+
+**Enhancement: Scan Table Message for Height Estimation Requirement in Elevation Slicing**  
+Strategic Theme | Improve UX/UI  
+A message "height estimation required" will now be displayed when attempting to view elevation slicing without completed estimations.
+*Details:*  
+- Added a message indicating the requirement for height estimation when accessing elevation slicing without completed estimations.
+- Users will see a clear indication that height estimation is needed, or a button to run the estimation.
+*Impact to Users:*  
+- Prevents confusion by informing users of the need for height estimation before accessing elevation slicing.
+- Enhances user guidance by providing clear instructions for the elevation view process.
+
+---
+
+**Feature: Site Visits: Generic Scope of Work for Files/Scans**  
+Business Development | Site Visits  
+Introducing a new "generic" scope of work for Site Visits that do not contain any surveys, allowing users to process Site Visits with only files and scans. This feature enables the creation of new sites or association with existing sites using geolocation data.
+*Details:*  
+• Added functionality for a "generic" scope of work for Site Visits without surveys.  
+• Users can create a new site visit and allocate the general scope of work, removing surveys not related to the 'general' scope.  
+• Existing sites can be reallocated to the generic scope of work, removing unrelated surveys and retaining generic files.  
+• Successful processing and creation of a site with only generic files and site details is now possible.  
+• Users can submit an empty site visit for processing and receive a success message.  
+*Impact to Users:*  
+• Users can efficiently process Site Visits without surveys by utilizing the new generic scope of work.  
+• Simplifies the handling of site visits with only files and scans, improving workflow efficiency.
+
+**Enhancement: Scan to Site Visit Pipeline - Stepper Component in Add to Site Visit Dialog**  
+Improve UX/UI | Site Visits  
+Enhanced the "add scan to new site visit" dialog with a stepper component to streamline the process of adding scans to site visits, ensuring all necessary details are filled out effectively.
+*Details:*  
+• Implemented a stepper component in the "add scan to new site visit" dialog.  
+• Users can now navigate through the stepper component to fill in required details when adding a scan to a new site visit.  
+• Added functionality to successfully add scans to preexisting sites and new sites with all required components.  
+• The stepper component restricts creation if required fields are not filled out, enhancing data integrity.  
+*Impact to Users:*  
+• Users can easily add scans to site visits with a guided process through the stepper component, ensuring all necessary details are provided.  
+• Improves accuracy and completeness of data when adding scans to site visits, reducing errors and enhancing user experience.
+
+*Note: The following details contain backend-specific information that may not be necessary for general release notes.*
+
+---
+
+**Assign Priority to File Operations**  
+Enhancement  
+*Improvement Efficiency* | *File Processing*  
+
+Assign priorities to file processor operations to ensure certain tasks take precedence over others during processing.
+*Details:*  
+• Added priority assignment for Report Generation to prioritize over general image/resize processing.  
+• Template Uploading now takes precedence over general image/resize processing.  
+• Image Rotate is set to have priority over general image/resize processing.  
+
+*Impact to Users:*  
+• Improved efficiency by ensuring critical tasks are processed before others.  
+
+*Note: This DevOps task is backend-focused and may not directly impact end-users, but it enhances the overall performance of file processing operations.*
+
+---
+
+Error generating part 6: Input too long for a single OpenAI call.
+
+---
+
+**DevOps: Case Sensitivity and Collation Upgrade for PostgreSQL**
+Area of Impact: System Hardening  
+Strategic Theme: Platform Expansion  
+
+Addressed the issue of case sensitivity for email fields in the database by upgrading PostgreSQL from version 17 to version 18 to restore case-insensitivity and improve text operations in the backend.
+*Details:*  
+- Case-insensitivity for email fields was initially managed through PostgreSQL collations.
+- Recent table refactor led to the temporary disablement of collations for certain columns due to PostgreSQL 17 limitations.
+- PostgreSQL 17 does not support pattern matching operations with non-deterministic collations, affecting filtering operations for partial string searches.
+- Upgrading to PostgreSQL 18 resolves these limitations, allowing for the restoration of case-insensitivity.
+*Impact to Users:*  
+- Users can now enter email addresses with various casings on the login page without issues.
+- Improves user experience by ensuring seamless login processes.
+- Enhances backend text operations for email fields, reducing the risk of errors in manual processing.
+
+*Note: This DevOps task focuses on backend software updates and may not be directly relevant for general users.*

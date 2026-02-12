@@ -1,0 +1,16 @@
+**Feature: New Organization Settings Page**  
+*Improve UX/UI* | *Organization Management*  
+
+Introducing a comprehensive Organization Settings page that empowers administrators to efficiently manage organization details, such as updating the organization logo, name, and contact email, with real-time validation for availability.
+*Details:*  
+• Created a dedicated Organization Settings page accessible from the organization management interface.  
+• Implemented functionality for real-time availability validation when changing the organization name and contact email.  
+• Added capabilities to upload, change, and delete the organization logo/thumbnail with confirmation dialogs.  
+• Ensured proper backend validation, authorization checks, and integration with the existing permission system (CASL).  
+
+*Impact to Users:*  
+• Users can now easily update organization information in one centralized location.  
+• Real-time availability validation enhances user experience and prevents errors.  
+• Simplifies organization logo management with upload, change, and delete options.  
+
+*Note: This might be too complicated for a field tech to understand and isn’t necessary for the company release notes. However, it is important to acknowledge for software development updates.*
