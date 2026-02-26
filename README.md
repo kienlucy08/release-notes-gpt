@@ -1,159 +1,236 @@
 # FieldSync Release Notes Generator
 
-A Flask web app to help teams generate, regenerate, refine, and save professional release notes for sprints. It uses the OpenAI API to turn plain ClickUp task info or manual entries into polished summaries.
+A React + Express web app that helps teams generate, manage, and save professional release notes for sprints. It uses the Anthropic Claude API to turn ClickUp task data or manual entries into polished, structured summaries.
 
 ---
 
 ## Features
 
-- Pull tasks automatically from ClickUp by sprint.
-- Support for both manual and auto task entry.
-- Tag tasks as Feature, Bug, Enhancement, DevOps, or a combination of two.
-- Automatically generate readable and structured release notes using GPT.
-- Save generated notes to a sprint-named folder under `static/saved_notes`.
-- View and download past sprint notes.
-- Handles large inputs by chunking into multiple GPT calls.
-- Graceful error messaging if text is too long for a single request.
-- Delete saved notes (only removes `.txt` files, and deletes the folder only if empty).
-- Renaming individual notes without reloading the page.
-
----
-
-## Visual
-
-**Overall View**:
-<img width="1543" height="2036" alt="image" src="https://github.com/user-attachments/assets/0dc8151b-80b2-4166-8515-8c433c513b32" />
-
-**Task Selection**:
-<img width="1553" height="1963" alt="image" src="https://github.com/user-attachments/assets/4910d255-8094-4fc3-bad3-a614caa2ff3e" />
-
-**Generation View**:
-<img width="1458" height="1959" alt="image" src="https://github.com/user-attachments/assets/fbea8df6-21ed-4376-8afd-85ee90f7a090" />
-
-**Saved Notes List**:
-<img width="1874" height="1380" alt="image" src="https://github.com/user-attachments/assets/92836271-e5db-4ae6-b974-9b4b90ce5a0f" />
+- Pull tasks automatically from ClickUp by sprint
+- Support for both manual and auto task entry modes
+- Tag tasks as Feature, Bug, Enhancement, DevOps, or a Combination of two
+- Generate readable, structured release notes using Anthropic Claude
+- Save generated notes to browser localStorage (persists across sessions)
+- View, rename, and delete past sprint notes
+- Handles large inputs by chunking into multiple API calls (rarely needed with Claude's 200K context)
 
 ---
 
 ## Tech Stack
 
-- Python 3.10+
-- Flask
-- OpenAI API
-- ClickUp API (v2)
-- HTML/CSS (with animated gradient background) + JavaScript for frontend interactivity
-
----
-
-## API Reference
-Below is a table of all the used flask routes
-
-| Route                 | Methods | Description                                                                 |
-|-----------------------|---------|-----------------------------------------------------------------------------|
-| `/`                   | GET/POST| Main page. GET shows form and past notes. POST processes input and generates notes. |
-| `/get_tasks`          | GET     | Fetches tasks (and subtasks) for the selected sprint from ClickUp.         |
-| `/save`               | POST    | Saves generated release notes to a timestamped file inside a sprint folder.|
-| `/delete_entry`       | POST    | Deletes **all** `.txt` notes in a sprint folder and removes the folder if empty. |
-| `/delete_single_note` | POST    | Deletes **a single** note file from a sprint folder.                        |
-| `/delete_all_notes`   | POST    | Deletes **only `.txt` files** in a sprint folder (keeps other assets).     |
-| `/rename_note`        | POST    | Renames a `.txt` note file inside a sprint folder.                         |                                      
+- **Frontend**: React 19 (Vite)
+- **Backend**: Node.js + Express
+- **AI Model**: Anthropic Claude (claude-sonnet-4-20250514)
+- **External API**: ClickUp API v2
+- **Storage**: Browser localStorage
 
 ---
 
 ## Project Structure
 
-```bash
-release-notes-gpt/
-│
-├── app.py # Main Flask app
-├── constants.py # Reusable constants (e.g., folder ids, clickup api, openai api)
-├── generate_notes.py # GPT generation & chunking logic
-├── fetch_clickup_folders_tasks.py # ClickUp API integration for sprint names and tasks for 
-│
-├── templates/
-│ └── index.html # Main page template
-│
-├── static/
-│   ├── css/
-│   │   └── styles.css # All styles go here
-│   ├── scripts/
-│   │   └── script.js # Frontend interactivity (toggle, rename, delete)
-│   └── saved_notes/
-│       └── <sprint_id>/ # All saved release notes organized by sprint ID   
-│           └── <release_notes_name>.txt     
-│
-├── .env # Your OpenAI API and ClickUp tokens and keys
-├── .gitignore
-├── requirements.txt
-├── setup.py # For packaging
-├── pyproject.toml # Python build system
-├── README.md
-└── dist/ build/ egg-info/ # Generated during packaging
 ```
+release-notes-gpt/
+├── client/                              # React frontend (Vite)
+│   ├── index.html                       # HTML entry point
+│   ├── package.json                     # Client dependencies
+│   ├── vite.config.js                   # Vite config with API proxy
+│   └── src/
+│       ├── main.jsx                     # React entry point
+│       ├── App.jsx                      # Root component (state management)
+│       ├── App.css                      # All styles (animated gradient, indigo theme)
+│       ├── api/
+│       │   └── apiClient.js             # Fetch wrapper for /api calls
+│       ├── components/
+│       │   ├── SprintSelector.jsx       # Sprint dropdown
+│       │   ├── EntryModeToggle.jsx      # Manual / Auto radio toggle
+│       │   ├── TagSelect.jsx            # Tag dropdown (with Combination sub-selects)
+│       │   ├── ManualEntryForm.jsx      # Manual tag + description entry rows
+│       │   ├── AutoTaskSelect.jsx       # Auto task checklist + extra manual rows
+│       │   ├── FileNameInput.jsx        # Custom filename input
+│       │   ├── GenerateButton.jsx       # Submit button with loading state
+│       │   ├── CurrentItems.jsx         # Displays submitted entries
+│       │   ├── GeneratedNotes.jsx       # Output display with chunked warning
+│       │   └── PastSprintNotes.jsx      # Saved notes list (view/rename/delete)
+│       └── utils/
+│           └── storage.js               # localStorage CRUD for saved notes
+│
+├── server/                              # Express API backend
+│   ├── package.json                     # Server dependencies
+│   ├── index.js                         # Express entry (CORS, JSON, route mounting)
+│   ├── config/
+│   │   └── constants.js                 # ClickUp IDs, sprint mappings, system prompt, token limits
+│   ├── routes/
+│   │   ├── clickup.js                   # GET /api/sprints, GET /api/tasks
+│   │   └── generate.js                  # POST /api/generate
+│   └── services/
+│       ├── anthropic.js                 # Claude API calls (generation + chunking)
+│       └── clickup.js                   # ClickUp API integration
+│
+├── .env.example                         # Template for environment variables
+├── .gitignore
+└── README.md
+```
+
+---
+
+## API Endpoints
+
+| Route | Method | Description |
+|---|---|---|
+| `/api/sprints` | GET | Returns list of sprints from ClickUp `[{id, name}]` |
+| `/api/tasks?sprint_id=X` | GET | Returns tasks for a sprint with tags and descriptions |
+| `/api/generate` | POST | Accepts `{entries[], sprintName}`, returns `{notes, wasChunked}` |
+
+Note management (save, rename, delete) is handled entirely client-side via localStorage.
 
 ---
 
 ## Setup Instructions
 
-### 1. Clone this Repo & Navigate to it
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) v18 or higher
+- An [Anthropic API key](https://console.anthropic.com/)
+- A [ClickUp API token](https://clickup.com/api)
+
+### 1. Clone the Repo
 
 ```bash
 git clone https://github.com/kienlucy08/release-notes-gpt.git
-cd your_file_path/release-notes-gpt
+cd release-notes-gpt
 ```
 
-### 2. Create `.env` file with your OpenAI Key, and ClickUp Token
+### 2. Create the Server `.env` File
 
-```bash
-touch .env
-```
+Create a file called `.env` inside the `server/` directory:
+
 ```env
-OPENAI_API_KEY=YOUR_OPENAI_KEY
-CLICK_UP_TOKEN=YOUR_CLICK_UP_TOKEN
+ANTHROPIC_API_KEY=your-anthropic-api-key-here
+CLICK_UP_TOKEN=your-clickup-token-here
 ```
-This file lives in the `.gitignore` so no need to worry when saving a new change.
+
+This file is in `.gitignore` so your keys will not be committed.
 
 ### 3. Install Dependencies
 
+Install both server and client dependencies:
+
 ```bash
-pip install -r requirements.txt
+cd server
+npm install
+
+cd ../client
+npm install
 ```
 
-### 4. Run the application!
+### 4. Start the Application
 
-Either:
+You need **two terminals** running at the same time:
+
+**Terminal 1 - Start the Express API server:**
+
 ```bash
-flask run
+cd server
+npm run dev
 ```
 
-Or:
+The API server runs on `http://localhost:3001`.
+
+**Terminal 2 - Start the React dev server:**
+
 ```bash
-python app.py
+cd client
+npm run dev
 ```
+
+The React app runs on `http://localhost:5173`.
+
+### 5. Open the App
+
+Open your browser and go to:
+
+```
+http://localhost:5173
+```
+
+The Vite dev server automatically proxies all `/api` requests to the Express server, so everything works together seamlessly.
 
 ---
 
-## Savging & Regeneration
-- Notes are saved to: `static/saved_notes/<Sprint_Name>/release_notes_<timestamp>.txt`
-- You can delete all saved .txt files for a sprint. If a folder becomes empty, it gets deleted too.
-- You can rename notes and they will be updated real time.
-- To regnerate notes simply delete the notes and generate again for the same sprint.
+## How to Use
+
+### Manual Entry Mode (default)
+
+1. Select a sprint from the dropdown
+2. Choose a tag type (Feature, Bug, Enhancement, DevOps, or Combination)
+3. Enter a description of the work item
+4. Click **Add Another** to add more entries
+5. Optionally enter a custom filename
+6. Click **Generate Release Notes**
+
+### Auto Entry Mode (from ClickUp)
+
+1. Select a sprint from the dropdown
+2. Switch to **Auto from Sprint** mode
+3. Tasks are automatically loaded from ClickUp with checkboxes
+4. Check/uncheck tasks to include or exclude them
+5. Optionally add extra manual entries below the task list
+6. Click **Generate Release Notes**
+
+### Managing Saved Notes
+
+- Notes are automatically saved to your browser's localStorage after generation
+- View past notes in the **Past Sprint Notes** section at the bottom
+- Click a filename to expand and view its content
+- Click **Edit** to rename a note
+- Click **Delete** to remove a single note
+- Click **Delete Notes** to remove all notes for a sprint
 
 ---
 
-## Deployment
-(coming soon)
-Will include:
-- Environment setup
-- Static folder handling
-- Reverse proxy guidance
-- Security
-- Backups
-- Versioning
+## Saving & Storage
+
+- Notes are stored in your browser's `localStorage` under the key `releaseNotes`
+- Data persists across browser sessions but is specific to the browser/device
+- There is no server-side file storage; all persistence is client-side
+- To export a note, you can copy the text from the view panel
+
+---
+
+## Environment Variables
+
+| Variable | Location | Description |
+|---|---|---|
+| `ANTHROPIC_API_KEY` | `server/.env` | Your Anthropic API key for Claude |
+| `CLICK_UP_TOKEN` | `server/.env` | Your ClickUp personal API token |
+| `PORT` | `server/.env` (optional) | Express server port (default: 3001) |
+| `CORS_ORIGIN` | `server/.env` (optional) | Allowed CORS origin (default: `http://localhost:5173`) |
+
+---
+
+## Production Build
+
+To build the React app for production:
+
+```bash
+cd client
+npm run build
+```
+
+This creates a `dist/` folder with optimized static files. The Express server is configured to serve these in production mode:
+
+```bash
+cd server
+NODE_ENV=production node index.js
+```
+
+In production, the Express server serves both the API and the React app from a single port.
 
 ---
 
 ## Known Limitations
-- If your list is too long (over OpenAI’s token limit), the system automatically chunks the list and makes multiple API calls.
-- You’ll see a message in the UI:
-  - Heads up: Your notes were very long, so we split them into multiple chunks to generate properly.
+
+- If your input is extremely large (1,000+ tasks), the system will chunk it into multiple Claude API calls. You will see a warning banner in the UI. This is rare since Claude supports a 200K token context window.
+- localStorage has a ~5-10MB limit per browser origin. This is more than enough for typical use (hundreds of saved notes), but very heavy usage could eventually hit this limit.
+- Saved notes are browser-specific. Clearing browser data will remove saved notes.
+- The ClickUp sprint mappings in `server/config/constants.js` include Sprints 1-22. To add new sprints, update the `FIELD_ID_TO_SPRINT` mapping in that file.
