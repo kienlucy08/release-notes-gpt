@@ -1,0 +1,63 @@
+**Feature: Scope & Ticket Table Builder Integration into fieldsync-web**  
+*Improve UX/UI Platform Expansion*  
+Scope the integration of the table_builder prototype into the main fieldsync-web application to enhance dynamic table schemas, cross-table lookups, and data views.
+*Details:*  
+• Translate SQLite/SQLAlchemy ORM models into the production database for Spaces, Folders, ScheduleTables, Blocks, Fields, Rows, Cells, EnumLists, EnumValues, SavedViews, BlockCollections, etc.  
+• Map Dash components to the fieldsync-web frontend framework and identify reusable components.  
+• Port FastAPI routers into the fieldsync-web API layer and reconcile with existing endpoints.  
+• Implement core functionalities like lookup resolution service, export service, import service, forecast validation, block collections, saved views, filtering, and sorting.  
+• Identify any async/background processing needs.  
+• Update deployment setup including Docker/Pulumi infrastructure changes, environment variables, dependency additions, and CI/CD pipeline updates.
+
+*Impact to Users:*  
+• Users will experience improved table schemas, cross-table lookups, and data views within the fieldsync-web application.
+
+**Bug: Guy Anchor Compounds value not displaying on site visit page**  
+*Improve UX/UI*  
+The "Guy Anchor Compounds" field under Structure Parameters on the site visit page does not display a value, despite having multiple anchor compounds documented in the associated Guy Facilities Inspection survey.
+*Details:*  
+• "Guy Anchor Compounds" field remains blank even when a GF survey is allocated to the site visit.  
+• Site visit detail page for Inspection site visits on guyed towers does not populate the "Guy Anchor Compounds" field correctly.  
+• Issue persists even after the site visit has been processed.
+
+*Impact to Users:*  
+• Users will now see the correct count of anchor compounds documented in the associated Guy Facilities Inspection survey on the site visit page.
+
+*Note: The first update involves significant backend changes and integration work that may not be directly visible to end-users.*
+
+---
+
+**Feature: Persist QA Dashboard Column Sort Configuration Per User Per Organization**  
+Improve UX/UI | QA Dashboard  
+Column sorting configurations on the QA Dashboard tabs will now be saved per user and per organization, persisting even after navigating away from the dashboard.  
+*Details:*  
+• Users' column sort configurations on QA Dashboard tabs will be saved and restored upon revisiting the dashboard.  
+• Sort preferences will be unique to each user account and organization.  
+• Implementation will include storing tab ID, column ID, sort direction, and multi-column sort order if applicable.  
+• Data will be stored based on user ID and organization ID, potentially in the database for cross-device and cross-browser consistency.  
+*Impact to Users:*  
+• Users will no longer lose their column sort configurations when navigating away from the QA Dashboard.  
+• Each user in the same organization will have their own saved sort preferences.  
+• Users with multiple organization memberships will have independent sort configurations per organization.  
+• Improved user experience with personalized and consistent column sorting across all QA Dashboard tabs.
+
+**Enhancement: Display scan name on Scan page**  
+Improve UX/UI | Scan Page  
+The Scan page will now display the name of the scan being viewed for better context confirmation without the need to navigate elsewhere.  
+*Details:*  
+• Added the scan name to the Scan page as a page header or title element.  
+• The scan name will be pulled from the existing scan data available on qa/dashboard?tab=scans.  
+*Impact to Users:*  
+• Users can quickly identify the scan being viewed without leaving the page.  
+• Enhances user experience by providing essential context directly on the Scan page.
+
+**Enhancement: Guy attachment heights as a Structure Parameter of the site visit**  
+Improve UX/UI | Site Visit  
+Implemented Guy Attachment elevation fields as a site visit-level structure parameter to ensure consistency between Structure and Plumb & Twist surveys.  
+*Details:*  
+• Guy Attachment elevations will be locked for editing in both the Structure and Plumb & Twist surveys.  
+• Elevation fields will be displayed as an expandable accordion for ease of access.  
+*Impact to Users:*  
+• Users will experience uniformity in Guy Attachment elevations across surveys, reducing discrepancies.  
+• Enhances data integrity and accuracy in reporting for site visits.  
+*Note: This enhancement involves backend data structuring and may not be directly visible to end-users.*
